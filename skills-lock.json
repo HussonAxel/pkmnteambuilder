@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "skills": {
+    "analyze-logs": {
+      "source": "evlog.dev",
+      "sourceUrl": "https://www.evlog.dev",
+      "sourceType": "well-known",
+      "computedHash": "7eb0c4aa4c517767bec18b858523c9021485d054b7ecae0d4f9fb6e428b0c8ff",
+      "wellKnownDigest": "sha256:9e26882ed5233c01cae6d530b7b3b3c3a8c187ec53e269448d823e0065b06d09"
+    },
+    "better-auth-best-practices": {
+      "source": "better-auth/skills",
+      "commit": "20c9e88a5c007461a703f1c213572b073196113e",
+      "sourceType": "github",
+      "skillPath": "better-auth/best-practices/SKILL.md",
+      "computedHash": "2773c3687f2cf96d659049ebf2d8c86058a33541b09360712df0dc6b1404c403"
+    },
+    "better-auth-security-best-practices": {
+      "source": "better-auth/skills",
+      "commit": "20c9e88a5c007461a703f1c213572b073196113e",
+      "sourceType": "github",
+      "skillPath": "security/SKILL.md",
+      "computedHash": "36e9710eaa13c61c00bec00a4902fdc6ed829e6de13127238ae57494e93c1d9d"
+    },
+    "build-audit-logs": {
+      "source": "evlog.dev",
+      "sourceUrl": "https://www.evlog.dev",
+      "sourceType": "well-known",
+      "computedHash": "8bbbb575aa15977228e7246bb702537bc3d0304cf8b88bfd52909738fce636fa",
+      "wellKnownDigest": "sha256:b23d47912c43ca0ef77c001186fcefe57133d5872124c368881e1424ae4b9836"
+    },
+    "email-and-password-best-practices": {
+      "source": "better-auth/skills",
+      "commit": "20c9e88a5c007461a703f1c213572b073196113e",
+      "sourceType": "github",
+      "skillPath": "better-auth/emailAndPassword/SKILL.md",
+      "computedHash": "407c1244202876daa748818ed41dc55afde1b3f7aec48ae3a1f1c8a7ee40465e"
+    },
+    "review-logging-patterns": {
+      "source": "evlog.dev",
+      "sourceUrl": "https://www.evlog.dev",
+      "sourceType": "well-known",
+      "computedHash": "86b4874393b7d083654fb761583a3beab54fb0e27deb6308831800e07b77c27e",
+      "wellKnownDigest": "sha256:9d7119e8b77c8503e1f17be763e00afd6aecdbc1112cefa2853a5731e7e47730"
+    },
+    "shadcn": {
+      "source": "shadcn-ui/ui",
+      "commit": "055aa6b7837b1808456a24beb4c97a677864aa82",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "388962d16c7a4f13aaeee0d8f128e50a87df8553d42ef7988c39c0e1c74a40e8"
+    },
+    "vercel-composition-patterns": {
+      "source": "vercel-labs/agent-skills",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "sourceType": "github",
+      "skillPath": "skills/composition-patterns/SKILL.md",
+      "computedHash": "f711ed8b16162eaa712abbcdbbae6c926f86c57e60127735fecc3ad0dd85b3fa"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "sourceType": "github",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "computedHash": "7991ed4fbecdac23f47c1a40c243e00a212a9e7f3604db93959b3ae11dffe299"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "5994e4cfd86144903d2ba750f862b9e36af15e3297aac983679e347b99f6cb71"
+    }
+  }
+}

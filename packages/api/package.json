@@ -1,0 +1,22 @@
+{
+  "name": "@pkmnteambuilder/api",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pkmnteambuilder/auth": "workspace:*",
+    "@pkmnteambuilder/db": "workspace:*",
+    "@trpc/client": "catalog:",
+    "@trpc/server": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@pkmnteambuilder/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

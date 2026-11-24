@@ -1,0 +1,3 @@
+{
+  "extends": "@pkmnteambuilder/config/tsconfig.base.json"
+}
