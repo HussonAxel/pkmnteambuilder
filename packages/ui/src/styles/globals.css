@@ -30,7 +30,7 @@
   --chart-3: oklch(0.546 0.245 262.881);
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -120,6 +120,29 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* Themed scrollbars everywhere instead of the OS default. */
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--muted-foreground) 35%, transparent) transparent;
+  }
+  /* Tailwind v4 dropped the pointer cursor on buttons; give it back to everything clickable. */
+  :is(
+    button,
+    [role="button"],
+    [role="option"],
+    [role="menuitem"],
+    [role="tab"],
+    select,
+    summary,
+    a[href]
+  ):not(:disabled, [aria-disabled="true"]),
+  label:has(input:not(:disabled)) {
+    cursor: pointer;
+  }
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
   }
   body {
     @apply font-sans bg-background text-foreground;
