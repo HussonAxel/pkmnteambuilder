@@ -53,7 +53,8 @@ const en = {
   "page.noSet": "No set yet.",
   "page.toBox": "To the Box",
   "page.toParty": "To the party",
-  "page.notFound": "This team isn't in this browser.",
+  "page.notFound":
+    "This team doesn't exist, or its owner hasn't published it yet (they need to be signed in).",
   "page.loading": "Loading the team…",
   "page.shared": "Shared team: read-only.",
   "page.keep": "Add to my teams",
@@ -372,6 +373,10 @@ const en = {
   "share.description": "Send the link, or paste the team into Showdown.",
   "share.link": "Link",
   "share.linkHint": "Anyone opening this link gets their own copy of the whole team, Box included.",
+  "share.page": "Page link",
+  "share.pageHint": "Anyone with this link can view the team; only you can edit it.",
+  "share.pageSignIn":
+    "Sign in to share this page read-only: your teams are then saved to your account.",
   "share.showdown": "Showdown export",
   "share.copy": "Copy",
   "share.copied": "Copied to the clipboard",
@@ -571,7 +576,8 @@ const fr: Record<MessageKey, string> = {
   "page.noSet": "Pas encore de set.",
   "page.toBox": "Vers la Boîte",
   "page.toParty": "Dans l'équipe",
-  "page.notFound": "Cette équipe n'est pas dans ce navigateur.",
+  "page.notFound":
+    "Cette équipe n'existe pas, ou son créateur ne l'a pas encore publiée (il doit être connecté).",
   "page.loading": "Chargement de l'équipe…",
   "page.shared": "Équipe partagée : lecture seule.",
   "page.keep": "Ajouter à mes équipes",
@@ -895,6 +901,10 @@ const fr: Record<MessageKey, string> = {
   "share.link": "Lien",
   "share.linkHint":
     "Toute personne qui ouvre ce lien reçoit sa propre copie de l'équipe entière, Boîte comprise.",
+  "share.page": "Lien de la page",
+  "share.pageHint": "Toute personne ayant ce lien peut voir l'équipe ; toi seul peux la modifier.",
+  "share.pageSignIn":
+    "Connecte-toi pour partager cette page en lecture seule : tes équipes sont alors enregistrées sur ton compte.",
   "share.showdown": "Export Showdown",
   "share.copy": "Copier",
   "share.copied": "Copié dans le presse-papiers",

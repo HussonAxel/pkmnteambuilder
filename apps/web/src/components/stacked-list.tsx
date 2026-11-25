@@ -66,7 +66,9 @@ import {
   type Rules,
   type Source,
 } from "@/lib/availability";
+import { authClient } from "@/lib/auth-client";
 import { fold, type Lang, toIdentifier, useI18n, useNames } from "@/lib/i18n";
+import { useTeams } from "@/lib/teams";
 import { MESSAGES, type MessageKey } from "@/i18n/messages";
 import { formatPercent, useFormat } from "@/lib/format";
 import {
@@ -630,6 +632,13 @@ export const DialogHeading = ({ title, description }: { title: string; descripti
 export function ShareTeamDialog({ team }: { team: Team }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  // The team's own page is public once its owner is signed in (lib/teams-sync.tsx); someone else's
+  // team shown here (read-only) is public already.
+  const { data: session } = authClient.useSession();
+  const { teams } = useTeams();
+  const pageIsPublic = !!session || !teams.some((x) => x.id === team.id);
+  const [pageUrl, setPageUrl] = useState("");
+  useEffect(() => setPageUrl(`${window.location.origin}/team/${team.id}`), [team.id]);
   const link = useQuery({
     queryKey: ["share-link", team],
     queryFn: async () =>
@@ -672,6 +681,32 @@ export function ShareTeamDialog({ team }: { team: Team }) {
       </DialogTrigger>
       <DialogContent showCloseButton={false} className={`${dialogContentClass} sm:max-w-[520px]`}>
         <DialogHeading title={t("share.title")} description={t("share.description")} />
+        <section className="grid gap-2">
+          <h3 className="text-sm font-medium text-foreground">{t("share.page")}</h3>
+          {pageIsPublic ? (
+            <>
+              <div className="flex gap-2">
+                <input
+                  readOnly
+                  aria-label={t("share.page")}
+                  value={pageUrl}
+                  onFocus={(e) => e.currentTarget.select()}
+                  className={cn(box, "min-w-0 flex-1 truncate font-mono")}
+                />
+                <Button
+                  type="button"
+                  onClick={() => copy(pageUrl)}
+                  className="h-10 shrink-0 rounded-full px-4 text-xs"
+                >
+                  <CopyIcon size={14} /> {t("share.copy")}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">{t("share.pageHint")}</p>
+            </>
+          ) : (
+            <p className="text-xs text-muted-foreground">{t("share.pageSignIn")}</p>
+          )}
+        </section>
         <section className="grid gap-2">
           <h3 className="text-sm font-medium text-foreground">{t("share.link")}</h3>
           <div className="flex gap-2">
@@ -1251,6 +1286,7 @@ export function NewTeamCard({ onCreate }: { onCreate?: (team: NewTeam) => void }
 export interface Team extends NewTeam {
   id: string;
   pokemon: PokemonSet[];
+  updatedAt?: number; // last change in this browser (ms), for the account sync (lib/teams.tsx)
 }
 
 export interface PokemonOption {

@@ -19,6 +19,8 @@ interface Teams {
   addPokemon: (teamId: string, pokemon: PokemonSet) => void;
   updatePokemon: (teamId: string, pokemon: PokemonSet) => void;
   removePokemon: (teamId: string, pokemonId: string) => void;
+  // Teams from the player's account: added when missing here, replacing older copies.
+  mergeRemote: (remote: Team[]) => void;
 }
 
 const TeamsContext = createContext<Teams | null>(null);
@@ -53,12 +55,15 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
   }, [teams, ready]);
 
   const value = useMemo<Teams>(() => {
+    // Every change is stamped: the account sync pushes it, and the newer copy wins across devices.
     const updateTeam = (id: string, change: (team: Team) => Team) =>
-      setTeams((prev) => prev.map((t) => (t.id === id ? change(t) : t)));
+      setTeams((prev) =>
+        prev.map((t) => (t.id === id ? { ...change(t), updatedAt: Date.now() } : t)),
+      );
     return {
       teams,
       ready,
-      addTeam: (team) => setTeams((prev) => [team, ...prev]),
+      addTeam: (team) => setTeams((prev) => [{ ...team, updatedAt: Date.now() }, ...prev]),
       updateTeam,
       addPokemon: (teamId, pokemon) =>
         updateTeam(teamId, (t) => ({ ...t, pokemon: [...t.pokemon, pokemon] })),
@@ -69,6 +74,15 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
         })),
       removePokemon: (teamId, pokemonId) =>
         updateTeam(teamId, (t) => ({ ...t, pokemon: t.pokemon.filter((p) => p.id !== pokemonId) })),
+      mergeRemote: (remote) =>
+        setTeams((prev) => {
+          const byId = new Map(prev.map((t) => [t.id, t]));
+          const merged = prev.map((t) => {
+            const r = remote.find((x) => x.id === t.id);
+            return r && (r.updatedAt ?? 0) > (t.updatedAt ?? 0) ? r : t;
+          });
+          return [...remote.filter((r) => !byId.has(r.id)), ...merged];
+        }),
     };
   }, [teams, ready]);
 

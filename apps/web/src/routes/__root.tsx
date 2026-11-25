@@ -13,6 +13,7 @@ import Header from "../components/header";
 import { I18nProvider, readLang } from "../lib/i18n";
 import { EraSpritesProvider } from "../lib/sprites";
 import { TeamsProvider } from "../lib/teams";
+import { TeamsSync } from "../lib/teams-sync";
 import { readTheme } from "../lib/theme";
 
 import appCss from "../index.css?url";
@@ -62,6 +63,7 @@ function RootDocument() {
       <body>
         <I18nProvider initial={lang}>
           <TeamsProvider>
+            <TeamsSync />
             <EraSpritesProvider>
               {/* min-h, not h: the footer sits below the page, not over it. */}
               <div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
