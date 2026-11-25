@@ -1,0 +1,158 @@
+// Snapshots Smogon ladder usage and teammates for the VGC regulations the app offers. Those regulations
+// are retired, so the numbers no longer change; a static file avoids a runtime proxy (smogon.com sends no
+// CORS headers).
+// Regenerate: node apps/web/scripts/build-vgc-usage.mjs
+import assert from "node:assert/strict";
+import { writeFileSync } from "node:fs";
+
+// Busiest month of each regulation's latest run, 1760+ ladder (pinned so builds are reproducible).
+const SOURCES = {
+  // Keyed by the app's format ids (src/data/formats/index.ts).
+  gen9vgc2026regf: "2026-01/gen9vgc2026regf-1760",
+  gen9vgc2025regg: "2025-03/gen9vgc2025regg-1760",
+  gen9vgc2025regh: "2025-09/gen9vgc2025regh-1760",
+  gen9vgc2026regi: "2026-03/gen9vgc2026regi-1760",
+};
+// Teammates are kept for species above MIN_USAGE, TOP_TEAMMATES each, to keep the chunk small.
+const MIN_USAGE = 0.001;
+const TOP_TEAMMATES = 10;
+const OUT = new URL("../src/data/vgc-usage.ts", import.meta.url);
+// Builds (most used abilities, items, spreads, moves, Tera types) feed the set editor's "most used"
+// recommendation. They live in their own file so the usage chunk stays small.
+const BUILDS_OUT = new URL("../src/data/vgc-builds.ts", import.meta.url);
+const MIN_BUILD_USAGE = 0.005;
+const TOP_OPTIONS = 6;
+const BUILD_SECTIONS = {
+  Abilities: "abilities",
+  Items: "items",
+  Spreads: "spreads",
+  Moves: "moves",
+  "Tera Types": "teraTypes",
+};
+
+// Usage rows look like: " | 1    | Incineroar         | 48.12345% | ..."
+const USAGE_ROW = /^\s*\|\s*\d+\s*\|\s*(.+?)\s*\|\s*([\d.]+)%/;
+// Moveset entries look like: " | Name 12.345%   |"
+const ENTRY_ROW = /^\s*\|\s*(.+?)\s+(-?[\d.]+)%\s*\|/;
+// Fractions like the data.pkmn.cc stats, rounded to 0.01%.
+const share = (pct) => Math.round(Number(pct) * 100) / 1e4;
+
+async function text(path) {
+  const res = await fetch(`https://www.smogon.com/stats/${path}.txt`);
+  assert.ok(res.ok, `${path}: HTTP ${res.status}`);
+  return (await res.text()).split("\n");
+}
+
+// The moveset file is a series of boxes: " | Name |" then " | Raw count: …", then sections such as
+// " | Teammates |" followed by entry rows until the next " +---" rule.
+// Returns { [species]: { Teammates: {…}, Abilities: {…}, Items: {…}, … } }; "Other" rows are dropped.
+function parseMovesets(lines) {
+  const movesets = {};
+  let species;
+  let section;
+  for (const [i, line] of lines.entries()) {
+    if (/^\s*\|\s*Raw count:/.test(line)) {
+      species = lines[i - 2].replace(/[|]/g, "").trim();
+      movesets[species] = {};
+      section = undefined;
+    } else if (/^\s*\+-/.test(line)) section = undefined;
+    else if (!section && species) {
+      const title = line.match(/^\s*\|\s*(.+?)\s*\|\s*$/)?.[1];
+      if (title && (title === "Teammates" || BUILD_SECTIONS[title]))
+        section = movesets[species][title] = {};
+    } else if (section) {
+      const m = line.match(ENTRY_ROW);
+      if (m && m[1] !== "Other") section[m[1]] = share(m[2]);
+    }
+  }
+  return movesets;
+}
+
+const top = (entries, n) =>
+  Object.fromEntries(
+    Object.entries(entries ?? {})
+      .filter(([, s]) => s > 0)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, n),
+  );
+
+const stats = {};
+const builds = {};
+for (const [format, path] of Object.entries(SOURCES)) {
+  const rows = (await text(path)).map((l) => l.match(USAGE_ROW)).filter(Boolean);
+  assert.ok(rows.length > 50, `${path}: only ${rows.length} usage rows parsed`);
+  // Species under 0.01% are dropped and read as 0.
+  const usage = Object.fromEntries(
+    rows.map(([, name, pct]) => [name, share(pct)]).filter(([, u]) => u > 0),
+  );
+
+  const [month, file] = path.split("/");
+  const movesets = parseMovesets(await text(`${month}/moveset/${file}`));
+  const all = Object.fromEntries(
+    Object.entries(movesets)
+      .filter(([, m]) => m.Teammates)
+      .map(([name, m]) => [name, m.Teammates]),
+  );
+  assert.ok(
+    Object.keys(all).length > 50,
+    `${path}: only ${Object.keys(all).length} movesets parsed`,
+  );
+  const teammates = Object.fromEntries(
+    Object.keys(usage)
+      .filter((name) => usage[name] >= MIN_USAGE && all[name])
+      .map((name) => [
+        name,
+        Object.fromEntries(
+          Object.entries(all[name])
+            .filter(([, s]) => s > 0)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, TOP_TEAMMATES),
+        ),
+      ]),
+  );
+  stats[format] = { usage, teammates };
+  builds[format] = Object.fromEntries(
+    Object.keys(usage)
+      .filter((name) => usage[name] >= MIN_BUILD_USAGE && movesets[name])
+      .map((name) => [
+        name,
+        Object.fromEntries(
+          Object.entries(BUILD_SECTIONS).map(([title, key]) => [
+            key,
+            top(movesets[name][title], TOP_OPTIONS),
+          ]),
+        ),
+      ]),
+  );
+  assert.ok(
+    builds[format]["Incineroar"]?.moves["Fake Out"],
+    `${format}: Incineroar build looks wrong`,
+  );
+}
+
+writeFileSync(
+  OUT,
+  `// Generated by scripts/build-vgc-usage.mjs from Smogon stats. Do not edit.
+// Sources: ${Object.values(SOURCES).join(", ")}
+import type { UsageStats } from "@/lib/teammates";
+
+export const VGC_USAGE: Record<string, UsageStats> = ${JSON.stringify(stats)};
+`,
+);
+writeFileSync(
+  BUILDS_OUT,
+  `// Generated by scripts/build-vgc-usage.mjs from Smogon stats. Do not edit.
+// Sources: ${Object.values(SOURCES).join(", ")}
+import type { Build } from "@/lib/sets";
+
+export const VGC_BUILDS: Record<string, Record<string, Build>> = ${JSON.stringify(builds)};
+`,
+);
+console.log(
+  Object.entries(stats)
+    .map(
+      ([f, s]) =>
+        `${f}: ${Object.keys(s.usage).length} usage, ${Object.keys(s.teammates).length} teammate lists`,
+    )
+    .join("\n"),
+);
