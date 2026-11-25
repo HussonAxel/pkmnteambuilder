@@ -10,19 +10,18 @@ services:
     init: true
     ports:
       - "3001:3001"
+    # BETTER_AUTH_SECRET and BETTER_AUTH_URL (the public URL, https in production) come from
+    # apps/web/.env; see apps/web/.env.example.
     env_file:
       - path: apps/web/.env
-        required: false
+        required: true
     environment:
-      BETTER_AUTH_URL: http://localhost:3001
-      CORS_ORIGIN: http://localhost:3001
+      # Inside the container the database is always the volume below, whatever .env says.
       DATABASE_URL: file:/data/local.db
     volumes:
-      - type: bind
-        source: ./.data
-        target: /data
-        bind:
-          create_host_path: false
+      # Named volume: survives rebuilds and `docker compose down` (not `down -v`). Back it up with
+      # `docker compose cp web:/data/local.db ./backup.db`.
+      - db-data:/data
     healthcheck:
       test:
         [
@@ -41,3 +40,6 @@ services:
 secrets:
   web_env:
     file: apps/web/.env
+
+volumes:
+  db-data:

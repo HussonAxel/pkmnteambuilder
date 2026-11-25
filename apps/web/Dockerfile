@@ -12,6 +12,8 @@ FROM node:26-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app /app
+# The SQLite database lives in a volume mounted at /data; the unprivileged user must own it.
+RUN mkdir -p /data && chown node:node /data
 
 ENV HOST=0.0.0.0
 ENV PORT=3001
@@ -21,4 +23,6 @@ EXPOSE 3001
 WORKDIR /app/apps/web
 # Run as the image's unprivileged user
 USER node
-CMD ["node", ".output/server/index.mjs"]
+# Apply pending migrations (idempotent), then start the server. A failed migration stops the
+# container instead of serving an app with a stale schema.
+CMD ["sh", "-c", "node ../../packages/db/scripts/migrate.mjs && exec node .output/server/index.mjs"]
