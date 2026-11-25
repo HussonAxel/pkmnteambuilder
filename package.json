@@ -20,6 +20,7 @@
     "db:studio": "vp run --filter @pkmnteambuilder/db db:studio",
     "db:generate": "vp run --filter @pkmnteambuilder/db db:generate",
     "db:migrate": "vp run --filter @pkmnteambuilder/db db:migrate",
+    "db:migrate:run": "vp run --filter @pkmnteambuilder/db db:migrate:run",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
