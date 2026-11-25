@@ -12,8 +12,10 @@ import { Skeleton } from "@pkmnteambuilder/ui/components/skeleton";
 import { Link, useNavigate } from "@tanstack/react-router";
 
 import { authClient } from "@/lib/auth-client";
+import { useI18n } from "@/lib/i18n";
 
 export default function UserMenu() {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const { data: session, isPending } = authClient.useSession();
 
@@ -24,7 +26,7 @@ export default function UserMenu() {
   if (!session) {
     return (
       <Link to="/login">
-        <Button variant="outline">Sign In</Button>
+        <Button variant="outline">{t("auth.signIn")}</Button>
       </Link>
     );
   }
@@ -36,7 +38,7 @@ export default function UserMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-card">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{t("auth.myAccount")}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>{session.user.email}</DropdownMenuItem>
           <DropdownMenuItem
@@ -53,7 +55,7 @@ export default function UserMenu() {
               });
             }}
           >
-            Sign Out
+            {t("auth.signOut")}
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

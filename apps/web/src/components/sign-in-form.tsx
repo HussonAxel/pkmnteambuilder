@@ -7,10 +7,12 @@ import { toast } from "sonner";
 import z from "zod";
 
 import { authClient } from "@/lib/auth-client";
+import { useI18n } from "@/lib/i18n";
 
 import Loader from "./loader";
 
 export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void }) {
+  const { t } = useI18n();
   const navigate = useNavigate({
     from: "/",
   });
@@ -32,7 +34,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
             navigate({
               to: "/dashboard",
             });
-            toast.success("Sign in successful");
+            toast.success(t("auth.signInSuccess"));
           },
           onError: (error) => {
             toast.error(error.error.message || error.error.statusText);
@@ -42,8 +44,8 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
     },
     validators: {
       onSubmit: z.object({
-        email: z.email("Invalid email address"),
-        password: z.string().min(8, "Password must be at least 8 characters"),
+        email: z.email(t("auth.emailInvalid")),
+        password: z.string().min(8, t("auth.passwordMin")),
       }),
     },
   });
@@ -54,7 +56,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
 
   return (
     <div className="mx-auto w-full mt-10 max-w-md p-6">
-      <h1 className="mb-6 text-center text-3xl font-bold">Welcome Back</h1>
+      <h1 className="mb-6 text-center text-3xl font-bold">{t("auth.welcomeBack")}</h1>
 
       <form
         onSubmit={(e) => {
@@ -68,7 +70,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           <form.Field name="email">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Email</Label>
+                <Label htmlFor={field.name}>{t("auth.email")}</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -91,7 +93,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Password</Label>
+                <Label htmlFor={field.name}>{t("auth.password")}</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -115,7 +117,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
         >
           {({ canSubmit, isSubmitting }) => (
             <Button type="submit" className="w-full" disabled={!canSubmit || isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Sign In"}
+              {isSubmitting ? t("auth.submitting") : t("auth.signIn")}
             </Button>
           )}
         </form.Subscribe>
@@ -127,7 +129,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () 
           onClick={onSwitchToSignUp}
           className="text-indigo-600 hover:text-indigo-800"
         >
-          Need an account? Sign Up
+          {t("auth.needAccount")}
         </Button>
       </div>
     </div>
