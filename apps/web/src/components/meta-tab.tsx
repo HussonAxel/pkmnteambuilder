@@ -25,7 +25,6 @@ const SPEED_THREATS = 12;
 
 export function MetaTab({ team }: { team: Team }) {
   const { t } = useI18n();
-  const fmt = useFormat();
   const names = useNames();
   const gen = formatGen(team.format);
   const meta = useQuery({
@@ -125,15 +124,11 @@ export function MetaTab({ team }: { team: Team }) {
               {c === "0" ? t("mt.allPlayers") : `${c}+`}
             </button>
           ))}
-          <span className="opacity-70">
-            · {t("mt.month", { month: fmt.month(history.month) })}
-            {history.previous && ` · ${t("mt.trendVs", { month: history.previous.month })}`}
-          </span>
         </div>
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card title={t("mt.teamThreats")} hint={t("mt.teamThreatsHint")}>
+        <Card title={t("mt.teamThreats")}>
           {threats.length === 0 ? (
             <p className="text-muted-foreground">{t("mt.noCounters")}</p>
           ) : (
@@ -185,7 +180,7 @@ export function MetaTab({ team }: { team: Team }) {
           )}
         </Card>
 
-        <Card title={t("mt.vsTop", { n: TOP })} hint={t("mt.vsTopHint")}>
+        <Card title={t("mt.vsTop", { n: TOP })}>
           <table className="w-full text-xs">
             <thead className="text-muted-foreground">
               <tr>
@@ -242,7 +237,7 @@ export function MetaTab({ team }: { team: Team }) {
         </Card>
       </div>
 
-      <Card title={t("mt.speed")} hint={t("mt.speedHint", { level })}>
+      <Card title={t("mt.speed", { level })}>
         {trickRoom && (
           <p className="mb-3 flex items-center gap-2 rounded-xl bg-amber-500/10 px-3 py-2 text-amber-700 dark:text-amber-300">
             <HourglassIcon size={14} />
@@ -312,21 +307,11 @@ export function Usage({ share, change }: { share: number; change?: number }) {
   );
 }
 
-export function Card({
-  title,
-  hint,
-  children,
-}: {
-  title: string;
-  hint: string;
-  children: ReactNode;
-}) {
+// Titles say what a card holds: no subtitle under them.
+export function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="grid grid-cols-1 content-start gap-3 rounded-[28px] border border-border bg-background p-6 text-xs">
-      <div>
-        <h3 className="text-sm font-medium text-foreground">{title}</h3>
-        <p className="mt-0.5 text-muted-foreground">{hint}</p>
-      </div>
+      <h3 className="text-sm font-medium text-foreground">{title}</h3>
       {children}
     </section>
   );

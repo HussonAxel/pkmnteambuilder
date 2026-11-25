@@ -18,21 +18,11 @@ import { ranked, roleShares, STAPLE, statDistribution } from "@/lib/meta";
 import { loadMeta } from "@/lib/meta-data";
 import { EV_MAX, parseSpread, type SetDraft, STATS } from "@/lib/sets";
 
-function Section({
-  title,
-  hint,
-  children,
-}: {
-  title: string;
-  hint?: string;
-  children: React.ReactNode;
-}) {
+// Titles say what a section holds: no subtitle under them.
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="grid gap-3">
-      <div className="flex items-baseline justify-between gap-3">
-        <h3 className="text-sm font-medium text-foreground">{title}</h3>
-        {hint && <span className="text-xs text-muted-foreground">{hint}</span>}
-      </div>
+      <h3 className="text-sm font-medium text-foreground">{title}</h3>
       {children}
     </section>
   );
@@ -254,7 +244,7 @@ export function MetaPanel({
 
           {/* Option shares: click to apply */}
           {data.build && (
-            <Section title={t("meta.options")} hint={onApply && t("meta.clickHint")}>
+            <Section title={t("meta.options")}>
               <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
                 <OptionList
                   title={t("set.moves")}
@@ -310,7 +300,7 @@ export function MetaPanel({
 
           {/* Spreads, where the EVs go, and what they're built for */}
           {Object.keys(data.spreads).length > 0 && (
-            <Section title={t("meta.spreads")} hint={onApply && t("meta.clickHint")}>
+            <Section title={t("meta.spreads")}>
               <OptionList
                 title={t("meta.topSpreads")}
                 options={ranked(data.spreads)}
@@ -367,10 +357,7 @@ export function MetaPanel({
 
           {/* Skill ceiling: how well the best players do with it (GXE, 0-100) */}
           {data.viability && (
-            <Section
-              title={t("meta.ceiling")}
-              hint={t("meta.players", { n: fmt.number(data.viability[0]) })}
-            >
+            <Section title={t("meta.ceiling")}>
               <div className="grid gap-1.5">
                 {(
                   [
@@ -404,7 +391,6 @@ export function MetaPanel({
             {
               key: "threats",
               title: t("meta.threats"),
-              hint: t("meta.threatsHint"),
               rows: data.counters.slice(0, 9).map((c) => ({
                 name: c.name,
                 value: fmt.percent(c.ko + c.switched),
@@ -417,7 +403,7 @@ export function MetaPanel({
           ]
             .filter((block) => block.rows.length)
             .map((block) => (
-              <Section key={block.key} title={block.title} hint={block.hint}>
+              <Section key={block.key} title={block.title}>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {block.rows.map((row) => (
                     <Tile key={row.name} species={links ? row.name : undefined} format={format}>
@@ -449,8 +435,7 @@ export function MetaPanel({
       {/* Type matchups of the current set */}
       {groups.length > 0 && (
         <Section
-          title={t("meta.matchups")}
-          hint={tera ? t("meta.withTera", { type: names.type(tera) }) : undefined}
+          title={tera ? t("meta.matchupsTera", { type: names.type(tera) }) : t("meta.matchups")}
         >
           <div className="grid gap-2">
             {groups.map(({ mult, types }) => (

@@ -123,7 +123,7 @@ export function PokemonPage({
             />
           </aside>
           <div className="grid min-w-0 gap-6">
-            <Panel title={t("pokemon.sets")} hint={t("pokemon.setsHint")}>
+            <Panel title={t("pokemon.sets")}>
               <RecommendedSets format={format} option={option} {...sets} />
             </Panel>
             <Panel title={t("pokemon.meta")}>
@@ -190,13 +190,11 @@ function FormatPicker({ value, onChange }: { value: string; onChange: (format: s
   );
 }
 
-function Panel({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
+// Titles say what a panel holds: no subtitle under them.
+function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="grid content-start gap-4 rounded-[28px] border border-border bg-background p-6">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">{title}</h2>
-        {hint && <span className="text-xs text-muted-foreground">{hint}</span>}
-      </div>
+      <h2 className="text-base font-semibold tracking-tight text-foreground">{title}</h2>
       {children}
     </section>
   );
@@ -330,10 +328,7 @@ function Learnset({ species, gen, dex }: { species: string; gen: number; dex: De
     );
 
   return (
-    <Panel
-      title={t("pokemon.learnset")}
-      hint={learn.data ? t("pokemon.learnsetHint", { n: rows.length, gen }) : undefined}
-    >
+    <Panel title={t("pokemon.learnset")}>
       {learn.isError ? (
         <p className="text-xs text-muted-foreground">{t("learn.loadError")}</p>
       ) : !learn.data ? (

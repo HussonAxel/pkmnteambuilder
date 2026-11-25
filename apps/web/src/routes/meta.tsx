@@ -48,10 +48,7 @@ function MetaPage() {
   const info = formatInfo(Route.useSearch().format ?? DEFAULT_FORMAT)!;
   return (
     <div className="container mx-auto grid grid-cols-1 content-start gap-6 px-4 py-6">
-      <div className="grid gap-1">
-        <h1 className="text-xl font-semibold tracking-tight">{t("meta.title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("meta.subtitle")}</p>
-      </div>
+      <h1 className="text-xl font-semibold tracking-tight">{t("meta.title")}</h1>
       <FormatPicker info={info} />
       {/* Keyed: a new format starts back on its default cutoff. */}
       <Board key={info.id} format={info.id} mode={info.mode} gen={info.gen} />
@@ -184,11 +181,6 @@ function Board({ format, mode, gen }: { format: string; mode: CompetitiveMode; g
                 {c === "0" ? t("mt.allPlayers") : `${c}+`}
               </button>
             ))}
-            <span className="opacity-70">
-              · {t("mt.month", { month: fmt.month(history.month) })}
-              {history.previous &&
-                ` · ${t("mt.trendVs", { month: fmt.month(history.previous.month) })}`}
-            </span>
           </>
         ) : (
           mode === "vgc" && gen === 9 && <span>{t("meta.retired")}</span>
@@ -196,7 +188,7 @@ function Board({ format, mode, gen }: { format: string; mode: CompetitiveMode; g
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <Card title={t("meta.top", { n: top.length })} hint={t("meta.topHint")}>
+        <Card title={t("meta.top", { n: top.length })}>
           <ol className="grid grid-cols-1 gap-1">
             {top.map(([name, share], i) => {
               const sp = species(name);
@@ -265,17 +257,14 @@ function Board({ format, mode, gen }: { format: string; mode: CompetitiveMode; g
         </Card>
 
         <div className="grid grid-cols-1 content-start gap-6">
-          <Card title={t("meta.duos")} hint={t("meta.duosHint")}>
+          <Card title={t("meta.duos")}>
             <CoreList cores={cores.duos} species={species} start={start} />
           </Card>
-          <Card title={t("meta.trios")} hint={t("meta.triosHint")}>
+          <Card title={t("meta.trios")}>
             <CoreList cores={cores.trios} species={species} start={start} estimate />
           </Card>
           {moved && history?.previous && (
-            <Card
-              title={t("meta.movers")}
-              hint={t("meta.moversHint", { month: fmt.month(history.previous.month) })}
-            >
+            <Card title={t("meta.movers", { month: fmt.month(history.previous.month) })}>
               <div className="grid gap-4 sm:grid-cols-2">
                 {(["rising", "falling"] as const).map((way) => (
                   <div key={way} className="grid content-start gap-1.5">

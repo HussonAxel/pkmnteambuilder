@@ -680,7 +680,7 @@ export function ShareTeamDialog({ team }: { team: Team }) {
         <Share2Icon size={16} strokeWidth={2.25} />
       </DialogTrigger>
       <DialogContent showCloseButton={false} className={`${dialogContentClass} sm:max-w-[520px]`}>
-        <DialogHeading title={t("share.title")} description={t("share.description")} />
+        <DialogHeading title={t("share.title")} />
         <section className="grid gap-2">
           <h3 className="text-sm font-medium text-foreground">{t("share.page")}</h3>
           {pageIsPublic ? (
@@ -701,7 +701,6 @@ export function ShareTeamDialog({ team }: { team: Team }) {
                   <CopyIcon size={14} /> {t("share.copy")}
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground">{t("share.pageHint")}</p>
             </>
           ) : (
             <p className="text-xs text-muted-foreground">{t("share.pageSignIn")}</p>
@@ -726,7 +725,6 @@ export function ShareTeamDialog({ team }: { team: Team }) {
               <CopyIcon size={14} /> {t("share.copy")}
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground">{t("share.linkHint")}</p>
         </section>
         {paste && (
           <section className="grid gap-2">
