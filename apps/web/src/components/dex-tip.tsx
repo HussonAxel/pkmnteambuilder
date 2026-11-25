@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@pkmnteambuilder/ui/com
 import { cn } from "@pkmnteambuilder/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { type ReactNode, useState } from "react";
-import { loadDex } from "@/components/data-colors";
+import { CategoryIcon, loadDex, TypeIcon } from "@/components/data-colors";
 import type { MessageKey } from "@/i18n/messages";
 import { type Lang, toIdentifier, useI18n, useNames } from "@/lib/i18n";
 
@@ -111,7 +111,9 @@ export function DexTip({
       <PopoverContent className="grid w-72 gap-1 font-normal">
         <p className="font-semibold">{title}</p>
         {move && (
-          <p className="text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-muted-foreground">
+            <TypeIcon type={move.type} />
+            <CategoryIcon category={move.category} />
             {[
               names.type(move.type),
               t(`tip.${move.category}` as MessageKey),

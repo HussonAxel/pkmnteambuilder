@@ -1,6 +1,6 @@
 // Colours and small icons shared by the set editor and its Meta tab, so data reads at a glance:
 // Showdown's stat colours, type icons (public/types) and item bag sprites.
-import { TYPE_COLORS } from "@/components/type-chip";
+import { typeColor, typeKey } from "@/components/type-chip";
 import { toIdentifier } from "@/lib/i18n";
 
 // Showdown's stat colours, so a spread reads at a glance (and matches what players know).
@@ -18,13 +18,29 @@ export const ink = (color?: string) =>
   color ? `color-mix(in oklab, ${color} 75%, var(--foreground))` : undefined;
 
 export const TypeIcon = ({ type }: { type?: string }) =>
-  type && TYPE_COLORS[type.toLowerCase()] ? (
+  type && typeColor(type) ? (
     <img
-      src={`/types/${type.toLowerCase()}.svg`}
+      src={`/types/${typeKey(type)}.svg`}
       alt=""
       width={14}
       height={14}
       className="size-3.5 shrink-0"
+    />
+  ) : null;
+
+// A move's damage category, drawn after the games' convention (and Showdown's, Bulbapedia's): an impact
+// burst on red for physical, ripples on blue for special, a swirl on grey for status. Our own SVGs in
+// public/categories, in the type icons' style. Before gen 4 the category follows the move's type;
+// @pkmn/dex already gives it per generation.
+export const CategoryIcon = ({ category, size = 14 }: { category?: string; size?: number }) =>
+  category && ["Physical", "Special", "Status"].includes(category) ? (
+    <img
+      src={`/categories/${category.toLowerCase()}.svg`}
+      alt=""
+      width={size}
+      height={size}
+      className="shrink-0"
+      style={{ width: size, height: size }}
     />
   ) : null;
 

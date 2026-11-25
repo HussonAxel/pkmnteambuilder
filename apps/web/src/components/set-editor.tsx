@@ -16,7 +16,7 @@ import {
 } from "@/components/motion/select";
 import { ink, ItemIcon, loadDex, STAT_COLORS, TypeIcon } from "@/components/data-colors";
 import { MetaPanel } from "@/components/meta-panel";
-import { TYPE_COLORS } from "@/components/type-chip";
+import { typeColor } from "@/components/type-chip";
 import { ShowdownPaste } from "@/components/showdown-paste";
 import { useI18n, useNameResolver, useNames } from "@/lib/i18n";
 import { formatPercent } from "@/lib/format";
@@ -625,9 +625,7 @@ export function SetEditor({
                       className={cn(field, type && "pl-9", invalid(`move-${i}`))}
                       // A border, not a box-shadow: the focus and invalid rings are box-shadows too.
                       style={{
-                        border: type
-                          ? `1px solid ${ink(TYPE_COLORS[type.toLowerCase()])}`
-                          : undefined,
+                        border: type ? `1px solid ${ink(typeColor(type))}` : undefined,
                       }}
                       list={`${ids}-moves`}
                       value={moveNames.display(move)}

@@ -18,13 +18,16 @@ import { useI18n, useNames } from "@/lib/i18n";
 import { formatGen } from "@/lib/legality";
 import { matchup, teamThreats, trend, trickRoomHint } from "@/lib/meta-team";
 import { calcStat, parseSpread } from "@/lib/sets";
+import { ariaSort, SortButton, sortRows, useSort } from "@/components/sortable";
+
+type TopColumn = "pokemon" | "usage" | "youHit" | "itHits";
 import { chartOf } from "@/lib/type-chart";
 
 const TOP = 20;
 const SPEED_THREATS = 12;
 
 export function MetaTab({ team }: { team: Team }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const names = useNames();
   const gen = formatGen(team.format);
   const meta = useQuery({
@@ -39,6 +42,11 @@ export function MetaTab({ team }: { team: Team }) {
     staleTime: Number.POSITIVE_INFINITY,
   });
   const [cutoff, setCutoff] = useState<string | null>(null);
+  // The top 20 table: most used first; the counts read best high to low on their first click.
+  const { sort, toggle } = useSort<TopColumn>(
+    { key: "usage", dir: "desc" },
+    { usage: "desc", youHit: "desc", itHits: "desc" },
+  );
   const party = team.pokemon.filter((p) => p.inTeam).slice(0, MAX_ROWS);
 
   if (party.length === 0) return <p className="text-sm text-muted-foreground">{t("mt.empty")}</p>;
@@ -184,16 +192,50 @@ export function MetaTab({ team }: { team: Team }) {
           <table className="w-full text-xs">
             <thead className="text-muted-foreground">
               <tr>
-                <th className="pb-2 text-left font-normal">{t("mt.pokemon")}</th>
-                <th className="pb-2 text-right font-normal">{t("mt.usage")}</th>
-                <th className="pb-2 text-center font-normal">{t("mt.youHit")}</th>
-                <th className="pb-2 text-center font-normal">{t("mt.itHits")}</th>
+                {(
+                  [
+                    ["pokemon", t("mt.pokemon"), "left"],
+                    ["usage", t("mt.usage"), "right"],
+                    ["youHit", t("mt.youHit"), "center"],
+                    ["itHits", t("mt.itHits"), "center"],
+                  ] as const
+                ).map(([column, label, align]) => (
+                  <th
+                    key={column}
+                    aria-sort={ariaSort(sort, column)}
+                    className={cn(
+                      "pb-2 font-normal",
+                      align === "left"
+                        ? "text-left"
+                        : align === "right"
+                          ? "text-right"
+                          : "text-center",
+                    )}
+                  >
+                    <SortButton column={column} sort={sort} onSort={toggle} align={align}>
+                      {label}
+                    </SortButton>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {top.map(({ name, share }) => {
-                const sp = dex.data.species.get(name);
-                const m = matchup(chart, members, sp.types);
+              {sortRows(
+                top.map(({ name, share }) => {
+                  const sp = dex.data.species.get(name);
+                  return { name, share, sp, m: matchup(chart, members, sp.types) };
+                }),
+                sort.dir,
+                (row): number | string =>
+                  sort.key === "pokemon"
+                    ? names.pokemon(pokeapiId(row.name, row.sp.num), row.name)
+                    : sort.key === "usage"
+                      ? row.share
+                      : sort.key === "youHit"
+                        ? row.m.hitters
+                        : row.m.threatened,
+                lang,
+              ).map(({ name, share, sp, m }) => {
                 return (
                   <tr key={name} className="border-t border-border/30">
                     <td className="py-1">

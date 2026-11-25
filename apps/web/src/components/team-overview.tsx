@@ -47,7 +47,7 @@ import {
   withDraft,
 } from "@/components/stacked-list";
 import { ink, loadDex, TypeIcon } from "@/components/data-colors";
-import { TYPE_COLORS } from "@/components/type-chip";
+import { typeColor } from "@/components/type-chip";
 import { artwork } from "@/lib/artwork";
 import { useFormat } from "@/lib/format";
 import { useI18n, useNames } from "@/lib/i18n";
@@ -546,7 +546,7 @@ function MoveList({ moves, gen }: { moves: string[]; gen?: number }) {
             key={move}
             className="relative flex h-10 min-w-0 items-center rounded-xl bg-muted/40 px-3 text-sm text-foreground"
             style={{
-              border: type ? `1px solid ${ink(TYPE_COLORS[type.toLowerCase()])}` : undefined,
+              border: type ? `1px solid ${ink(typeColor(type))}` : undefined,
             }}
           >
             {type && (

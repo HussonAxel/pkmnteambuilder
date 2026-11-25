@@ -7,10 +7,11 @@ import { Link, useCanGoBack, useRouter } from "@tanstack/react-router";
 import { ArrowLeftIcon } from "lucide-react";
 import { Fragment, type ReactNode, useMemo, useState } from "react";
 
-import { ink, loadDex, STAT_COLORS, TypeIcon } from "@/components/data-colors";
+import { CategoryIcon, ink, loadDex, STAT_COLORS, TypeIcon } from "@/components/data-colors";
 import { DexTip } from "@/components/dex-tip";
 import { MethodChip } from "@/components/member-details";
 import { MetaPanel } from "@/components/meta-panel";
+import { ariaSort, SortButton, sortRows, useSort } from "@/components/sortable";
 import {
   AddToTeam,
   RecommendedSets,
@@ -328,14 +329,46 @@ type Filter = (typeof FILTERS)[number];
 
 // Learned on evolving reads as level-up: both come with the Pokémon, no item or breeding needed.
 const filterOf = (m: Method): Filter => (m.kind === "evolution" ? "level" : m.kind);
-const levelOf = (how: Method[]) =>
-  Math.min(...how.map((m) => (m.kind === "level" ? m.level : m.kind === "evolution" ? 0 : 999)));
+// The "How" column's order: level-up by level (on evolving first), then TMs by number (HMs, TRs after),
+// egg moves, tutors, events. A move learned several ways sorts by its first.
+const methodRank = (m: Method) => {
+  switch (m.kind) {
+    case "evolution":
+      return 0;
+    case "level":
+      return m.level;
+    case "tm": {
+      const [, kind = "tm", n = "0"] = /^(tm|hm|tr)(\d+)/.exec(m.item ?? "") ?? [];
+      return { tm: 1000, hm: 1500, tr: 2000 }[kind as "tm"] + Number(n);
+    }
+    case "egg":
+      return 3000;
+    case "tutor":
+      return 4000;
+    case "event":
+      return 5000;
+  }
+};
+const howRank = (how: Method[]) => Math.min(...how.map(methodRank));
+const CATEGORY_ORDER: Record<string, number> = { Physical: 0, Special: 1, Status: 2 };
+
+type LearnColumn = "move" | "category" | "power" | "accuracy" | "how";
 
 // Every move the species learns in that generation (its pre-evolutions' included), and how.
 function Learnset({ species, gen, dex }: { species: string; gen: number; dex: Dex }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const names = useNames();
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilterState] = useState<Filter>("all");
+  // Power and accuracy read best high to low on their first click.
+  const { sort, setSort, toggle } = useSort<LearnColumn>(
+    { key: "move", dir: "asc" },
+    { power: "desc", accuracy: "desc" },
+  );
+  // Level-up moves read in level order: that filter sorts by "How"; the others by name.
+  const setFilter = (next: Filter) => {
+    setFilterState(next);
+    setSort({ key: next === "level" ? "how" : "move", dir: "asc" });
+  };
   const learn = useQuery({
     queryKey: ["learn", gen],
     queryFn: () => loadLearnData(gen),
@@ -363,13 +396,39 @@ function Learnset({ species, gen, dex }: { species: string; gen: number; dex: De
       f === "all" ? rows.length : rows.filter((r) => r.how.some((m) => filterOf(m) === f)).length,
     ]),
   ) as Record<Filter, number>;
-  const shown = rows
-    .filter((r) => filter === "all" || r.how.some((m) => filterOf(m) === filter))
-    .sort((a, b) =>
-      filter === "level"
-        ? levelOf(a.how) - levelOf(b.how)
-        : names.move(a.move).localeCompare(names.move(b.move)),
-    );
+  const filtered = sortRows(
+    rows.filter((r) => filter === "all" || r.how.some((m) => filterOf(m) === filter)),
+    "asc",
+    (r) => names.move(r.move),
+    lang,
+  );
+  // Ties (same power, same category…) stay in name order.
+  const shown = sortRows(
+    filtered,
+    sort.dir,
+    (r): number | string => {
+      switch (sort.key) {
+        case "move":
+          return names.move(r.move);
+        case "category":
+          return CATEGORY_ORDER[r.info.category] ?? 3;
+        case "power":
+          return r.info.basePower;
+        case "accuracy":
+          // Moves that never miss rank above 100%.
+          return r.info.accuracy === true ? 101 : r.info.accuracy;
+        case "how":
+          // Restricted to the filtered method, so "TMs" sorts by TM number.
+          return howRank(filter === "all" ? r.how : r.how.filter((m) => filterOf(m) === filter));
+      }
+    },
+    lang,
+  );
+  const header = (column: LearnColumn, label: ReactNode, align?: "left" | "right") => (
+    <SortButton column={column} sort={sort} onSort={toggle} align={align}>
+      {label}
+    </SortButton>
+  );
 
   return (
     <Panel title={t("pokemon.learnset")}>
@@ -403,13 +462,43 @@ function Learnset({ species, gen, dex }: { species: string; gen: number; dex: De
             <table className="w-full text-xs">
               <thead className="text-muted-foreground">
                 <tr>
-                  <th className="px-2 pb-2 text-left font-normal">{t("pokemon.col.move")}</th>
-                  <th className="hidden px-2 pb-2 text-left font-normal sm:table-cell" />
-                  <th className="px-2 pb-2 text-right font-normal">{t("pokemon.col.power")}</th>
-                  <th className="hidden px-2 pb-2 text-right font-normal sm:table-cell">
-                    {t("pokemon.col.accuracy")}
+                  <th
+                    aria-sort={ariaSort(sort, "move")}
+                    className="px-2 pb-2 text-left font-normal"
+                  >
+                    {header("move", t("pokemon.col.move"))}
                   </th>
-                  <th className="px-2 pb-2 text-right font-normal">{t("pokemon.col.how")}</th>
+                  <th
+                    aria-sort={ariaSort(sort, "category")}
+                    className="px-2 pb-2 text-left font-normal"
+                  >
+                    {/* Phones: the icons say it; the header keeps a short, sortable label. */}
+                    {header(
+                      "category",
+                      <>
+                        <span className="hidden sm:inline">{t("pokemon.col.category")}</span>
+                        <span className="sm:hidden">{t("pokemon.col.categoryShort")}</span>
+                      </>,
+                    )}
+                  </th>
+                  <th
+                    aria-sort={ariaSort(sort, "power")}
+                    className="px-2 pb-2 text-right font-normal"
+                  >
+                    {header("power", t("pokemon.col.power"), "right")}
+                  </th>
+                  <th
+                    aria-sort={ariaSort(sort, "accuracy")}
+                    className="hidden px-2 pb-2 text-right font-normal sm:table-cell"
+                  >
+                    {header("accuracy", t("pokemon.col.accuracy"), "right")}
+                  </th>
+                  <th
+                    aria-sort={ariaSort(sort, "how")}
+                    className="px-2 pb-2 text-right font-normal"
+                  >
+                    {header("how", t("pokemon.col.how"), "right")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -423,8 +512,17 @@ function Learnset({ species, gen, dex }: { species: string; gen: number; dex: De
                         </DexTip>
                       </span>
                     </td>
-                    <td className="hidden px-2 py-1.5 text-muted-foreground sm:table-cell">
-                      {t(`tip.${info.category}` as MessageKey)}
+                    {/* The icon always; its name next to it from sm up (and on hover). */}
+                    <td className="px-2 py-1.5 text-muted-foreground">
+                      <span
+                        className="flex items-center gap-1.5"
+                        title={t(`tip.${info.category}` as MessageKey)}
+                      >
+                        <CategoryIcon category={info.category} />
+                        <span className="hidden sm:inline">
+                          {t(`tip.${info.category}` as MessageKey)}
+                        </span>
+                      </span>
                     </td>
                     <td className="px-2 py-1.5 text-right tabular-nums text-muted-foreground">
                       {info.basePower || "—"}

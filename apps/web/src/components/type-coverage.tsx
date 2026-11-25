@@ -10,6 +10,7 @@ import { cn } from "@pkmnteambuilder/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { loadDex, TypeIcon } from "@/components/data-colors";
+import { ariaSort, SortButton, sortRows, useSort } from "@/components/sortable";
 import { MAX_ROWS, type PokemonSet, type Team } from "@/components/stacked-list";
 import { GAMES } from "@/data/games/index";
 import { useI18n, useNames } from "@/lib/i18n";
@@ -29,6 +30,8 @@ const CELL: Record<number, { label: string; tint: string }> = {
 };
 
 type View = "chart" | "tally";
+// "order": the games' type order (no header); "def:<type>": the multiplier against that defending type.
+type CoverageColumn = "order" | "type" | "weak" | "resist" | `def:${string}`;
 const VIEW_KEY = "coverage-view";
 
 // The chosen display, remembered in this browser (read after mount, so the server render matches).
@@ -94,9 +97,15 @@ function Tally({
 }
 
 export function TypeCoverage({ team }: { team: Team }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const names = useNames();
   const [view, setView] = useCoverageView();
+  // Rows (attacking types) in the games' type order until a header is clicked: by name, by the
+  // multiplier against one defending type, or by how many members are weak to / resist it.
+  const { sort, toggle } = useSort<CoverageColumn>(
+    { key: "order", dir: "asc" },
+    { weak: "desc", resist: "desc" },
+  );
   const gen = teamGen(team);
   // Same cache entry as the set editor's ["dex", gen].
   const dex = useQuery({
@@ -128,6 +137,21 @@ export function TypeCoverage({ team }: { team: Team }) {
     members.filter((m) => defense(chart, m.types, attack) < 1).length;
   const hitters = (defending: string) =>
     members.filter((m) => offense(chart, m.attacks, defending) > 1).length;
+  const rows = sortRows(
+    types,
+    sort.dir,
+    (attack): number | string =>
+      sort.key === "order"
+        ? types.indexOf(attack)
+        : sort.key === "type"
+          ? names.type(attack)
+          : sort.key === "weak"
+            ? weak(attack)
+            : sort.key === "resist"
+              ? resist(attack)
+              : (chart[sort.key.slice(4)]?.[attack] ?? 1),
+    lang,
+  );
   const list = alerts(chart, types, members);
   const uncovered = list.filter((a) => a.kind === "uncovered").map((a) => a.type);
 
@@ -254,50 +278,70 @@ export function TypeCoverage({ team }: { team: Team }) {
             <table className="w-full border-separate border-spacing-0.5 text-xs">
               <thead>
                 <tr>
-                  <th className="sticky left-0 z-10 bg-background p-1 text-left text-[10px] font-normal text-muted-foreground">
-                    {t("cov.atkDef")}
+                  <th
+                    aria-sort={ariaSort(sort, "type")}
+                    className="sticky left-0 z-10 bg-background p-1 text-left text-[10px] font-normal text-muted-foreground"
+                  >
+                    <SortButton column="type" sort={sort} onSort={toggle}>
+                      {t("cov.atkDef")}
+                    </SortButton>
                   </th>
                   {types.map((type) => (
                     <th
                       key={type}
                       scope="col"
                       title={names.type(type)}
+                      aria-sort={ariaSort(sort, `def:${type}`)}
                       className={cn(
                         "min-w-8 rounded-md p-1 font-normal",
                         teamTypes.has(type) && "bg-muted",
                       )}
                     >
-                      <span className="flex flex-col items-center gap-1">
-                        <TypeIcon type={type} />
-                        <span
-                          className={cn(
-                            "text-[10px] uppercase",
-                            teamTypes.has(type)
-                              ? "font-semibold text-foreground"
-                              : "text-muted-foreground",
-                          )}
-                        >
-                          {names.type(type).slice(0, 3)}
+                      {/* Sorts the rows by their multiplier against this type; the arrow goes under. */}
+                      <SortButton
+                        column={`def:${type}`}
+                        sort={sort}
+                        onSort={toggle}
+                        className="flex-col gap-0.5"
+                      >
+                        <span className="flex flex-col items-center gap-1">
+                          <TypeIcon type={type} />
+                          <span
+                            className={cn(
+                              "text-[10px] uppercase",
+                              teamTypes.has(type)
+                                ? "font-semibold text-foreground"
+                                : "text-muted-foreground",
+                            )}
+                          >
+                            {names.type(type).slice(0, 3)}
+                          </span>
                         </span>
-                      </span>
+                      </SortButton>
                     </th>
                   ))}
                   <th
                     scope="col"
+                    aria-sort={ariaSort(sort, "weak")}
                     className="min-w-12 pl-2 text-[10px] font-medium text-muted-foreground"
                   >
-                    {t("cov.weak")}
+                    <SortButton column="weak" sort={sort} onSort={toggle} className="font-medium">
+                      {t("cov.weak")}
+                    </SortButton>
                   </th>
                   <th
                     scope="col"
+                    aria-sort={ariaSort(sort, "resist")}
                     className="min-w-12 text-[10px] font-medium text-muted-foreground"
                   >
-                    {t("cov.resist")}
+                    <SortButton column="resist" sort={sort} onSort={toggle} className="font-medium">
+                      {t("cov.resist")}
+                    </SortButton>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {types.map((attack) => {
+                {rows.map((attack) => {
                   const used = teamAttacks.has(attack);
                   const w = weak(attack);
                   const r = resist(attack);

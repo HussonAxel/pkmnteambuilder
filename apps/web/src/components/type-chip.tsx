@@ -1,5 +1,6 @@
 // A type as a coloured chip with its icon. Icons: partywhale/pokemon-type-icons (MIT, public/types/LICENSE);
-// the colours are the ones those icons use, so chip and icon match.
+// the colours are the ones those icons use, so chip and icon match. "???" (Curse, gens 2-4) and Stellar
+// (Terastal, gen 9) aren't in that set: public/types/unknown.svg and stellar.svg are our own, in its style.
 import { useNames } from "@/lib/i18n";
 
 export const TYPE_COLORS: Record<string, string> = {
@@ -21,11 +22,17 @@ export const TYPE_COLORS: Record<string, string> = {
   rock: "#a9a481",
   steel: "#77b2cb",
   water: "#3a9de2",
+  unknown: "#68a090", // "???"
+  stellar: "#40b5a5",
 };
+
+// A type's key for its colour and icon file: "Fire" -> "fire", "???" -> "unknown".
+export const typeKey = (type: string) => (type === "???" ? "unknown" : type.toLowerCase());
+export const typeColor = (type?: string) => (type ? TYPE_COLORS[typeKey(type)] : undefined);
 
 export function TypeChip({ type }: { type: string }) {
   const names = useNames();
-  const key = type.toLowerCase();
+  const key = typeKey(type);
   const color = TYPE_COLORS[key];
   if (!color) return null;
   return (

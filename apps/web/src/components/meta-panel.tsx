@@ -8,7 +8,7 @@ import { Link } from "@tanstack/react-router";
 import { Fragment } from "react";
 
 import { ink, ItemIcon, loadDex, STAT_COLORS, TypeIcon } from "@/components/data-colors";
-import { TYPE_COLORS, TypeChip } from "@/components/type-chip";
+import { TypeChip, typeColor } from "@/components/type-chip";
 import { FORM_ARTWORK_IDS } from "@/data/form-artwork-ids";
 import type { MessageKey } from "@/i18n/messages";
 import { artwork } from "@/lib/artwork";
@@ -252,7 +252,7 @@ export function MetaPanel({
                   limit={10}
                   label={names.move}
                   icon={(m) => <TypeIcon type={moveType(m)} />}
-                  color={(m) => TYPE_COLORS[moveType(m)?.toLowerCase() ?? ""]}
+                  color={(m) => typeColor(moveType(m))}
                   isCurrent={(m) => !!draft?.moves.includes(m)}
                   onPick={
                     draft &&
@@ -288,7 +288,7 @@ export function MetaPanel({
                       options={ranked(data.build.teraTypes)}
                       label={names.type}
                       icon={(type) => <TypeIcon type={type} />}
-                      color={(type) => TYPE_COLORS[type.toLowerCase()]}
+                      color={(type) => typeColor(type)}
                       isCurrent={(type) => draft?.teraType === type}
                       onPick={onApply && ((teraType) => onApply({ teraType }))}
                     />
