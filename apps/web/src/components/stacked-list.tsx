@@ -150,25 +150,29 @@ const sweepSpring = {
   mass: 0.5,
 };
 
+// Pastel fill, a border, then a ring one shade stronger so the badge stands out from the card (a touch
+// deeper in the dark theme, where the pastel fill already contrasts). TypeBadge adds the ring's width.
 const TYPE_STYLES: Record<PokemonType, string> = {
-  Normal: "bg-neutral-50 text-neutral-700 border-neutral-200",
-  Fire: "bg-orange-50 text-orange-800 border-orange-200",
-  Water: "bg-sky-50 text-sky-800 border-sky-200",
-  Electric: "bg-yellow-50 text-yellow-800 border-yellow-200",
-  Grass: "bg-green-50 text-green-800 border-green-200",
-  Ice: "bg-cyan-50 text-cyan-800 border-cyan-200",
-  Fighting: "bg-red-50 text-red-800 border-red-200",
-  Poison: "bg-purple-50 text-purple-800 border-purple-200",
-  Ground: "bg-amber-50 text-amber-800 border-amber-200",
-  Flying: "bg-indigo-50 text-indigo-800 border-indigo-200",
-  Psychic: "bg-rose-50 text-rose-800 border-rose-200",
-  Bug: "bg-lime-50 text-lime-800 border-lime-200",
-  Rock: "bg-stone-50 text-stone-800 border-stone-200",
-  Ghost: "bg-violet-50 text-violet-800 border-violet-200",
-  Dragon: "bg-blue-50 text-blue-800 border-blue-200",
-  Dark: "bg-zinc-100 text-zinc-800 border-zinc-300",
-  Steel: "bg-slate-50 text-slate-700 border-slate-200",
-  Fairy: "bg-pink-50 text-pink-800 border-pink-200",
+  Normal:
+    "bg-neutral-50 text-neutral-700 border-neutral-200 ring-neutral-300 dark:ring-neutral-400/70",
+  Fire: "bg-orange-50 text-orange-800 border-orange-200 ring-orange-300 dark:ring-orange-400/70",
+  Water: "bg-sky-50 text-sky-800 border-sky-200 ring-sky-300 dark:ring-sky-400/70",
+  Electric:
+    "bg-yellow-50 text-yellow-800 border-yellow-200 ring-yellow-300 dark:ring-yellow-400/70",
+  Grass: "bg-green-50 text-green-800 border-green-200 ring-green-300 dark:ring-green-400/70",
+  Ice: "bg-cyan-50 text-cyan-800 border-cyan-200 ring-cyan-300 dark:ring-cyan-400/70",
+  Fighting: "bg-red-50 text-red-800 border-red-200 ring-red-300 dark:ring-red-400/70",
+  Poison: "bg-purple-50 text-purple-800 border-purple-200 ring-purple-300 dark:ring-purple-400/70",
+  Ground: "bg-amber-50 text-amber-800 border-amber-200 ring-amber-300 dark:ring-amber-400/70",
+  Flying: "bg-indigo-50 text-indigo-800 border-indigo-200 ring-indigo-300 dark:ring-indigo-400/70",
+  Psychic: "bg-rose-50 text-rose-800 border-rose-200 ring-rose-300 dark:ring-rose-400/70",
+  Bug: "bg-lime-50 text-lime-800 border-lime-200 ring-lime-300 dark:ring-lime-400/70",
+  Rock: "bg-stone-50 text-stone-800 border-stone-200 ring-stone-300 dark:ring-stone-400/70",
+  Ghost: "bg-violet-50 text-violet-800 border-violet-200 ring-violet-300 dark:ring-violet-400/70",
+  Dragon: "bg-blue-50 text-blue-800 border-blue-200 ring-blue-300 dark:ring-blue-400/70",
+  Dark: "bg-zinc-100 text-zinc-800 border-zinc-300 ring-zinc-400 dark:ring-zinc-500/70",
+  Steel: "bg-slate-50 text-slate-700 border-slate-200 ring-slate-300 dark:ring-slate-400/70",
+  Fairy: "bg-pink-50 text-pink-800 border-pink-200 ring-pink-300 dark:ring-pink-400/70",
 };
 
 export const TypeBadge = ({
@@ -185,8 +189,9 @@ export const TypeBadge = ({
   return (
     <div
       className={cn(
-        "flex items-center rounded-full border shrink-0",
-        small ? "gap-1 px-1.5 py-0.5" : "gap-1.5 px-2.5 py-1",
+        "flex shrink-0 items-center rounded-full border ring-1",
+        // The text box is trimmed to the capitals: a bit more padding keeps the pill's height.
+        small ? "gap-1 px-1.5 py-[5px]" : "gap-1.5 px-2.5 py-1.5",
         TYPE_STYLES[type],
       )}
     >
@@ -195,6 +200,9 @@ export const TypeBadge = ({
       <span
         className={cn(
           "font-normal tracking-tight uppercase whitespace-nowrap",
+          // Capitals only: trim the line box to the cap height so they sit in the middle of the pill
+          // (without it the descender space pushes them off-centre). Older browsers keep the box.
+          "[text-box:trim-both_cap_alphabetic]",
           small ? "text-[10px] leading-none" : "text-xs",
         )}
       >
@@ -1724,12 +1732,7 @@ export function AddPokemonDialog({
                         </span>
                         <span className="flex flex-wrap justify-center gap-1">
                           {option.types.map((type) => (
-                            <span
-                              key={type}
-                              className={`rounded-full border px-1.5 py-0.5 text-[10px] uppercase leading-none ${TYPE_STYLES[type]}`}
-                            >
-                              {names.type(type)}
-                            </span>
+                            <TypeBadge key={type} type={type} small />
                           ))}
                         </span>
                       </button>
