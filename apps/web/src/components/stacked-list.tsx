@@ -1264,7 +1264,7 @@ export interface PokemonOption {
 }
 
 // Loaded on first open: the dex chunk is ~1.8 MB, so it stays out of the page bundle.
-async function loadCompetitive(format: string): Promise<PokemonOption[]> {
+export async function loadCompetitive(format: string): Promise<PokemonOption[]> {
   const file = legalSpecies[`../data/formats/${format}.json`];
   if (!file) throw new Error(`Unknown format: ${format}`);
   const [{ Dex }, legal] = await Promise.all([import("@pkmn/dex"), file()]);

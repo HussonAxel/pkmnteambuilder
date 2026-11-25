@@ -6,6 +6,7 @@ import type { Counter } from "@/lib/meta-team";
 
 interface UsageFile {
   usage: Record<string, number>;
+  teammates: Record<string, Record<string, number>>;
 }
 interface MetaFile {
   species: Record<string, { counters: Counter[]; spreads: Record<string, number> }>;
@@ -27,10 +28,15 @@ const historyFiles = import.meta.glob<HistoryFile>("../data/usage-history/*.json
 
 export interface FormatMeta {
   usage: Record<string, number>; // default cutoff
+  teammates: Record<string, Record<string, number>>; // default cutoff, top teammates per species
   history?: HistoryFile;
   counters: Record<string, Counter[]>;
   spreads: Record<string, Record<string, number>>;
 }
+
+// Formats with ladder stats: every Smogon snapshot, plus the gen 9 regulations (one fixed snapshot each).
+export const hasStats = (format: string, mode: string, gen: number) =>
+  `../data/smogon/${format}.usage.json` in usageFiles || (mode === "vgc" && gen === 9);
 
 export async function loadFormatMeta(format: string): Promise<FormatMeta | null> {
   const smogon = usageFiles[`../data/smogon/${format}.usage.json`];
@@ -43,6 +49,7 @@ export async function loadFormatMeta(format: string): Promise<FormatMeta | null>
     const species = meta?.species ?? {};
     return {
       usage: usage.usage,
+      teammates: usage.teammates,
       history,
       counters: Object.fromEntries(Object.entries(species).map(([n, s]) => [n, s.counters])),
       spreads: Object.fromEntries(Object.entries(species).map(([n, s]) => [n, s.spreads])),
@@ -53,11 +60,12 @@ export async function loadFormatMeta(format: string): Promise<FormatMeta | null>
     import("@/data/vgc-usage"),
     import("@/data/vgc-builds"),
   ]);
-  const usage = VGC_USAGE[format]?.usage;
-  if (!usage) return null;
+  const stats = VGC_USAGE[format];
+  if (!stats) return null;
   const builds = VGC_BUILDS[format] ?? {};
   return {
-    usage,
+    usage: stats.usage,
+    teammates: stats.teammates,
     counters: {},
     spreads: Object.fromEntries(Object.entries(builds).map(([n, b]) => [n, b.spreads])),
   };
