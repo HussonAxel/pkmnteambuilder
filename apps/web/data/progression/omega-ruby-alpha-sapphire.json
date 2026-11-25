@@ -1,0 +1,214 @@
+{
+  "versionGroup": "omega-ruby-alpha-sapphire",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Omega_Ruby_and_Alpha_Sapphire (parts 1-25)",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_111 (and Hoenn_Route_110, 112-121, 123 pages)",
+    "https://bulbapedia.bulbagarden.net/wiki/Granite_Cave",
+    "https://bulbapedia.bulbagarden.net/wiki/Meteor_Falls",
+    "https://bulbapedia.bulbagarden.net/wiki/Shoal_Cave",
+    "https://bulbapedia.bulbagarden.net/wiki/Safari_Zone_(Hoenn)",
+    "https://bulbapedia.bulbagarden.net/wiki/Mt._Pyre",
+    "https://bulbapedia.bulbagarden.net/wiki/Victory_Road_(Hoenn)",
+    "https://bulbapedia.bulbagarden.net/wiki/Seafloor_Cavern",
+    "https://bulbapedia.bulbagarden.net/wiki/Cave_of_Origin",
+    "https://bulbapedia.bulbagarden.net/wiki/New_Mauville",
+    "https://bulbapedia.bulbagarden.net/wiki/Sea_Mauville",
+    "https://bulbapedia.bulbagarden.net/wiki/Scorched_Slab",
+    "https://bulbapedia.bulbagarden.net/wiki/Sky_Pillar",
+    "https://bulbapedia.bulbagarden.net/wiki/Southern_Island",
+    "https://bulbapedia.bulbagarden.net/wiki/Mossdeep_City",
+    "https://bulbapedia.bulbagarden.net/wiki/Lavaridge_Town",
+    "https://bulbapedia.bulbagarden.net/wiki/Mirage_spot",
+    "https://bulbapedia.bulbagarden.net/wiki/Soaring_in_the_sky",
+    "https://bulbapedia.bulbagarden.net/wiki/Eon_Flute",
+    "https://bulbapedia.bulbagarden.net/wiki/Trackless_Forest (and Pathless_Plain, Nameless_Cavern, Crescent_Isle, Fabled_Cave, Gnarled_Den)",
+    "https://bulbapedia.bulbagarden.net/wiki/Inver",
+    "https://bulbapedia.bulbagarden.net/wiki/Fire_Stone (and the other evolution item pages: Water/Thunder/Leaf/Moon/Sun/Shiny/Dawn_Stone, Oval_Stone, King%27s_Rock, Metal_Coat, Deep_Sea_Tooth, Deep_Sea_Scale, Up-Grade, Dubious_Disc, Electirizer, Magmarizer)",
+    "https://gamerguides.com/pokemon-omega-ruby-alpha-sapphire/guide/walkthrough/dynamo-badge/optional-route-117",
+    "https://www.pokepedia.fr/Badge"
+  ],
+  "steps": [
+    { "en": "Start", "fr": "Départ" },
+    { "en": "Badge 1 · Roxanne", "fr": "Badge 1 · Roxanne" },
+    { "en": "Badge 2 · Brawly", "fr": "Badge 2 · Bastien" },
+    { "en": "Badge 3 · Wattson", "fr": "Badge 3 · Voltère" },
+    { "en": "Badge 4 · Flannery", "fr": "Badge 4 · Adriane" },
+    { "en": "Badge 5 · Norman", "fr": "Badge 5 · Norman" },
+    { "en": "Badge 6 · Winona", "fr": "Badge 6 · Alizée" },
+    { "en": "Badge 7 · Tate & Liza", "fr": "Badge 7 · Lévy & Tatia" },
+    { "en": "Badge 8 · Wallace", "fr": "Badge 8 · Marc" },
+    { "en": "League", "fr": "Ligue" },
+    { "en": "Post-game", "fr": "Après-jeu" }
+  ],
+  "postgame": 10,
+  "daycare": 2,
+  "levelCap": [14, 16, 21, 28, 30, 35, 45, 46, 59, 59, 100],
+  "locations": {
+    "hoenn-route-101": 10,
+    "hoenn-route-102": 0,
+    "hoenn-route-103": 0,
+    "hoenn-route-104": 0,
+    "petalburg-woods": 0,
+    "hoenn-route-116": 1,
+    "rusturf-tunnel": 1,
+    "hoenn-route-106": 1,
+    "granite-cave": 1,
+    "slateport-city": 2,
+    "hoenn-route-109": 2,
+    "hoenn-route-110": 2,
+    "hoenn-route-117": 2,
+    "verdanturf-town": 2,
+    "hoenn-route-112": 3,
+    "fiery-path": 3,
+    "hoenn-route-113": 3,
+    "fallarbor-town": 3,
+    "hoenn-route-114": 3,
+    "meteor-falls": 3,
+    "hoenn-route-115": 3,
+    "jagged-pass": 3,
+    "lavaridge-town": 3,
+    "hoenn-route-111": 4,
+    "hoenn-route-105": 5,
+    "hoenn-route-107": 5,
+    "hoenn-route-108": 5,
+    "hoenn-route-118": 5,
+    "hoenn-route-119": 5,
+    "hoenn-route-120": 5,
+    "southern-island": 10,
+    "hoenn-route-121": 6,
+    "hoenn-route-123": 6,
+    "hoenn-safari-zone": 6,
+    "mt-pyre": 6,
+    "lilycove-city": 6,
+    "team-aqua-hideout": 6,
+    "team-magma-hideout": 6,
+    "mossdeep-city": 6,
+    "shoal-cave": 6,
+    "scorched-slab": 6,
+    "seafloor-cavern": 7,
+    "cave-of-origin": 7,
+    "new-mauville": 7,
+    "sea-mauville": 7,
+    "mirage-spot-island": 7,
+    "mirage-spot-forest": 7,
+    "mirage-spot-cave": 7,
+    "mirage-spot-mountain": 7,
+    "hoenn-victory-road": 8,
+    "island-cave": 8,
+    "desert-ruins": 8,
+    "ancient-tomb": 8,
+    "sky-pillar": 10,
+    "battle-resort": 10,
+    "mossdeep-space-center": 10,
+    "soaring-in-the-sky": 10,
+    "trackless-forest": 10,
+    "pathless-plain": 10,
+    "nameless-cavern": 10,
+    "crescent-isle": 10,
+    "fabled-cave": 10,
+    "gnarled-den": 10
+  },
+  "areas": {
+    "granite-cave/b1f": 2,
+    "granite-cave/b2f": 2,
+    "meteor-falls/b1f": 8,
+    "meteor-falls/back": 8,
+    "meteor-falls/backsmall-room": 8,
+    "mossdeep-city/stevens-house": 10
+  },
+  "methods": {
+    "walk": 0,
+    "horde": 0,
+    "static": 0,
+    "gift": 0,
+    "gift-egg": 0,
+    "old-rod": 1,
+    "rock-smash": 3,
+    "surf": 5,
+    "good-rod": 5,
+    "devon-scope": 5,
+    "super-rod": 6,
+    "seaweed": 7
+  },
+  "conditions": {
+    "story-progress-defeated-groudon-or-kyogre": 7,
+    "item-clear-bell": 8,
+    "item-tidal-bell": 8,
+    "other-castform-in-party": 10,
+    "other-dialga-or-palkia-in-party": 10,
+    "other-level-100-pokemon-in-party": 10,
+    "other-nicknamed-cold-item-regice-regirock-registeel3": 10,
+    "other-reshiram-zekrom-in-party": 10,
+    "other-tornadus-thundurus-in-party": 10,
+    "other-uxie-mesprit-azelf-in-party": 10
+  },
+  "items": {
+    "kings-rock": 0,
+    "fire-stone": 2,
+    "water-stone": 2,
+    "thunder-stone": 2,
+    "leaf-stone": 2,
+    "moon-stone": 2,
+    "sun-stone": 2,
+    "shiny-stone": 2,
+    "dusk-stone": 2,
+    "dawn-stone": 2,
+    "metal-coat": 2,
+    "deep-sea-tooth": 5,
+    "deep-sea-scale": 7,
+    "oval-stone": 7,
+    "electirizer": 7,
+    "magmarizer": 7,
+    "up-grade": 10,
+    "dubious-disc": 10
+  },
+  "starters": [252, 255, 258],
+  "overrides": [
+    {
+      "species": 252,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Hoenn starter from Professor Birch on Route 101 (Route 101 is mapped post-game because its other gifts, the Johto/Sinnoh/Unova starters, are post-game)."
+    },
+    {
+      "species": 255,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Hoenn starter from Professor Birch on Route 101 (Route 101 is mapped post-game because its other gifts, the Johto/Sinnoh/Unova starters, are post-game)."
+    },
+    {
+      "species": 258,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Hoenn starter from Professor Birch on Route 101 (Route 101 is mapped post-game because its other gifts, the Johto/Sinnoh/Unova starters, are post-game)."
+    },
+    {
+      "species": 381,
+      "versions": [
+        "omega-ruby"
+      ],
+      "step": 5,
+      "flags": [
+        "gift"
+      ],
+      "note": "Latios joins on Southern Island after the Balance Badge (Surf across Route 118). Southern Island is mapped post-game because the other Eon Pokémon there needs the event-only Eon Ticket."
+    },
+    {
+      "species": 380,
+      "versions": [
+        "alpha-sapphire"
+      ],
+      "step": 5,
+      "flags": [
+        "gift"
+      ],
+      "note": "Latias joins on Southern Island after the Balance Badge (Surf across Route 118). Southern Island is mapped post-game because the other Eon Pokémon there needs the event-only Eon Ticket."
+    }
+  ]
+}

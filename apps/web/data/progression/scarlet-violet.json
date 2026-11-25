@@ -1,0 +1,125 @@
+{
+  "versionGroup": "scarlet-violet",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Katy (and Brassius, Iono, Kofu, Larry, Ryme, Tulip, Grusha, Geeta): first Scarlet/Violet battle, highest level",
+    "Paldea is open world: steps follow the gyms' level order, and each encounter's step comes from its level (build-games.mjs, data/encounters/)",
+    "Items: shortcut, evolution items count as available from the start (no shop or badge gating); Indigo Disk items at post-game; null = not in Scarlet/Violet (Bulbapedia item pages)"
+  ],
+  "steps": [
+    {
+      "en": "Start",
+      "fr": "Départ"
+    },
+    {
+      "en": "Badge 1 · Katy",
+      "fr": "Badge 1 · Éra"
+    },
+    {
+      "en": "Badge 2 · Brassius",
+      "fr": "Badge 2 · Colza"
+    },
+    {
+      "en": "Badge 3 · Iono",
+      "fr": "Badge 3 · Mashynn"
+    },
+    {
+      "en": "Badge 4 · Kofu",
+      "fr": "Badge 4 · Kombu"
+    },
+    {
+      "en": "Badge 5 · Larry",
+      "fr": "Badge 5 · Okuba"
+    },
+    {
+      "en": "Badge 6 · Ryme",
+      "fr": "Badge 6 · Laïm"
+    },
+    {
+      "en": "Badge 7 · Tulip",
+      "fr": "Badge 7 · Tully"
+    },
+    {
+      "en": "Badge 8 · Grusha",
+      "fr": "Badge 8 · Grusha"
+    },
+    {
+      "en": "Champion · Elite Four",
+      "fr": "Maître · Conseil 4"
+    },
+    {
+      "en": "Post-game · Area Zero",
+      "fr": "Après-jeu · Zone Zéro"
+    }
+  ],
+  "postgame": 10,
+  "daycare": 0,
+  "levelCap": [
+    15,
+    17,
+    24,
+    30,
+    36,
+    42,
+    45,
+    48,
+    62,
+    72,
+    100
+  ],
+  "starters": [
+    906,
+    909,
+    912
+  ],
+  "locations": {},
+  "items": {
+    "auspicious-armor": 0,
+    "berry-sweet": 0,
+    "chipped-pot": 0,
+    "clover-sweet": 0,
+    "cracked-pot": 0,
+    "dawn-stone": 0,
+    "dragon-scale": 0,
+    "dubious-disc": 0,
+    "dusk-stone": 0,
+    "electirizer": 0,
+    "fire-stone": 0,
+    "flower-sweet": 0,
+    "ice-stone": 0,
+    "kings-rock": 0,
+    "leaf-stone": 0,
+    "love-sweet": 0,
+    "magmarizer": 0,
+    "malicious-armor": 0,
+    "masterpiece-teacup": 0,
+    "metal-coat": 0,
+    "moon-stone": 0,
+    "oval-stone": 0,
+    "prism-scale": 0,
+    "protector": 0,
+    "razor-claw": 0,
+    "razor-fang": 0,
+    "reaper-cloth": 0,
+    "ribbon-sweet": 0,
+    "shiny-stone": 0,
+    "star-sweet": 0,
+    "strawberry-sweet": 0,
+    "sun-stone": 0,
+    "sweet-apple": 0,
+    "syrupy-apple": 0,
+    "tart-apple": 0,
+    "thunder-stone": 0,
+    "unremarkable-teacup": 0,
+    "up-grade": 0,
+    "water-stone": 0,
+    "galarica-cuff": 10,
+    "galarica-wreath": 10,
+    "metal-alloy": 10,
+    "meteorite": 10,
+    "scroll-of-darkness": 10,
+    "scroll-of-waters": 10,
+    "black-augurite": null,
+    "linking-cord": null,
+    "peat-block": null
+  }
+}

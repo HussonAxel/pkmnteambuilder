@@ -1,0 +1,1736 @@
+{
+  "versionGroup": "sword-shield",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Sword_and_Shield (parts 1-20)",
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:The_Isle_of_Armor (parts 1-8)",
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:The_Crown_Tundra (parts 1-6)",
+    "https://bulbapedia.bulbagarden.net/wiki/Badge#Catch_level_limit",
+    "https://bulbapedia.bulbagarden.net/wiki/Max_Raid_Battle",
+    "https://bulbapedia.bulbagarden.net/wiki/Dynamax_Adventure",
+    "https://bulbapedia.bulbagarden.net/wiki/Wild_Area",
+    "https://bulbapedia.bulbagarden.net/wiki/Rotom_Bike",
+    "https://bulbapedia.bulbagarden.net/wiki/The_Isle_of_Armor",
+    "https://bulbapedia.bulbagarden.net/wiki/The_Crown_Tundra",
+    "https://bulbapedia.bulbagarden.net/wiki/Fields_of_Honor (Diglett counts per area)",
+    "https://bulbapedia.bulbagarden.net/wiki/In-game_trade (Regina, Isle of Armor)",
+    "https://bulbapedia.bulbagarden.net/wiki/Cram-o-matic",
+    "https://bulbapedia.bulbagarden.net/wiki/Galar_Route_2",
+    "https://bulbapedia.bulbagarden.net/wiki/Turffield",
+    "https://bulbapedia.bulbagarden.net/wiki/Motostoke_Stadium",
+    "https://bulbapedia.bulbagarden.net/wiki/Roaring-Sea_Caves",
+    "https://bulbapedia.bulbagarden.net/wiki/Fossilized_Bird (and Fossilized_Fish, Fossilized_Drake, Fossilized_Dino)",
+    "https://bulbapedia.bulbagarden.net/wiki/Cosmog_(Pok%C3%A9mon)",
+    "https://bulbapedia.bulbagarden.net/wiki/Dawn_Stone (and the other evolution item pages: Dusk/Fire/Ice/Leaf/Moon/Shiny/Sun/Thunder/Water Stone, Dragon Scale, Dubious Disc, Electirizer, Magmarizer, Metal Coat, Oval Stone, Prism Scale, Protector, Razor Claw, Reaper Cloth, Sachet, Whipped Dream, Upgrade, King's Rock, Sweet/Tart Apple, Chipped/Cracked Pot, the Sweets, Galarica Cuff, Galarica Wreath)",
+    "https://www.pokepedia.fr/Badge",
+    "https://www.pokepedia.fr/Ligue_de_Galar"
+  ],
+  "steps": [
+    {
+      "en": "Start",
+      "fr": "Départ"
+    },
+    {
+      "en": "Badge 1 · Milo",
+      "fr": "Badge 1 · Percy"
+    },
+    {
+      "en": "Badge 2 · Nessa",
+      "fr": "Badge 2 · Donna"
+    },
+    {
+      "en": "Badge 3 · Kabu",
+      "fr": "Badge 3 · Kabu"
+    },
+    {
+      "en": "Badge 4 · Bea / Allister",
+      "fr": "Badge 4 · Faïza / Alistair"
+    },
+    {
+      "en": "Badge 5 · Opal",
+      "fr": "Badge 5 · Sally"
+    },
+    {
+      "en": "Badge 6 · Gordie / Melony",
+      "fr": "Badge 6 · Chaz / Lona"
+    },
+    {
+      "en": "Badge 7 · Piers",
+      "fr": "Badge 7 · Peterson"
+    },
+    {
+      "en": "Badge 8 · Raihan",
+      "fr": "Badge 8 · Roy"
+    },
+    {
+      "en": "Champion Cup",
+      "fr": "Poké Masters"
+    },
+    {
+      "en": "Post-game",
+      "fr": "Après-jeu"
+    }
+  ],
+  "postgame": 10,
+  "daycare": 1,
+  "levelCap": [
+    20,
+    24,
+    27,
+    36,
+    38,
+    42,
+    46,
+    48,
+    49,
+    65,
+    100
+  ],
+  "locations": {
+    "galar-route-1": 0,
+    "wedgehurst": 0,
+    "galar-route-2": 7,
+    "motostoke": 2,
+    "galar-route-3": 0,
+    "galar-mine": 0,
+    "galar-route-4": 0,
+    "turffield": 6,
+    "galar-route-5": 1,
+    "hulbury": 1,
+    "galar-mine-no-2": 6,
+    "motostoke-outskirts": 2,
+    "galar-route-6": 3,
+    "glimwood-tangle": 4,
+    "galar-route-7": 5,
+    "galar-route-8": 5,
+    "galar-route-9": 7,
+    "galar-route-10": 8,
+    "slumbering-weald": 10,
+    "energy-plant": 10,
+    "postwick": 0,
+    "galar-battle-tower": 10,
+    "master-dojo": 0,
+    "fields-of-honor": 0,
+    "freezington": 0,
+    "max-lair": 8,
+    "hammerlocke": 3,
+    "stow-on-side": 3,
+    "ballonlea": 4,
+    "circhester": 5,
+    "spikemuth": 6,
+    "wyndon": 8,
+    "isle-of-armor-caves": 0,
+    "rolling-fields": 0,
+    "dappled-grove": 0,
+    "west-lake-axewell": 0,
+    "watchtower-ruins": 2,
+    "east-lake-axewell": 0,
+    "axews-eye": 6,
+    "north-lake-miloch": 2,
+    "giants-seat": 3,
+    "south-lake-miloch": 0,
+    "motostoke-riverbank": 3,
+    "bridge-field": 3,
+    "stony-wilderness": 3,
+    "giants-cap": 5,
+    "dusty-bowl": 7,
+    "giants-mirror": 5,
+    "lake-of-outrage": 7,
+    "hammerlocke-hills": 4,
+    "soothing-wetlands": 0,
+    "forest-of-focus": 0,
+    "challenge-beach": 0,
+    "brawlers-cave": 0,
+    "challenge-road": 0,
+    "courageous-cavern": 0,
+    "loop-lagoon": 0,
+    "training-lowlands": 0,
+    "warm-up-tunnel": 0,
+    "potbottom-desert": 0,
+    "workout-sea": 6,
+    "stepping-stone-sea": 6,
+    "insular-sea": 6,
+    "honeycalm-sea": 6,
+    "honeycalm-island": 6,
+    "slippery-slope": 8,
+    "frostpoint-field": 8,
+    "giants-bed": 8,
+    "galar-rock-peak-ruins": 8,
+    "galar-iron-ruins": 8,
+    "galar-iceberg-ruins": 8,
+    "split-decision-ruins": 8,
+    "old-cemetery": 8,
+    "snowslide-slope": 8,
+    "tunnel-to-the-top": 8,
+    "path-to-the-peak": 8,
+    "crown-shrine": 8,
+    "giants-foot": 8,
+    "roaring-sea-caves": 8,
+    "frigid-sea": 8,
+    "three-point-pass": 8,
+    "ballimere-lake": 8,
+    "lakeside-cave": 8,
+    "dyna-tree-hill": 0,
+    "roaming-crown-tundra": 8,
+    "roaming-galar-wild-area": 8,
+    "roaming-isle-of-armor": 8,
+    "galar-wild-area-max-dens": 0
+  },
+  "areas": {
+    "galar-route-2/main": 0,
+    "galar-route-2/lakeside": 6,
+    "motostoke/main": 0,
+    "motostoke/pokemon-center": 0,
+    "turffield/gym": 0,
+    "galar-route-9/circhester-bay": 6,
+    "galar-route-9/outer-spikemuth": 6,
+    "slumbering-weald/main": 0,
+    "watchtower-ruins/max-den-a": 0,
+    "watchtower-ruins/max-den-c": 0,
+    "north-lake-miloch/max-den-a": 0,
+    "north-lake-miloch/max-den-b": 0,
+    "north-lake-miloch/max-den-c": 0,
+    "north-lake-miloch/max-den-d": 0,
+    "north-lake-miloch/max-den-e": 0,
+    "north-lake-miloch/max-den-f": 0,
+    "giants-seat/max-den-a": 0,
+    "giants-seat/max-den-b": 0,
+    "giants-seat/max-den-c": 0,
+    "giants-seat/max-den-d": 0,
+    "giants-seat/max-den-e": 0,
+    "giants-cap/main": 3,
+    "giants-cap/area-3": 3,
+    "giants-cap/max-den-a": 3,
+    "giants-cap/max-den-b": 3,
+    "giants-cap/max-den-c": 3,
+    "giants-cap/max-den-d": 3,
+    "giants-cap/max-den-e": 3,
+    "dusty-bowl/max-den-a": 3,
+    "dusty-bowl/max-den-b": 3,
+    "dusty-bowl/max-den-c": 3,
+    "dusty-bowl/max-den-d": 3,
+    "dusty-bowl/max-den-e": 3,
+    "dusty-bowl/max-den-f": 3,
+    "dusty-bowl/max-den-g": 3,
+    "dusty-bowl/max-den-h": 3,
+    "dusty-bowl/max-den-i": 3,
+    "giants-mirror/main": 3,
+    "giants-mirror/max-den-a": 3,
+    "giants-mirror/max-den-b": 3,
+    "giants-mirror/max-den-c": 3,
+    "giants-mirror/max-den-d": 3,
+    "giants-mirror/max-den-e": 3,
+    "lake-of-outrage/max-den-a": 6,
+    "lake-of-outrage/max-den-b": 6,
+    "lake-of-outrage/max-den-c": 6,
+    "lake-of-outrage/max-den-d": 6,
+    "hammerlocke-hills/max-den-a": 3,
+    "hammerlocke-hills/max-den-b": 3,
+    "hammerlocke-hills/max-den-c": 3,
+    "hammerlocke-hills/max-den-d": 3,
+    "hammerlocke-hills/max-den-e": 3,
+    "hammerlocke-hills/max-den-f": 3,
+    "hammerlocke-hills/max-den-g": 3,
+    "slippery-slope/max-den-a": 0,
+    "slippery-slope/max-den-b": 0,
+    "slippery-slope/max-den-c": 0,
+    "slippery-slope/max-den-d": 0,
+    "slippery-slope/max-den-e": 0,
+    "slippery-slope/max-den-f": 0,
+    "frostpoint-field/max-den-a": 0,
+    "frostpoint-field/max-den-b": 0,
+    "frostpoint-field/max-den-c": 0,
+    "frostpoint-field/max-den-d": 0,
+    "frostpoint-field/max-den-e": 0,
+    "giants-bed/max-den-a": 0,
+    "giants-bed/max-den-b": 0,
+    "giants-bed/max-den-c": 0,
+    "giants-bed/max-den-d": 0,
+    "giants-bed/max-den-e": 0,
+    "giants-bed/max-den-f": 0,
+    "giants-bed/max-den-g": 0,
+    "giants-bed/max-den-h": 0,
+    "giants-bed/max-den-i": 0,
+    "giants-bed/max-den-j": 0,
+    "giants-bed/max-den-k": 0,
+    "giants-bed/max-den-l": 0,
+    "giants-bed/max-den-m": 0,
+    "giants-bed/max-den-n": 0,
+    "giants-bed/max-den-o": 0,
+    "giants-bed/max-den-p": 0,
+    "giants-bed/max-den-q": 0,
+    "giants-bed/max-den-r": 0,
+    "giants-bed/max-den-s": 0,
+    "giants-bed/max-den-t": 0,
+    "giants-bed/max-den-u": 0,
+    "old-cemetery/max-den-a": 0,
+    "old-cemetery/max-den-b": 0,
+    "snowslide-slope/max-den-a": 0,
+    "snowslide-slope/max-den-b": 0,
+    "snowslide-slope/max-den-c": 0,
+    "snowslide-slope/max-den-d": 0,
+    "snowslide-slope/max-den-e": 0,
+    "snowslide-slope/max-den-f": 0,
+    "snowslide-slope/max-den-g": 0,
+    "snowslide-slope/max-den-h": 0,
+    "snowslide-slope/max-den-i": 0,
+    "path-to-the-peak/max-den-a": 0,
+    "path-to-the-peak/max-den-b": 0,
+    "path-to-the-peak/max-den-c": 0,
+    "crown-shrine/max-den-a": 0,
+    "giants-foot/max-den-a": 0,
+    "giants-foot/max-den-b": 0,
+    "giants-foot/max-den-c": 0,
+    "giants-foot/max-den-d": 0,
+    "giants-foot/max-den-e": 0,
+    "frigid-sea/max-den-a": 6,
+    "frigid-sea/max-den-b": 6,
+    "frigid-sea/max-den-c": 6,
+    "frigid-sea/max-den-d": 6,
+    "frigid-sea/max-den-e": 6,
+    "frigid-sea/max-den-f": 6,
+    "frigid-sea/max-den-g": 6,
+    "frigid-sea/max-den-h": 6,
+    "frigid-sea/max-den-i": 6,
+    "frigid-sea/max-den-j": 6,
+    "frigid-sea/max-den-k": 6,
+    "frigid-sea/max-den-l": 6,
+    "frigid-sea/max-den-m": 6,
+    "frigid-sea/max-den-n": 6,
+    "three-point-pass/max-den-a": 0,
+    "three-point-pass/max-den-b": 0,
+    "ballimere-lake/max-den-a": 0,
+    "ballimere-lake/max-den-b": 0,
+    "ballimere-lake/max-den-c": 0,
+    "ballimere-lake/max-den-d": 0,
+    "ballimere-lake/max-den-e": 0,
+    "ballimere-lake/max-den-f": 0,
+    "ballimere-lake/max-den-g": 0,
+    "ballimere-lake/max-den-h": 0,
+    "ballimere-lake/max-den-i": 0,
+    "ballimere-lake/max-den-j": 0,
+    "ballimere-lake/max-den-k": 0,
+    "ballimere-lake/max-den-l": 0,
+    "ballimere-lake/max-den-m": 0,
+    "ballimere-lake/max-den-n": 0,
+    "ballimere-lake/max-den-o": 0,
+    "ballimere-lake/max-den-p": 0,
+    "ballimere-lake/max-den-q": 0
+  },
+  "methods": {
+    "overworld-water": 6,
+    "chase-water": 6,
+    "wanderer": 8,
+    "wanderer-water": 8,
+    "berry-trees": 0,
+    "bubbling-spots": 0,
+    "dynamax-adventure": 0,
+    "gift": 0,
+    "max-raid": 0,
+    "npc-trade": 0,
+    "overworld": 0,
+    "overworld-dirt": 0,
+    "overworld-flying": 0,
+    "static": 0,
+    "walk": 0
+  },
+  "conditions": {
+    "starter-grookey": 0,
+    "starter-scorbunny": 0,
+    "starter-sobble": 0,
+    "max-den-rarity-common": 0,
+    "max-den-rarity-rare": 0,
+    "max-den-rarity-special": 0,
+    "max-den-rating-1-star": 0,
+    "max-den-rating-2-star": 1,
+    "max-den-rating-3-star": 3,
+    "max-den-rating-4-star": 6,
+    "max-den-rating-5-star": 8,
+    "alolan-diglett-found-5": 0,
+    "alolan-diglett-found-10": 0,
+    "alolan-diglett-found-20": 0,
+    "alolan-diglett-found-30": 0,
+    "alolan-diglett-found-40": 0,
+    "alolan-diglett-found-50": 0,
+    "alolan-diglett-found-75": 0,
+    "alolan-diglett-found-100": 6,
+    "alolan-diglett-found-150": 6,
+    "item-fossilized-bird": 3,
+    "item-fossilized-dino": 3,
+    "item-fossilized-drake": 3,
+    "item-fossilized-fish": 3,
+    "story-progress-master-dojo-complete-first-trial": 0,
+    "story-progress-master-dojo-complete-third-trial": 10,
+    "item-reins-of-unity": 8,
+    "other-grow-iceroot-carrot": 8,
+    "other-grow-shaderoot-carrot": 8,
+    "other-choose-regidrago-pattern": 8,
+    "other-choose-regieleki-pattern": 8,
+    "other-eat-curry-with-cobalion-terrakion-virizion": 8,
+    "other-find-50-cavern-footprints": 8,
+    "other-find-50-grassland-footprints": 8,
+    "other-find-50-iron-will-footprints": 8,
+    "other-regirock-regice-registeel-regieleki-regidrago-in-party": 8,
+    "other-talked-to-32-people": 8,
+    "other-witness-galarian-bird-fight": 8,
+    "story-progress-catch-five-ultra-beasts": 8,
+    "story-progress-save-village-from-glastrier-spectrier": 8
+  },
+  "items": {
+    "dawn-stone": 0,
+    "dusk-stone": 0,
+    "fire-stone": 0,
+    "ice-stone": 0,
+    "leaf-stone": 0,
+    "moon-stone": 0,
+    "shiny-stone": 0,
+    "sun-stone": 0,
+    "thunder-stone": 0,
+    "water-stone": 0,
+    "dragon-scale": 0,
+    "dubious-disc": 0,
+    "electirizer": 0,
+    "magmarizer": 0,
+    "metal-coat": 0,
+    "oval-stone": 0,
+    "prism-scale": 0,
+    "protector": 0,
+    "razor-claw": 0,
+    "reaper-cloth": 0,
+    "sachet": 0,
+    "whipped-dream": 0,
+    "up-grade": 0,
+    "kings-rock": 0,
+    "sweet-apple": 0,
+    "tart-apple": 0,
+    "chipped-pot": 0,
+    "cracked-pot": 0,
+    "strawberry-sweet": 0,
+    "love-sweet": 0,
+    "berry-sweet": 0,
+    "clover-sweet": 0,
+    "flower-sweet": 0,
+    "star-sweet": 0,
+    "ribbon-sweet": 0,
+    "galarica-cuff": 6,
+    "galarica-wreath": 6,
+    "black-augurite": 10,
+    "linking-cord": 10,
+    "meteorite": 10
+  },
+  "starters": [
+    810,
+    813,
+    816
+  ],
+  "exclude": [
+    899,
+    900,
+    901,
+    902,
+    903,
+    904
+  ],
+  "overrides": [
+    {
+      "species": 2,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 5,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 8,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 26,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 28,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 31,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 34,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 35,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 36,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 37,
+      "step": 2,
+      "note": "wanderer Lv 24 at motostoke/gym: catchable with this badge",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 40,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 44,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 45,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 51,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 53,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 55,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 58,
+      "step": 3,
+      "note": "walk Lv 28 at hammerlocke-hills: catchable with this badge",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 61,
+      "step": 0,
+      "note": "wanderer Lv 20 at soothing-wetlands: catchable with this badge"
+    },
+    {
+      "species": 62,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 64,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 65,
+      "step": 6,
+      "note": "wanderer Lv 50 at loop-lagoon: catchable with this badge"
+    },
+    {
+      "species": 67,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 73,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 80,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 82,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 93,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 99,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 103,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 105,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 106,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 107,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 112,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 117,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 119,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 121,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 124,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 125,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 126,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 130,
+      "step": 2,
+      "note": "bubbling-spots Lv 30 at giants-seat: catchable with this badge"
+    },
+    {
+      "species": 132,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 134,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 135,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 136,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 137,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 143,
+      "step": 4,
+      "note": "wanderer Lv 36 at motostoke-riverbank: catchable with this badge"
+    },
+    {
+      "species": 144,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 145,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 146,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 148,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 150,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 164,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 171,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 176,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 178,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 182,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 183,
+      "step": 0,
+      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 184,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 185,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 186,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 195,
+      "step": 0,
+      "note": "wanderer Lv 15 at west-lake-axewell: catchable with this badge"
+    },
+    {
+      "species": 199,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 212,
+      "step": 4,
+      "note": "wanderer Lv 40 at challenge-road: catchable with this badge"
+    },
+    {
+      "species": 221,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 226,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 237,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 243,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 244,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 245,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 249,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 250,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 253,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 254,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 256,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 257,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 259,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 260,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 264,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 279,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 291,
+      "step": 0,
+      "note": "wanderer Lv 15 at rolling-fields/main: catchable with this badge"
+    },
+    {
+      "species": 295,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 305,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 310,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 330,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 334,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 342,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 344,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 346,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 348,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 356,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 362,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 364,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 369,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 375,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 380,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 381,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 382,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 383,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 384,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 404,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 405,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 407,
+      "step": 5,
+      "note": "wanderer Lv 41 at hammerlocke-hills: catchable with this badge"
+    },
+    {
+      "species": 416,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 421,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 423,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 426,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 428,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 435,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 437,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 446,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 448,
+      "step": 4,
+      "note": "wanderer Lv 36 at north-lake-miloch: catchable with this badge"
+    },
+    {
+      "species": 452,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 454,
+      "step": 2,
+      "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 460,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 462,
+      "step": 4,
+      "note": "wanderer Lv 36 at challenge-beach: catchable with this badge"
+    },
+    {
+      "species": 463,
+      "step": 2,
+      "note": "wanderer Lv 27 at soothing-wetlands: catchable with this badge"
+    },
+    {
+      "species": 464,
+      "step": 6,
+      "note": "wanderer Lv 50 at potbottom-desert: catchable with this badge"
+    },
+    {
+      "species": 465,
+      "step": 4,
+      "note": "wanderer Lv 36 at forest-of-focus: catchable with this badge"
+    },
+    {
+      "species": 475,
+      "step": 3,
+      "note": "wanderer Lv 32 at challenge-road: catchable with this badge"
+    },
+    {
+      "species": 478,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 479,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 480,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 481,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 482,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 483,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 484,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 485,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 487,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 488,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 507,
+      "step": 2,
+      "note": "wanderer Lv 28 at training-lowlands: catchable with this badge"
+    },
+    {
+      "species": 508,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 510,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 518,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 521,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 525,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 526,
+      "step": 5,
+      "note": "wanderer Lv 42 at brawlers-cave: catchable with this badge"
+    },
+    {
+      "species": 528,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 531,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 533,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 536,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 537,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 545,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 547,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 549,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 550,
+      "step": 0,
+      "note": "bubbling-spots Lv 14 at north-lake-miloch: catchable with this badge",
+      "flags": [
+        "rare"
+      ]
+    },
+    {
+      "species": 553,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 556,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 558,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 560,
+      "step": 2,
+      "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 561,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 563,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 569,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 573,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 583,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 589,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 591,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 593,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 596,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 600,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 601,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 606,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 608,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 611,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 614,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 615,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 617,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 620,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 623,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 625,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 628,
+      "step": 2,
+      "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 630,
+      "step": 2,
+      "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 631,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 637,
+      "step": 5,
+      "note": "wanderer Lv 42 at challenge-beach: catchable with this badge"
+    },
+    {
+      "species": 641,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 642,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 643,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 644,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 645,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 646,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 660,
+      "step": 0,
+      "note": "wanderer Lv 15 at rolling-fields/main: catchable with this badge"
+    },
+    {
+      "species": 662,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 663,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 675,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 680,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 687,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 689,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 695,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 697,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 699,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 701,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 709,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 711,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 716,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 717,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 737,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 738,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 743,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 745,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 748,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 750,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 752,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 754,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 756,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 758,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 760,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 763,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 764,
+      "step": 0,
+      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 768,
+      "step": 3,
+      "note": "wanderer Lv 32 at courageous-cavern: catchable with this badge"
+    },
+    {
+      "species": 770,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 777,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 778,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 785,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 786,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 787,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 788,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 791,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "sword"
+      ]
+    },
+    {
+      "species": 792,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 820,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 822,
+      "step": 0,
+      "note": "wanderer Lv 18 at galar-route-3/east: catchable with this badge"
+    },
+    {
+      "species": 826,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 828,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 830,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 832,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 834,
+      "step": 0,
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+    },
+    {
+      "species": 836,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 838,
+      "step": 0,
+      "note": "wanderer Lv 18 at galar-mine: catchable with this badge"
+    },
+    {
+      "species": 839,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 844,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 845,
+      "step": 0,
+      "note": "wanderer Lv 20 at forest-of-focus: catchable with this badge"
+    },
+    {
+      "species": 847,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 849,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 851,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 853,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 855,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 858,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 861,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 862,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 863,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 869,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 873,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 876,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "versions": [
+        "shield"
+      ]
+    },
+    {
+      "species": 879,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 886,
+      "step": 0,
+      "note": "Dynamax Adventure catch, ignores the badge level cap"
+    },
+    {
+      "species": 890,
+      "step": 9,
+      "note": "caught during the Champion Cup (Darkest Day)",
+      "flags": [
+        "static"
+      ]
+    },
+    {
+      "species": 891,
+      "step": 0,
+      "note": "Master Dojo third trial reward",
+      "flags": [
+        "gift"
+      ]
+    }
+  ]
+}

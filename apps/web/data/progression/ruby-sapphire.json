@@ -1,0 +1,236 @@
+{
+  "versionGroup": "ruby-sapphire",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Ruby_and_Sapphire (parts 1-22, via web.archive.org)",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_116",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_118",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_120",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_129",
+    "https://bulbapedia.bulbagarden.net/wiki/Hoenn_Safari_Zone",
+    "https://bulbapedia.bulbagarden.net/wiki/Cave_of_Origin",
+    "https://bulbapedia.bulbagarden.net/wiki/Southern_Island",
+    "https://bulbapedia.bulbagarden.net/wiki/Sky_Pillar",
+    "https://bulbapedia.bulbagarden.net/wiki/Beldum_(Pok%C3%A9mon)",
+    "https://bulbapedia.bulbagarden.net/wiki/Fire_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Water_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Thunder_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Leaf_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Moon_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Sun_Stone",
+    "https://bulbapedia.bulbagarden.net/wiki/Dragon_Scale",
+    "https://bulbapedia.bulbagarden.net/wiki/Deep_Sea_Tooth",
+    "https://bulbapedia.bulbagarden.net/wiki/Deep_Sea_Scale",
+    "https://www.pokepedia.fr/Champion_d%27Ar%C3%A8ne"
+  ],
+  "steps": [
+    {
+      "en": "Start",
+      "fr": "Départ"
+    },
+    {
+      "en": "Badge 1 · Roxanne",
+      "fr": "Badge 1 · Roxanne"
+    },
+    {
+      "en": "Badge 2 · Brawly",
+      "fr": "Badge 2 · Bastien"
+    },
+    {
+      "en": "Badge 3 · Wattson",
+      "fr": "Badge 3 · Voltère"
+    },
+    {
+      "en": "Badge 4 · Flannery",
+      "fr": "Badge 4 · Adriane"
+    },
+    {
+      "en": "Badge 5 · Norman",
+      "fr": "Badge 5 · Norman"
+    },
+    {
+      "en": "Badge 6 · Winona",
+      "fr": "Badge 6 · Alizée"
+    },
+    {
+      "en": "Badge 7 · Tate & Liza",
+      "fr": "Badge 7 · Lévy & Tatia"
+    },
+    {
+      "en": "Badge 8 · Wallace",
+      "fr": "Badge 8 · Marc"
+    },
+    {
+      "en": "League",
+      "fr": "Ligue"
+    },
+    {
+      "en": "Post-game",
+      "fr": "Après-jeu"
+    }
+  ],
+  "postgame": 10,
+  "daycare": 2,
+  "levelCap": [
+    15,
+    18,
+    23,
+    28,
+    31,
+    33,
+    42,
+    43,
+    58,
+    58,
+    100
+  ],
+  "locations": {
+    "hoenn-route-101": 0,
+    "hoenn-route-102": 0,
+    "hoenn-route-103": 0,
+    "hoenn-route-104": 0,
+    "petalburg-city": 0,
+    "petalburg-woods": 0,
+    "rustboro-city": 0,
+    "hoenn-route-115": 0,
+    "hoenn-route-116": 1,
+    "rusturf-tunnel": 1,
+    "dewford-town": 1,
+    "hoenn-route-106": 1,
+    "granite-cave": 1,
+    "hoenn-route-109": 2,
+    "slateport-city": 2,
+    "hoenn-route-110": 2,
+    "hoenn-route-117": 2,
+    "hoenn-route-118": 2,
+    "hoenn-route-112": 3,
+    "fiery-path": 3,
+    "hoenn-route-113": 3,
+    "hoenn-route-114": 3,
+    "meteor-falls": 3,
+    "jagged-pass": 3,
+    "lavaridge-town": 3,
+    "hoenn-route-111": 4,
+    "hoenn-route-105": 5,
+    "hoenn-route-107": 5,
+    "hoenn-route-108": 5,
+    "abandoned-ship": 5,
+    "new-mauville": 5,
+    "hoenn-route-119": 5,
+    "fortree-city": 5,
+    "hoenn-route-120": 5,
+    "hoenn-route-121": 5,
+    "hoenn-safari-zone": 5,
+    "hoenn-route-122": 5,
+    "mt-pyre": 5,
+    "hoenn-route-123": 5,
+    "lilycove-city": 5,
+    "team-magma-hideout": 6,
+    "team-aqua-hideout": 6,
+    "hoenn-route-124": 6,
+    "mossdeep-city": 6,
+    "hoenn-route-125": 6,
+    "shoal-cave": 6,
+    "hoenn-route-126": 6,
+    "hoenn-route-127": 6,
+    "hoenn-route-128": 6,
+    "hoenn-route-129": 6,
+    "hoenn-route-130": 6,
+    "hoenn-route-131": 6,
+    "hoenn-route-132": 6,
+    "hoenn-route-133": 6,
+    "hoenn-route-134": 6,
+    "pacifidlog-town": 6,
+    "mirage-island": 6,
+    "seafloor-cavern": 7,
+    "sootopolis-city": 7,
+    "cave-of-origin": 7,
+    "desert-ruins": 7,
+    "ancient-tomb": 7,
+    "island-cave": 7,
+    "ever-grande-city": 8,
+    "hoenn-victory-road": 8,
+    "sky-pillar": 10,
+    "southern-island": 10,
+    "roaming-hoenn": 10
+  },
+  "areas": {
+    "mossdeep-city/stevens-house": 10,
+    "meteor-falls/b1f": 8,
+    "meteor-falls/back": 8,
+    "meteor-falls/backsmall-room": 8,
+    "hoenn-route-124/underwater": 7,
+    "hoenn-route-126/underwater": 7
+  },
+  "methods": {
+    "walk": 0,
+    "gift": 0,
+    "gift-egg": 0,
+    "static": 0,
+    "npc-trade": 0,
+    "old-rod": 1,
+    "good-rod": 5,
+    "super-rod": 6,
+    "surf": 5,
+    "rock-smash": 3,
+    "seaweed": 7,
+    "devon-scope": 5,
+    "feebas-tile-fishing": 5,
+    "roaming-grass": 10,
+    "roaming-water": 10
+  },
+  "conditions": {
+    "item-claw-fossil": 4,
+    "item-root-fossil": 4
+  },
+  "items": {
+    "fire-stone": 4,
+    "leaf-stone": 5,
+    "thunder-stone": 5,
+    "sun-stone": 6,
+    "dragon-scale": 6,
+    "water-stone": 7,
+    "deep-sea-scale": 7,
+    "deep-sea-tooth": 7,
+    "moon-stone": 8
+  },
+  "starters": [
+    252,
+    255,
+    258
+  ],
+  "overrides": [
+    {
+      "species": 40,
+      "versions": [
+        "sapphire"
+      ],
+      "flags": [
+        "rare"
+      ],
+      "step": 3,
+      "note": "Moon Stone held by wild Lunatone (5%) in Meteor Falls 1F, Sapphire only; otherwise Moon Stone needs Waterfall (badge 8)."
+    },
+    {
+      "species": 301,
+      "versions": [
+        "sapphire"
+      ],
+      "flags": [
+        "rare"
+      ],
+      "step": 3,
+      "note": "Moon Stone held by wild Lunatone (5%) in Meteor Falls 1F, Sapphire only; otherwise Moon Stone needs Waterfall (badge 8)."
+    },
+    {
+      "species": 182,
+      "versions": [
+        "ruby"
+      ],
+      "flags": [
+        "rare"
+      ],
+      "step": 3,
+      "note": "Sun Stone held by wild Solrock (5%) in Meteor Falls 1F, Ruby only; otherwise from the Mossdeep Space Center (badge 6)."
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "versionGroup": "black-white",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Black_and_White",
+    "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Black_and_White/Part_1 (parts 1-18)",
+    "https://bulbapedia.bulbagarden.net/wiki/Phenomenon",
+    "https://bulbapedia.bulbagarden.net/wiki/Dreamyard",
+    "https://bulbapedia.bulbagarden.net/wiki/Unova_Route_1",
+    "https://bulbapedia.bulbagarden.net/wiki/Relic_Castle",
+    "https://bulbapedia.bulbagarden.net/wiki/Victory_Road_(Black_and_White)",
+    "https://bulbapedia.bulbagarden.net/wiki/Pinwheel_Forest",
+    "https://bulbapedia.bulbagarden.net/wiki/Dragonspiral_Tower",
+    "https://bulbapedia.bulbagarden.net/wiki/Twist_Mountain",
+    "https://bulbapedia.bulbagarden.net/wiki/Mistralton_Cave",
+    "https://bulbapedia.bulbagarden.net/wiki/Unova_Route_18",
+    "https://bulbapedia.bulbagarden.net/wiki/Nacrene_City",
+    "https://bulbapedia.bulbagarden.net/wiki/Unova_Route_2 (and the other story location pages: Routes 3-10, 17, Wellspring Cave, Desert Resort, Driftveil City, Driftveil Drawbridge, Cold Storage, Chargestone Cave, Celestial Tower, Icirrus City, Moor of Icirrus, P2 Laboratory, Striaton City)",
+    "https://bulbapedia.bulbagarden.net/wiki/Fire_Stone (and the other evolution item pages: Water_Stone, Thunder_Stone, Leaf_Stone, Moon_Stone, Sun_Stone, Dusk_Stone, Shiny_Stone, King%27s_Rock, Metal_Coat, Dragon_Scale, Deep_Sea_Tooth, Deep_Sea_Scale, Prism_Scale, Razor_Claw, Razor_Fang)",
+    "https://www.pokepedia.fr/Champion_d%27Ar%C3%A8ne"
+  ],
+  "steps": [
+    {
+      "en": "Start",
+      "fr": "Départ"
+    },
+    {
+      "en": "Badge 1 · Cilan/Chili/Cress",
+      "fr": "Badge 1 · Rachid/Armando/Noa"
+    },
+    {
+      "en": "Badge 2 · Lenora",
+      "fr": "Badge 2 · Aloé"
+    },
+    {
+      "en": "Badge 3 · Burgh",
+      "fr": "Badge 3 · Artie"
+    },
+    {
+      "en": "Badge 4 · Elesa",
+      "fr": "Badge 4 · Inezia"
+    },
+    {
+      "en": "Badge 5 · Clay",
+      "fr": "Badge 5 · Bardane"
+    },
+    {
+      "en": "Badge 6 · Skyla",
+      "fr": "Badge 6 · Carolina"
+    },
+    {
+      "en": "Badge 7 · Brycen",
+      "fr": "Badge 7 · Zhu"
+    },
+    {
+      "en": "Badge 8 · Drayden/Iris",
+      "fr": "Badge 8 · Watson/Iris"
+    },
+    {
+      "en": "League",
+      "fr": "Ligue"
+    },
+    {
+      "en": "Post-game",
+      "fr": "Après-jeu"
+    }
+  ],
+  "postgame": 10,
+  "daycare": 3,
+  "levelCap": [
+    14,
+    20,
+    23,
+    27,
+    31,
+    35,
+    39,
+    43,
+    50,
+    54,
+    100
+  ],
+  "locations": {
+    "nuvema-town": 0,
+    "unova-route-1": 6,
+    "unova-route-2": 0,
+    "striaton-city": 0,
+    "dreamyard": 10,
+    "unova-route-3": 1,
+    "wellspring-cave": 1,
+    "nacrene-city": 1,
+    "pinwheel-forest": 2,
+    "castelia-city": 2,
+    "unova-route-4": 3,
+    "desert-resort": 3,
+    "relic-castle": 3,
+    "unova-route-5": 4,
+    "driftveil-drawbridge": 4,
+    "driftveil-city": 4,
+    "cold-storage": 4,
+    "unova-route-6": 5,
+    "chargestone-cave": 5,
+    "unova-route-7": 5,
+    "celestial-tower": 5,
+    "mistralton-cave": 6,
+    "guidance-chamber": 6,
+    "unova-route-17": 6,
+    "unova-route-18": 6,
+    "p2-laboratory": 6,
+    "twist-mountain": 6,
+    "icirrus-city": 6,
+    "dragonspiral-tower": 7,
+    "unova-route-8": 7,
+    "moor-of-icirrus": 7,
+    "unova-route-9": 7,
+    "unova-route-10": 8,
+    "unova-victory-road": 8,
+    "trial-chamber": 8,
+    "team-flare-secret-hq": 8,
+    "ns-castle": 9,
+    "unova-route-11": 10,
+    "village-bridge": 10,
+    "unova-route-12": 10,
+    "unova-route-13": 10,
+    "giant-chasm": 10,
+    "undella-town": 10,
+    "undella-bay": 10,
+    "unova-route-14": 10,
+    "abundant-shrine": 10,
+    "unova-route-15": 10,
+    "marvelous-bridge": 10,
+    "unova-route-16": 10,
+    "lostlorn-forest": 10,
+    "challengers-cave": 10,
+    "liberty-garden": 10
+  },
+  "areas": {
+    "dreamyard/b1f": 10,
+    "castelia-city/game-freak-hq-1f": 10,
+    "pinwheel-forest/outside": 2,
+    "pinwheel-forest/inside": 2,
+    "pinwheel-forest/rumination-field": 6,
+    "relic-castle/a": 3,
+    "relic-castle/b": 7,
+    "relic-castle/c": 10,
+    "relic-castle/d": 10,
+    "dragonspiral-tower/7f": 10
+  },
+  "methods": {
+    "walk": 0,
+    "dark-grass": 0,
+    "gift": 0,
+    "gift-egg": 0,
+    "static": 0,
+    "npc-trade": 0,
+    "grass-spots": 1,
+    "cave-spots": 1,
+    "bridge-spots": 1,
+    "surf": 6,
+    "surf-spots": 6,
+    "super-rod": 10,
+    "super-rod-spots": 10
+  },
+  "conditions": {
+    "item-cover-fossil": 3,
+    "item-plume-fossil": 3,
+    "item-helix-fossil": 10,
+    "item-dome-fossil": 10,
+    "item-old-amber": 10,
+    "item-root-fossil": 10,
+    "item-claw-fossil": 10,
+    "item-skull-fossil": 10,
+    "item-armor-fossil": 10,
+    "defeated-ghetsis": 10,
+    "special-encounter-couldnt-capture-before": 10
+  },
+  "items": {
+    "fire-stone": 1,
+    "water-stone": 1,
+    "thunder-stone": 1,
+    "leaf-stone": 1,
+    "moon-stone": 1,
+    "sun-stone": 1,
+    "dusk-stone": 1,
+    "shiny-stone": 1,
+    "kings-rock": 1,
+    "metal-coat": 6,
+    "dragon-scale": 6,
+    "deep-sea-tooth": 6,
+    "deep-sea-scale": 6,
+    "prism-scale": 10,
+    "razor-claw": 10,
+    "razor-fang": 10
+  },
+  "starters": [
+    495,
+    498,
+    501
+  ],
+  "overrides": [
+    {
+      "species": 517,
+      "step": 0,
+      "note": "Munna in the Dreamyard's front grass before the first badge; the location is mapped post-game because its dark grass (Raticate, Venomoth...) is behind the post-game basement."
+    },
+    {
+      "species": 518,
+      "step": 1,
+      "flags": [
+        "rare"
+      ],
+      "note": "Musharna in Dreamyard rustling grass (5%) once phenomena appear after the first badge."
+    },
+    {
+      "species": 511,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Pansage given in the Dreamyard before the Striaton Gym (if the starter is Tepig)."
+    },
+    {
+      "species": 513,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Pansear given in the Dreamyard before the Striaton Gym (if the starter is Oshawott)."
+    },
+    {
+      "species": 515,
+      "step": 0,
+      "flags": [
+        "gift"
+      ],
+      "note": "Panpour given in the Dreamyard before the Striaton Gym (if the starter is Snivy)."
+    }
+  ],
+  "exclude": [
+    494,
+    570,
+    571
+  ]
+}
