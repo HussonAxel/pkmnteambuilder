@@ -73,12 +73,13 @@ export function LearnList({
 // One move: its name with how to learn it on the right, then the egg fathers underneath.
 function MoveLine({ data, species, move }: { data: LearnData; species: string; move: string }) {
   const { t } = useI18n();
+  const names = useNames();
   const how = howToLearn(data, species, move);
   const egg = how?.find((m) => m.kind === "egg");
   return (
     <li className="grid gap-1.5">
       <div className="flex items-start justify-between gap-3">
-        <span className="text-sm font-semibold text-foreground">{move}</span>
+        <span className="text-sm font-semibold text-foreground">{names.move(move)}</span>
         {!how ? (
           <span className="text-right text-red-500">{t("learn.cannot")}</span>
         ) : (

@@ -18,7 +18,8 @@ import { ink, ItemIcon, loadDex, STAT_COLORS, TypeIcon } from "@/components/data
 import { MetaPanel } from "@/components/meta-panel";
 import { TYPE_COLORS } from "@/components/type-chip";
 import { ShowdownPaste } from "@/components/showdown-paste";
-import { useI18n, useNames } from "@/lib/i18n";
+import { useI18n, useNameResolver, useNames } from "@/lib/i18n";
+import { formatPercent } from "@/lib/format";
 import { learnableMoves, loadLearnData } from "@/lib/learn-data";
 import { formatGen } from "@/lib/legality";
 import {
@@ -228,7 +229,7 @@ export function SetEditor({
   confirmLabel?: string;
   onConfirm: (draft: SetDraft) => void;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const names = useNames();
   const ids = useId();
   const gen = formatGen(format);
@@ -249,6 +250,10 @@ export function SetEditor({
   const choices = {
     data: common.data && own.data ? { ...common.data, ...own.data } : undefined,
   };
+  // Items and moves are typed in the player's language and kept as English (Showdown) names.
+  const itemNames = useNameResolver(common.data?.items, names.item);
+  const moveNames = useNameResolver(own.data?.moves, names.move);
+  const sorted = (options: string[]) => [...options].sort((a, b) => a.localeCompare(b, lang));
 
   const abilities = abilitiesProp ?? choices.data?.abilities ?? [initial?.ability ?? ""];
   const fallbackAbility = abilities[0] ?? "";
@@ -360,7 +365,7 @@ export function SetEditor({
           {recommendations.map((r) => {
             // Smogon measures each choice, not named sets: an estimate from its moves and item.
             const cov = build.data ? coverage(r.draft, build.data) : undefined;
-            const pct = (share: number) => `${Math.round(share * 100)} %`;
+            const pct = (share: number) => formatPercent(lang, share);
             return (
               <button
                 key={r.name}
@@ -369,7 +374,7 @@ export function SetEditor({
                 onClick={() => pick(r.name, r.draft)}
                 title={
                   cov &&
-                  `${t("set.coverageHint")}\n${cov.parts.map((p) => `${p.name} ${pct(p.share)}`).join(" · ")}`
+                  `${t("set.coverageHint")}\n${cov.parts.map((p) => `${p.name === r.draft.item ? names.item(p.name) : names.move(p.name)} ${pct(p.share)}`).join(" · ")}`
                 }
                 className={cn(
                   "rounded-full border border-border/50 px-3 py-1.5 text-xs transition-colors hover:bg-muted/50",
@@ -503,8 +508,8 @@ export function SetEditor({
                 <input
                   className={cn(field, draft.item && "pl-10", invalid("item"))}
                   list={`${ids}-items`}
-                  value={draft.item}
-                  onChange={(e) => update({ item: e.target.value })}
+                  value={itemNames.display(draft.item)}
+                  onChange={(e) => update({ item: itemNames.resolve(e.target.value) })}
                   autoComplete="off"
                 />
               </span>
@@ -547,7 +552,7 @@ export function SetEditor({
                     <SelectItem value="">—</SelectItem>
                     {TERA_TYPES.map((type) => (
                       <SelectItem key={type} value={type}>
-                        {type === "Stellar" ? type : names.type(type)}
+                        {names.type(type)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -581,12 +586,13 @@ export function SetEditor({
                           : undefined,
                       }}
                       list={`${ids}-moves`}
-                      value={move}
+                      value={moveNames.display(move)}
                       aria-label={t("set.move", { n: i + 1 })}
                       placeholder={t("set.move", { n: i + 1 })}
-                      onChange={(e) =>
-                        update({ moves: draft.moves.map((m, j) => (j === i ? e.target.value : m)) })
-                      }
+                      onChange={(e) => {
+                        const next = moveNames.resolve(e.target.value);
+                        update({ moves: draft.moves.map((m, j) => (j === i ? next : m)) });
+                      }}
                       autoComplete="off"
                     />
                   </span>
@@ -628,8 +634,8 @@ export function SetEditor({
                       // One string child: the select reads it as the label shown in the trigger.
                       <SelectItem key={n.name} value={n.name}>
                         {n.plus && n.minus
-                          ? `${n.name} (+${t(`stat.${n.plus}` as MessageKey)} −${t(`stat.${n.minus}` as MessageKey)})`
-                          : n.name}
+                          ? `${names.nature(n.name)} (+${t(`stat.${n.plus}` as MessageKey)} −${t(`stat.${n.minus}` as MessageKey)})`
+                          : names.nature(n.name)}
                       </SelectItem>
                     ))}
                   </div>
@@ -689,9 +695,9 @@ export function SetEditor({
             <span />
             <span className="text-muted-foreground">{t("set.base")}</span>
             <span />
-            <span className="text-muted-foreground">EV</span>
-            <span className="text-muted-foreground">IV</span>
-            <span className="text-right text-muted-foreground">Lv {level}</span>
+            <span className="text-muted-foreground">{t("set.evShort")}</span>
+            <span className="text-muted-foreground">{t("set.ivShort")}</span>
+            <span className="text-right text-muted-foreground">{t("learn.level", { level })}</span>
             {STATS.map((stat) => {
               const base = choices.data?.baseStats[stat] ?? 0;
               const value = calcStat(stat, base, draft.ivs[stat], draft.evs[stat], level, nature);
@@ -705,10 +711,18 @@ export function SetEditor({
                     {t(`stat.${stat}` as MessageKey)}
                     {/* The nature's effect keeps green / red, on the arrow and the final stat. */}
                     {effect === "up" && (
-                      <ArrowUpIcon size={12} aria-label="+10%" className="text-emerald-500" />
+                      <ArrowUpIcon
+                        size={12}
+                        aria-label={t("set.natureUp")}
+                        className="text-emerald-500"
+                      />
                     )}
                     {effect === "down" && (
-                      <ArrowDownIcon size={12} aria-label="−10%" className="text-rose-500" />
+                      <ArrowDownIcon
+                        size={12}
+                        aria-label={t("set.natureDown")}
+                        className="text-rose-500"
+                      />
                     )}
                   </span>
                   <span className="tabular-nums text-muted-foreground">{base}</span>
@@ -728,7 +742,7 @@ export function SetEditor({
                     min={0}
                     max={252}
                     step={4}
-                    aria-label={`EV ${t(`stat.${stat}` as MessageKey)}`}
+                    aria-label={t("set.statEv", { stat: t(`stat.${stat}` as MessageKey) })}
                     className={cn(field, "h-8 px-2 tabular-nums")}
                     // Invested stats get their colour on the edge.
                     style={{
@@ -744,7 +758,7 @@ export function SetEditor({
                     inputMode="numeric"
                     min={0}
                     max={31}
-                    aria-label={`IV ${t(`stat.${stat}` as MessageKey)}`}
+                    aria-label={t("set.statIv", { stat: t(`stat.${stat}` as MessageKey) })}
                     className={cn(field, "h-8 px-2 tabular-nums")}
                     value={draft.ivs[stat]}
                     onChange={(e) =>
@@ -769,12 +783,12 @@ export function SetEditor({
       )}
 
       <datalist id={`${ids}-items`}>
-        {choices.data?.items.map((i) => (
+        {sorted(itemNames.options).map((i) => (
           <option key={i} value={i} />
         ))}
       </datalist>
       <datalist id={`${ids}-moves`}>
-        {choices.data?.moves.map((m) => (
+        {sorted(moveNames.options).map((m) => (
           <option key={m} value={m} />
         ))}
       </datalist>

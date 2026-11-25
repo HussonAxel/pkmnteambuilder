@@ -14,6 +14,7 @@
     "data:smogon": "node scripts/build-smogon-usage.mjs",
     "data:bulbapedia": "node scripts/build-item-sources.mjs && node scripts/build-tm-sources.mjs",
     "data:artwork": "node scripts/build-artwork.mjs",
+    "data:descriptions": "node scripts/build-descriptions.mjs",
     "test:data": "node --test src/lib/*.test.mjs"
   },
   "dependencies": {

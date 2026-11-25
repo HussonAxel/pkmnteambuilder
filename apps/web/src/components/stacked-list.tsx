@@ -28,6 +28,7 @@ import {
   SwordsIcon,
   TrophyIcon,
   CheckIcon,
+  ChevronDownIcon,
   Share2Icon,
   TriangleAlertIcon,
   XIcon,
@@ -36,7 +37,7 @@ import { cn } from "@pkmnteambuilder/ui/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { type QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FORM_ARTWORK_IDS } from "@/data/form-artwork-ids";
-import { DexTip } from "@/components/dex-tip";
+import { DexTip, frenchDescription } from "@/components/dex-tip";
 import { MemberDetails } from "@/components/member-details";
 import { prefetchSetFormat, prefetchSetSpecies, SetEditor } from "@/components/set-editor";
 import { artwork } from "@/lib/artwork";
@@ -65,8 +66,9 @@ import {
   type Rules,
   type Source,
 } from "@/lib/availability";
-import { type Lang, toIdentifier, useI18n, useNames } from "@/lib/i18n";
-import type { MessageKey } from "@/i18n/messages";
+import { fold, type Lang, toIdentifier, useI18n, useNames } from "@/lib/i18n";
+import { MESSAGES, type MessageKey } from "@/i18n/messages";
+import { formatPercent, useFormat } from "@/lib/format";
 import {
   competitiveFormats,
   formatGen,
@@ -75,17 +77,10 @@ import {
   type TeamMode,
   tiersAmong,
 } from "@/lib/legality";
-import { loadDex } from "@/components/data-colors";
 import { blockedStarters } from "@/lib/starters";
-import { coverageSuggestions } from "@/lib/suggest";
 import { suggestTeammates, type UsageStats } from "@/lib/teammates";
-import { chartOf } from "@/lib/type-chart";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@pkmnteambuilder/ui/components/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@pkmnteambuilder/ui/components/popover";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@pkmnteambuilder/ui/components/tooltip";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Fragment,
@@ -137,87 +132,6 @@ export interface PokemonSet {
   ivs?: Evs;
   inTeam: boolean;
 }
-
-// Standard VGC 2024 Regulation F sets.
-const SAMPLE_POKEMON: PokemonSet[] = [
-  {
-    id: "incineroar",
-    pokeapiId: 727,
-    name: "Incineroar",
-    item: "Safety Goggles",
-    ability: "Intimidate",
-    types: ["Fire", "Dark"],
-    teraType: "Ghost",
-    moves: ["Fake Out", "Flare Blitz", "Knock Off", "Parting Shot"],
-    inTeam: true,
-  },
-  {
-    id: "rillaboom",
-    pokeapiId: 812,
-    name: "Rillaboom",
-    item: "Assault Vest",
-    ability: "Grassy Surge",
-    types: ["Grass"],
-    teraType: "Fire",
-    moves: ["Fake Out", "Grassy Glide", "Wood Hammer", "U-turn"],
-    inTeam: true,
-  },
-  {
-    id: "urshifu-rapid-strike",
-    pokeapiId: FORM_ARTWORK_IDS["Urshifu-Rapid-Strike"] ?? 892,
-    name: "Urshifu-Rapid-Strike",
-    item: "Mystic Water",
-    ability: "Unseen Fist",
-    types: ["Fighting", "Water"],
-    teraType: "Water",
-    moves: ["Surging Strikes", "Close Combat", "Aqua Jet", "Detect"],
-    inTeam: true,
-  },
-  {
-    id: "flutter-mane",
-    pokeapiId: 987,
-    name: "Flutter Mane",
-    item: "Booster Energy",
-    ability: "Protosynthesis",
-    types: ["Ghost", "Fairy"],
-    teraType: "Fairy",
-    moves: ["Moonblast", "Shadow Ball", "Dazzling Gleam", "Protect"],
-    inTeam: true,
-  },
-  {
-    id: "amoonguss",
-    pokeapiId: 591,
-    name: "Amoonguss",
-    item: "Rocky Helmet",
-    ability: "Regenerator",
-    types: ["Grass", "Poison"],
-    teraType: "Water",
-    moves: ["Spore", "Rage Powder", "Pollen Puff", "Protect"],
-    inTeam: true,
-  },
-  {
-    id: "tornadus",
-    pokeapiId: 641,
-    name: "Tornadus",
-    item: "Covert Cloak",
-    ability: "Prankster",
-    types: ["Flying"],
-    teraType: "Ghost",
-    moves: ["Tailwind", "Bleakwind Storm", "Taunt", "Protect"],
-    inTeam: true,
-  },
-  {
-    id: "chien-pao",
-    pokeapiId: 1002,
-    name: "Chien-Pao",
-    item: "Focus Sash",
-    ability: "Sword of Ruin",
-    types: ["Dark", "Ice"],
-    teraType: "Ghost",
-    moves: ["Icicle Crash", "Sacred Sword", "Sucker Punch", "Protect"],
-    inTeam: false,
-  },
-];
 
 export const MAX_ROWS = 6;
 
@@ -602,17 +516,49 @@ const EmptySlot = ({ onOpen }: { onOpen?: () => void }) => {
   );
 };
 
-// First free party slot: species often paired with the current members, one click to add.
+// Teammate suggestions (Smogon and VGC only): the species most used alongside the party, legal in the
+// format, once the party has a member and a free slot. The home card and the team page share it.
+export function useTeammateSuggestions(team: Team, party: PokemonSet[]) {
+  const wanted = team.mode !== "adventure" && party.length > 0 && party.length < MAX_ROWS;
+  const stats = useQuery({
+    queryKey: ["usage", team.mode, team.format],
+    queryFn: () => loadUsage(team.mode, team.format),
+    enabled: wanted,
+    staleTime: Number.POSITIVE_INFINITY,
+  });
+  const options = useQuery({
+    queryKey: ["pokemon-options", team.mode, team.format],
+    queryFn: () => loadOptions(team.mode, team.format),
+    enabled: wanted,
+    staleTime: Number.POSITIVE_INFINITY,
+  });
+  // Only species legal in this format, which also gives us their artwork and types.
+  const legal = useMemo(() => new Map(options.data?.map((o) => [o.name, o])), [options.data]);
+  if (!wanted || !stats.data) return [];
+  return suggestTeammates(
+    stats.data.teammates,
+    party.map((m) => m.name),
+  )
+    .flatMap(({ name, share }) => {
+      const option = legal.get(name);
+      return option ? [{ option, share }] : [];
+    })
+    .slice(0, 3);
+}
+
+// First free party slot (Smogon and VGC teams): species often paired with the current members, one
+// click to add. Adventure teams get none: their slots stay empty.
 const SuggestionSlot = ({
   suggestions,
   onPick,
 }: {
-  // share: competitive (usage with the team); note + reason: Adventure (type coverage).
-  suggestions: { option: PokemonOption; share?: number; note?: string; reason?: string }[];
+  // share: how often the species is used alongside the current members.
+  suggestions: { option: PokemonOption; share: number }[];
   onPick: (option: PokemonOption) => void;
 }) => {
   const { t } = useI18n();
   const names = useNames();
+  const fmt = useFormat();
   return (
     <motion.div
       variants={itemVariants}
@@ -623,17 +569,13 @@ const SuggestionSlot = ({
       <div className="min-w-0 flex-1">
         <p className="mb-1.5 text-xs leading-none text-muted-foreground">{t("team.suggested")}</p>
         <div className="flex gap-1.5">
-          {suggestions.map(({ option, share, note, reason }) => {
+          {suggestions.map(({ option, share }) => {
             const name = names.pokemon(option.pokeapiId, option.name);
             return (
               <button
                 key={option.key}
                 type="button"
-                title={
-                  reason
-                    ? `${t("team.addSuggestion", { name })} · ${reason}`
-                    : t("team.addSuggestion", { name })
-                }
+                title={t("team.addSuggestion", { name })}
                 onClick={() => onPick(option)}
                 className="flex min-w-0 flex-1 items-center gap-1 rounded-full bg-muted/40 py-0.5 pr-2 pl-0.5 text-xs transition-colors outline-none hover:bg-muted/70 focus-visible:ring-1 focus-visible:ring-ring"
               >
@@ -645,7 +587,7 @@ const SuggestionSlot = ({
                 />
                 <span className="truncate text-foreground">{name}</span>
                 <span className="ml-auto pl-1 tabular-nums text-muted-foreground">
-                  {share !== undefined ? `${Math.round(share * 100)}%` : note}
+                  {fmt.percent(share)}
                 </span>
               </button>
             );
@@ -709,7 +651,7 @@ export function ShareTeamDialog({ team }: { team: Team }) {
     navigator.clipboard
       .writeText(text)
       .then(() => toast.success(t("share.copied")))
-      .catch(() => toast.error(t("row.copyFailed")));
+      .catch(() => toast.error(t("common.copyFailed")));
   const box =
     "w-full rounded-xl border-none bg-muted/40 px-3 py-2.5 text-xs text-foreground outline-none";
   return (
@@ -854,9 +796,11 @@ function AdventureRules({
   const keys = RULE_KEYS.filter((k) => k !== "exclusives" || otherVersions.length > 0);
 
   return (
-    <fieldset className="grid gap-3">
-      <legend className="mb-3 text-sm font-medium text-foreground">{t("rules.title")}</legend>
-      <div className="grid auto-rows-fr grid-cols-3 gap-2">
+    // A container query: the dialog, not the screen, decides between one and two columns.
+    <fieldset className="@container grid gap-3">
+      <legend className="mb-1 text-sm font-medium text-foreground">{t("rules.title")}</legend>
+      <p className="-mt-1 mb-1 text-xs text-muted-foreground">{t("rules.description")}</p>
+      <div className="grid grid-cols-1 gap-2 @xs:auto-rows-fr @xs:grid-cols-2">
         {keys
           .filter((key) => !counts || counts[key] > 0)
           .map((key) => (
@@ -881,7 +825,7 @@ function AdventureRules({
   );
 }
 
-// One rule: the whole card toggles it (a contour when on), and hovering lists the Pokémon it decides.
+// One rule: a card that toggles it, with how many Pokémon it decides and the list of them.
 function RuleBlock({
   version,
   rule,
@@ -899,6 +843,7 @@ function RuleBlock({
 }) {
   const { t } = useI18n();
   const names = useNames();
+  const fmt = useFormat();
   const { data } = useQuery({
     queryKey: ["rule-members", version, rule],
     queryFn: async () => affectedBy(await loadGame(version), version, rule),
@@ -907,61 +852,92 @@ function RuleBlock({
   const shown = data?.slice(0, 60) ?? [];
   const rest = (data?.length ?? 0) - shown.length;
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <label
-              className={cn(
-                "flex h-full cursor-pointer flex-col gap-2 rounded-2xl p-3 transition-colors hover:bg-muted/70 has-focus-visible:ring-1 has-focus-visible:ring-ring",
-                checked ? "ring-1 ring-foreground" : "bg-muted/40",
-                checked && "bg-muted/40",
-              )}
-            />
-          }
-        >
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={(e) => onChange(e.target.checked)}
-            className="sr-only"
-          />
-          <span className="text-sm leading-snug text-foreground">{title}</span>
-          {count !== undefined && (
-            <span className="mt-auto w-fit rounded-full bg-background/60 px-2 py-0.5 text-xs tabular-nums text-muted-foreground">
-              {t("rules.count", { count })}
-            </span>
-          )}
-        </TooltipTrigger>
-        {shown.length > 0 && (
-          <TooltipContent
-            arrow={false}
-            sideOffset={6}
-            className="flex w-fit max-w-64 flex-wrap gap-1 rounded-2xl border border-border bg-card p-2 text-card-foreground ring-0 shadow-none"
-          >
-            {shown.map((p) => {
-              const name = names.pokemon(p.id, String(p.species));
-              return (
-                <img
-                  key={p.id}
-                  src={artwork(p.id)}
-                  decoding="async"
-                  alt={name}
-                  title={name}
-                  loading="lazy"
-                  className="size-7 object-contain"
-                />
-              );
-            })}
-            {rest > 0 && (
-              <span className="w-full pt-0.5 text-center text-[11px] text-muted-foreground">
-                +{rest}
-              </span>
+    // The card toggles the rule (a filled check and a contour when allowed); its footer button lists
+    // the Pokémon it decides, on hover, tap or focus.
+    <div
+      className={cn(
+        "flex h-full flex-col rounded-2xl transition-colors has-[input:focus-visible]:ring-1 has-[input:focus-visible]:ring-ring",
+        checked ? "bg-muted/40 ring-1 ring-foreground" : "bg-muted/20 hover:bg-muted/40",
+      )}
+    >
+      <label className="flex flex-1 cursor-pointer items-start gap-3 p-3">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+          className="sr-only"
+        />
+        <span className="grid min-w-0 flex-1 gap-1">
+          <span
+            className={cn(
+              "text-sm font-medium leading-snug transition-colors",
+              checked ? "text-foreground" : "text-muted-foreground",
             )}
-          </TooltipContent>
-        )}
-      </Tooltip>
-    </TooltipProvider>
+          >
+            {title}
+          </span>
+          <span className="text-xs leading-snug text-muted-foreground">
+            {t(`rules.${rule}.hint`)}
+          </span>
+        </span>
+        <span
+          aria-hidden
+          className={cn(
+            "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full transition-colors",
+            checked
+              ? "bg-foreground text-background"
+              : "border-2 border-muted-foreground/30 text-transparent",
+          )}
+        >
+          <CheckIcon size={12} strokeWidth={3} />
+        </span>
+      </label>
+      {count !== undefined && (
+        <div className="px-3 pb-3">
+          <Popover>
+            <PopoverTrigger
+              openOnHover
+              delay={150}
+              disabled={shown.length === 0}
+              aria-label={t("rules.show", { count })}
+              className="inline-flex items-center gap-1.5 rounded-full bg-background/70 py-1 pr-2 pl-2.5 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring data-popup-open:bg-background data-popup-open:text-foreground"
+            >
+              <span className="font-semibold tabular-nums text-foreground">
+                {fmt.number(count)}
+              </span>
+              {t("rules.countUnit", { count })}
+              <ChevronDownIcon size={12} aria-hidden />
+            </PopoverTrigger>
+            <PopoverContent className="grid w-72 gap-2 rounded-2xl p-3">
+              <p className="text-xs font-medium text-foreground">
+                {title} · {t("rules.count", { count: fmt.number(count) })}
+              </p>
+              <div className="flex flex-wrap gap-1">
+                {shown.map((p) => {
+                  const name = names.pokemon(p.id, String(p.species));
+                  return (
+                    <img
+                      key={p.id}
+                      src={artwork(p.id)}
+                      decoding="async"
+                      alt={name}
+                      title={name}
+                      loading="lazy"
+                      className="size-8 object-contain"
+                    />
+                  );
+                })}
+              </div>
+              {rest > 0 && (
+                <span className="text-center text-[11px] text-muted-foreground">
+                  {t("rules.more", { count: rest })}
+                </span>
+              )}
+            </PopoverContent>
+          </Popover>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -1277,14 +1253,6 @@ export interface Team extends NewTeam {
   pokemon: PokemonSet[];
 }
 
-export const SAMPLE_TEAM: Team = {
-  id: "sample-reg-f",
-  name: "Reg F Goodstuffs",
-  mode: "vgc",
-  format: "gen9vgc2026regf",
-  pokemon: SAMPLE_POKEMON,
-};
-
 export interface PokemonOption {
   key: string;
   pokeapiId: number;
@@ -1461,6 +1429,7 @@ export function AddPokemonDialog({
 }) {
   const { t } = useI18n();
   const names = useNames();
+  const fmt = useFormat();
   const formatName = useFormatName();
   const queryClient = useQueryClient();
   const [innerOpen, setInnerOpen] = useState(false);
@@ -1506,14 +1475,13 @@ export function AddPokemonDialog({
   const tiers = mode === "smogon" ? tiersAmong((data ?? []).map((o) => o.tier)) : [];
 
   // Typing stays responsive: the list filters on a deferred copy of the query.
-  const q = useDeferredValue(query).trim().toLowerCase();
+  const q = fold(useDeferredValue(query));
   const usageShares = usage.data?.usage;
   const results = useMemo(() => {
     const list = (data ?? []).filter(
       (o) =>
         (pickedTiers.length === 0 || (o.tier !== undefined && pickedTiers.includes(o.tier))) &&
-        (names.pokemon(o.pokeapiId, o.name).toLowerCase().includes(q) ||
-          o.name.toLowerCase().includes(q)),
+        (fold(names.pokemon(o.pokeapiId, o.name)).includes(q) || fold(o.name).includes(q)),
     );
     // Most used first; species without stats keep their dex order at the end.
     if (sortByUsage && usageShares)
@@ -1686,7 +1654,7 @@ export function AddPokemonDialog({
                       >
                         {showUsage && usage.data && (
                           <span className="absolute top-2 right-2 rounded-full bg-background/70 px-1.5 py-0.5 text-[11px] tabular-nums leading-none text-muted-foreground">
-                            {((usage.data.usage[option.name] ?? 0) * 100).toFixed(1)}%
+                            {fmt.percent(usage.data.usage[option.name] ?? 0, 1)}
                           </span>
                         )}
                         <PokemonImg
@@ -1778,31 +1746,14 @@ function VirtualGrid<T extends { key: string }>({
 // Where a Pokémon is first obtainable, in the player's language.
 type Translate = ReturnType<typeof useI18n>["t"];
 type Names = ReturnType<typeof useNames>;
-const METHOD_KEYS = [
-  "walk",
-  "surf",
-  "old-rod",
-  "good-rod",
-  "super-rod",
-  "rock-smash",
-  "headbutt",
-  "honey-tree",
-  "static",
-  "gift",
-  "gift-egg",
-  "npc-trade",
-  "breed",
-  "roaming-grass",
-  "roaming-water",
-  "sos",
-  "feebas-tile-fishing",
-] as const;
+// Encounter methods and evolution triggers with a label: identifiers from the game data (PokeAPI).
+const hasKey = (key: string): key is MessageKey => key in MESSAGES.en;
 
 function describeSource(src: Source, game: GameData, t: Translate, lang: Lang, names: Names) {
-  const known = src.m !== undefined && (METHOD_KEYS as readonly string[]).includes(src.m);
   const step = game.steps[src.s]?.[lang] ?? "";
   const where = src.l ? names.location(src.l) : "";
-  const how = known ? t(`method.${src.m}` as MessageKey) : (src.m ?? "");
+  const methodKey = `method.${src.m}`;
+  const how = src.m === undefined ? "" : hasKey(methodKey) ? t(methodKey) : src.m;
   // The reasons behind the step, one line each, for the "why this step" tooltip.
   const why: string[] = [];
   if (src.from !== undefined) {
@@ -1811,7 +1762,10 @@ function describeSource(src: Source, game: GameData, t: Translate, lang: Lang, n
       why.push(t("why.level", { level: src.c.lv }), t("why.levelStep", { level: src.c.lv }));
     else if (src.c?.item) why.push(t("why.item", { item: names.item(src.c.item) }));
     else if (src.c?.trigger === "trade") why.push(t("why.trade"));
-    else if (src.c?.trigger) why.push(t("why.other", { trigger: src.c.trigger }));
+    else if (src.c?.trigger) {
+      const triggerKey = `trigger.${src.c.trigger}`;
+      why.push(t("why.other", { trigger: hasKey(triggerKey) ? t(triggerKey) : src.c.trigger }));
+    }
   } else if (src.m === "breed") {
     why.push(t("why.breed"));
   } else if (where) {
@@ -1822,13 +1776,16 @@ function describeSource(src: Source, game: GameData, t: Translate, lang: Lang, n
     step,
     where,
     how,
-    chance: src.r === undefined ? undefined : `${src.r}%`,
+    chance:
+      src.r === undefined
+        ? undefined
+        : formatPercent(lang, src.r / 100, Number.isInteger(src.r) ? 0 : 1),
     why,
   };
 }
 
 // Small "i" that explains, on hover or focus, why a Pokémon is available at its step.
-// What an ability does, from @pkmn/dex (English only: PokeAPI's French texts aren't bundled).
+// What an ability does: from @pkmn/dex, or the games' French text (scripts/build-descriptions.mjs).
 function AbilityTip({
   ability,
   onOpenChange,
@@ -1836,12 +1793,14 @@ function AbilityTip({
   ability: string;
   onOpenChange: (open: boolean) => void;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const names = useNames();
   const [open, setOpen] = useState(false);
   const desc = useQuery({
-    queryKey: ["ability-desc", ability],
+    queryKey: ["ability-desc", lang, ability],
     queryFn: async () => {
+      const french = await frenchDescription(lang, "ability", ability);
+      if (french) return french;
       const { Dex } = await import("@pkmn/dex");
       const a = Dex.forGen(9).abilities.get(ability);
       return a.exists ? a.shortDesc || a.desc : "";
@@ -1850,14 +1809,15 @@ function AbilityTip({
     staleTime: Number.POSITIVE_INFINITY,
   });
   return (
-    <Tooltip
+    <Popover
       open={open}
       onOpenChange={(next) => {
         setOpen(next);
         onOpenChange(next);
       }}
     >
-      <TooltipTrigger
+      <PopoverTrigger
+        openOnHover
         delay={150}
         render={
           <button
@@ -1871,16 +1831,12 @@ function AbilityTip({
         }
       >
         <InfoIcon size={13} strokeWidth={2} />
-      </TooltipTrigger>
-      <TooltipContent
-        arrow={false}
-        sideOffset={6}
-        className="grid max-w-64 gap-1 rounded-xl border border-border bg-card p-3 text-left text-xs font-normal leading-snug text-card-foreground ring-0 shadow-none"
-      >
+      </PopoverTrigger>
+      <PopoverContent className="grid w-64 gap-1 font-normal">
         <p className="font-semibold">{names.ability(ability)}</p>
         <p className="text-muted-foreground">{desc.data || (desc.isPending ? "…" : "—")}</p>
-      </TooltipContent>
-    </Tooltip>
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -1968,9 +1924,9 @@ export function SetSummary({
           ),
         )}
       {member.teraType && row(t("set.tera"), names.type(member.teraType))}
-      {member.nature && row(t("set.nature"), member.nature)}
+      {member.nature && row(t("set.nature"), names.nature(member.nature))}
       {evs && row(t("set.evs"), evs)}
-      {ivs && row("IV", ivs)}
+      {ivs && row(t("set.ivs"), ivs)}
       {moves && member.moves.length > 0 && (
         <ul className="mt-1 grid grid-cols-2 gap-x-4 gap-y-1.5 border-t border-border/40 pt-2">
           {member.moves.map((m) => (
@@ -1978,7 +1934,7 @@ export function SetSummary({
               key={m}
               className="truncate before:mr-1 before:text-muted-foreground before:content-['–']"
             >
-              {m}
+              {names.move(m)}
             </li>
           ))}
         </ul>
@@ -1990,31 +1946,29 @@ export function SetSummary({
 function WhyTip({ lines }: { lines: string[] }) {
   const { t } = useI18n();
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <button
-              type="button"
-              aria-label={t("why.button")}
-              className="inline-flex size-4 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring"
-            />
-          }
-        >
-          <InfoIcon size={13} strokeWidth={2} />
-        </TooltipTrigger>
-        {/* Same surface as the cards: no arrow, card colours, rounded like the pills. */}
-        <TooltipContent
-          arrow={false}
-          sideOffset={6}
-          className="grid max-w-72 gap-1.5 rounded-2xl border border-border bg-card p-3 text-left text-xs font-normal leading-snug text-card-foreground ring-0 shadow-none"
-        >
-          {lines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Popover>
+      <PopoverTrigger
+        openOnHover
+        delay={100}
+        render={
+          <button
+            type="button"
+            aria-label={t("why.button")}
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+            className="inline-flex size-4 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring"
+          />
+        }
+      >
+        <InfoIcon size={13} strokeWidth={2} />
+      </PopoverTrigger>
+      {/* Same surface as the cards, rounded like the pills. */}
+      <PopoverContent className="grid w-72 gap-1.5 rounded-2xl font-normal">
+        {lines.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -2174,6 +2128,7 @@ export default function StackedList({
 }) {
   const { t, lang } = useI18n();
   const names = useNames();
+  const fmt = useFormat();
   const formatName = useFormatName();
   const [isExpanded, setIsExpanded] = useState(false);
   // The Box list is only mounted while open (or animating shut): collapsed, it would render every
@@ -2185,7 +2140,7 @@ export default function StackedList({
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAllMembers = useMemo(() => {
-    const q = searchQuery.toLowerCase();
+    const q = fold(searchQuery);
     return team.pokemon.filter((m) =>
       [
         names.pokemon(m.pokeapiId, m.name),
@@ -2194,7 +2149,9 @@ export default function StackedList({
         m.ability && names.ability(m.ability),
         ...m.types.map(names.type),
         m.teraType ? names.type(m.teraType) : "",
-      ].some((v) => v.toLowerCase().includes(q)),
+        m.nature ? names.nature(m.nature) : "",
+        ...(m.moves ?? []).map(names.move),
+      ].some((v) => fold(v || "").includes(q)),
     );
   }, [searchQuery, team.pokemon, names]);
   const teamMembers = team.pokemon.filter((m) => m.inTeam);
@@ -2208,34 +2165,7 @@ export default function StackedList({
   const emptySlots = MAX_ROWS - visibleActiveMembers.length;
   const visibleBoxMembers = filteredAllMembers.slice(0, MAX_ROWS);
 
-  // Teammate suggestions, once the party has a member and a free slot (competitive modes only).
-  const wantsSuggestions = team.mode !== "adventure" && teamMembers.length > 0 && emptySlots > 0;
-  const stats = useQuery({
-    queryKey: ["usage", team.mode, team.format],
-    queryFn: () => loadUsage(team.mode, team.format),
-    enabled: wantsSuggestions,
-    staleTime: Number.POSITIVE_INFINITY,
-  });
-  const options = useQuery({
-    queryKey: ["pokemon-options", team.mode, team.format],
-    queryFn: () => loadOptions(team.mode, team.format),
-    enabled: wantsSuggestions,
-    staleTime: Number.POSITIVE_INFINITY,
-  });
-  // Only species legal in this format, which also gives us their artwork and types.
-  const legal = useMemo(() => new Map(options.data?.map((o) => [o.name, o])), [options.data]);
-  const suggestions =
-    wantsSuggestions && stats.data
-      ? suggestTeammates(
-          stats.data.teammates,
-          teamMembers.map((m) => m.name),
-        )
-          .flatMap(({ name, share }) => {
-            const option = legal.get(name);
-            return option ? [{ option, share }] : [];
-          })
-          .slice(0, 3)
-      : [];
+  const suggestions = useTeammateSuggestions(team, teamMembers);
 
   // Opening a member's menu comes just before "Edit set": warm the editor's data then.
   const prefetchMember = (member: PokemonSet) => {
@@ -2345,57 +2275,6 @@ export default function StackedList({
         : new Set<number>(),
     [game, team.pokemon],
   );
-  // Adventure suggestions (note de cadrage 2.4): what's obtainable at the step and fills the team's type
-  // gaps, scored by lib/suggest.ts. Same cache entry as the set editor's ["dex", gen].
-  const wantsCoverage = isAdventure && !!game && teamMembers.length > 0 && emptySlots > 0;
-  const adventureDex = useQuery({
-    queryKey: ["dex", game?.generation],
-    queryFn: () => loadDex(game!.generation),
-    enabled: wantsCoverage,
-    staleTime: Number.POSITIVE_INFINITY,
-  });
-  const adventureSuggestions = useMemo(() => {
-    if (!wantsCoverage || !game || !adventureDex.data) return [];
-    const { types, chart } = chartOf(adventureDex.data);
-    const owned = new Set(team.pokemon.map((p) => p.pokeapiId));
-    const candidates = availableIn(game, team.format, rules)
-      .filter(
-        ({ pokemon, step }) =>
-          step <= progress && !owned.has(pokemon.id) && !starterBlocked.has(pokemon.id),
-      )
-      .map(({ pokemon }) => ({ pokemon, types: pokemon.types.map(toType) }));
-    const list = (xs: string[]) => xs.map((x) => names.type(x)).join(", ");
-    return coverageSuggestions(chart, types, teamMembers, candidates).map((s) => ({
-      option: {
-        key: String(s.candidate.pokemon.id),
-        pokeapiId: s.candidate.pokemon.id,
-        name: `#${s.candidate.pokemon.species}`,
-        types: s.candidate.types,
-        ability: "",
-      },
-      note: `+${s.covers.length + s.fixes.length}`,
-      reason: [
-        s.covers.length > 0 && t("suggest.covers", { types: list(s.covers) }),
-        s.fixes.length > 0 && t("suggest.fixes", { types: list(s.fixes) }),
-        s.adds.length > 0 && t("suggest.adds", { types: list(s.adds) }),
-      ]
-        .filter(Boolean)
-        .join(" · "),
-    }));
-  }, [
-    wantsCoverage,
-    game,
-    adventureDex.data,
-    team.pokemon,
-    team.format,
-    rules,
-    progress,
-    starterBlocked,
-    teamMembers,
-    names,
-    t,
-  ]);
-  const shownSuggestions = isAdventure ? adventureSuggestions : suggestions;
 
   // A wish joins the team: straight in if there is a free slot, otherwise it replaces someone (chosen by the player).
   const [replacing, setReplacing] = useState<PokemonOption | null>(null);
@@ -2550,10 +2429,10 @@ export default function StackedList({
                 />
               ))}
               {Array.from({ length: emptySlots }, (_, i) =>
-                i === 0 && shownSuggestions.length > 0 ? (
+                i === 0 && suggestions.length > 0 ? (
                   <SuggestionSlot
                     key="suggestions"
-                    suggestions={shownSuggestions}
+                    suggestions={suggestions}
                     onPick={pickSuggestion}
                   />
                 ) : (
@@ -2734,7 +2613,7 @@ export default function StackedList({
                             style={{
                               background: `conic-gradient(hsl(${m.ratio * 120} 70% 50%) ${Math.round(m.ratio * 100)}%, var(--muted) 0)`,
                             }}
-                            title={`${Math.round(m.ratio * 100)}%`}
+                            title={fmt.percent(m.ratio)}
                           >
                             {img}
                           </span>

@@ -25,6 +25,7 @@ import {
   useState,
 } from "react";
 import { EASE_OUT } from "@/lib/ease";
+import { useI18n } from "@/lib/i18n";
 import { type ListboxRow, useListbox } from "@/lib/hooks/use-listbox";
 import { cn } from "@pkmnteambuilder/ui/lib/utils";
 
@@ -317,9 +318,10 @@ export interface SelectValueProps {
 export function SelectValue({ placeholder, className }: SelectValueProps) {
   const ctx = useSelectContext("SelectValue");
   const label = ctx.labelFor(ctx.value);
+  const { t } = useI18n();
   return (
     <span className={cn(label ? "text-foreground" : "text-muted-foreground", className)}>
-      {label ?? placeholder ?? "Select"}
+      {label ?? placeholder ?? t("common.select")}
     </span>
   );
 }

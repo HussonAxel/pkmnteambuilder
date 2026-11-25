@@ -10,24 +10,24 @@ import UserMenu from "./user-menu";
 
 export default function Header() {
   const { lang, setLang, t } = useI18n();
-  const links = [
-    { to: "/", label: t("nav.home") },
-    { to: "/dashboard", label: t("nav.dashboard") },
-  ] as const;
 
   return (
-    <div>
-      <div className="flex flex-row items-center justify-between px-2 py-1">
-        <nav className="flex gap-4 text-lg">
-          {links.map(({ to, label }) => {
-            return (
-              <Link key={to} to={to} className="transition-colors hover:text-muted-foreground">
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="flex items-center gap-2">
+    <header className="sticky top-0 z-40 border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Same container as the pages, so the logo lines up with the first team card. */}
+      <div className="container mx-auto flex h-14 items-center justify-between gap-3 px-4">
+        <Link
+          to="/"
+          className="group flex items-center gap-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <TeamMark />
+          <span className="sr-only text-base font-semibold tracking-tight text-foreground sm:not-sr-only">
+            pkmn
+            <span className="text-muted-foreground transition-colors group-hover:text-foreground">
+              teambuilder
+            </span>
+          </span>
+        </Link>
+        <div className="flex items-center gap-1.5">
           <div
             role="group"
             aria-label={t("lang.switch")}
@@ -38,8 +38,10 @@ export default function Header() {
                 key={l}
                 type="button"
                 aria-pressed={lang === l}
+                aria-label={t(`lang.${l}`)}
+                lang={l}
                 onClick={() => setLang(l)}
-                className="rounded-full px-2.5 py-1 uppercase text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-background aria-pressed:text-foreground"
+                className="rounded-full px-2.5 py-1 uppercase text-muted-foreground transition-colors hover:text-foreground aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm"
               >
                 {l}
               </button>
@@ -47,11 +49,24 @@ export default function Header() {
           </div>
           <EraSpritesToggle />
           <ThemeToggle />
+          <span aria-hidden className="mx-1 h-5 w-px bg-border" />
           <UserMenu />
         </div>
       </div>
-      <hr />
-    </div>
+    </header>
+  );
+}
+
+// Six slots, two rows of three: a full team. Pure shapes, no franchise artwork.
+function TeamMark() {
+  return (
+    <span className="flex size-8 items-center justify-center rounded-full bg-foreground text-background transition-transform group-hover:scale-105">
+      <svg viewBox="0 0 16 16" className="size-4" fill="currentColor" aria-hidden>
+        {[3.5, 8, 12.5].flatMap((cx) =>
+          [5.5, 10.5].map((cy) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={1.6} />),
+        )}
+      </svg>
+    </span>
   );
 }
 

@@ -1,12 +1,14 @@
 // The player's teams, shared by the home grid and the team pages (/team/$teamId).
 // shortcut: kept in this browser's localStorage; move to a tRPC + db table once teams follow an account.
 import { createContext, type ReactNode, use, useEffect, useMemo, useState } from "react";
-import { type PokemonSet, SAMPLE_TEAM, type Team } from "@/components/stacked-list";
+import { type PokemonSet, type Team } from "@/components/stacked-list";
 import { GAMES } from "@/data/games/index";
 import { formatInfo } from "@/lib/legality";
 import type { SharedTeam } from "@/lib/share";
 
 const STORAGE_KEY = "pkmnteambuilder.teams.v1";
+// The sample team earlier versions started everyone with: dropped from saved teams on read.
+const OLD_SAMPLE_ID = "sample-reg-f";
 
 interface Teams {
   teams: Team[];
@@ -24,14 +26,16 @@ const TeamsContext = createContext<Teams | null>(null);
 function readSaved(): Team[] | undefined {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null");
-    return Array.isArray(saved) ? (saved as Team[]) : undefined;
+    return Array.isArray(saved)
+      ? (saved as Team[]).filter((team) => team?.id !== OLD_SAMPLE_ID)
+      : undefined;
   } catch {
-    return undefined; // private mode, blocked storage or a corrupt value: start from the sample
+    return undefined; // private mode, blocked storage or a corrupt value: start with no team
   }
 }
 
 export function TeamsProvider({ children }: { children: ReactNode }) {
-  const [teams, setTeams] = useState<Team[]>([SAMPLE_TEAM]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
     setReady(true);
   }, []);
   useEffect(() => {
-    if (!ready) return; // don't overwrite the saved teams with the sample before they're read
+    if (!ready) return; // don't overwrite the saved teams with the empty list before they're read
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(teams));
     } catch {

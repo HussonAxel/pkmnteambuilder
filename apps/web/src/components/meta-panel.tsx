@@ -11,11 +11,10 @@ import { FORM_ARTWORK_IDS } from "@/data/form-artwork-ids";
 import type { MessageKey } from "@/i18n/messages";
 import { artwork } from "@/lib/artwork";
 import { useI18n, useNames } from "@/lib/i18n";
+import { useFormat } from "@/lib/format";
 import { ranked, roleShares, STAPLE, statDistribution } from "@/lib/meta";
 import { loadMeta } from "@/lib/meta-data";
 import { EV_MAX, parseSpread, type SetDraft, STATS } from "@/lib/sets";
-
-const pct = (share: number) => `${(share * 100).toFixed(1)}%`;
 
 function Section({
   title,
@@ -86,6 +85,8 @@ function OptionList({
   relative?: boolean; // bars scaled to the top option (long tails of small shares, like spreads)
 }) {
   const { t } = useI18n();
+  const fmt = useFormat();
+  const pct = (share: number) => fmt.percent(share, 1);
   if (!options.length) return null;
   const max = relative ? (options[0]?.[1] ?? 1) : 1;
   return (
@@ -137,6 +138,8 @@ export function MetaPanel({
   onApply: (patch: Partial<SetDraft>) => void;
 }) {
   const { t } = useI18n();
+  const fmt = useFormat();
+  const pct = (share: number) => fmt.percent(share, 1);
   const names = useNames();
   const meta = useQuery({
     queryKey: ["meta", format, species],
@@ -159,7 +162,7 @@ export function MetaPanel({
     const stats = STATS.filter((s) => evs[s]);
     return (
       <>
-        <span className="text-foreground">{nature}</span>
+        <span className="text-foreground">{names.nature(nature)}</span>
         <span className="mx-1.5 text-muted-foreground/50">·</span>
         {stats.map((s, i) => (
           <Fragment key={s}>
@@ -206,7 +209,7 @@ export function MetaPanel({
             {[
               [t("meta.usage"), pct(data.usage)],
               [t("meta.rank"), `#${data.rank}`],
-              ...(data.battles ? [[t("meta.battles"), data.battles.toLocaleString()]] : []),
+              ...(data.battles ? [[t("meta.battles"), fmt.number(data.battles)]] : []),
               ...(data.lead ? [[t("meta.lead"), pct(data.lead)]] : []),
             ].map(([label, value]) => (
               <div key={label} className="grid gap-1 rounded-xl bg-muted/40 px-3 py-2.5">
@@ -226,6 +229,7 @@ export function MetaPanel({
                   title={t("set.moves")}
                   options={ranked(data.build.moves)}
                   limit={10}
+                  label={names.move}
                   icon={(m) => <TypeIcon type={moveType(m)} />}
                   color={(m) => TYPE_COLORS[moveType(m)?.toLowerCase() ?? ""]}
                   isCurrent={(m) => draft.moves.includes(m)}
@@ -329,7 +333,7 @@ export function MetaPanel({
           {data.viability && (
             <Section
               title={t("meta.ceiling")}
-              hint={t("meta.players", { n: data.viability[0].toLocaleString() })}
+              hint={t("meta.players", { n: fmt.number(data.viability[0]) })}
             >
               <div className="grid gap-1.5">
                 {(
@@ -367,7 +371,7 @@ export function MetaPanel({
               hint: t("meta.threatsHint"),
               rows: data.counters.slice(0, 9).map((c) => ({
                 name: c.name,
-                value: `${Math.round((c.ko + c.switched) * 100)}%`,
+                value: fmt.percent(c.ko + c.switched),
                 sub: t("meta.koSwitch", {
                   ko: Math.round(c.ko * 100),
                   sw: Math.round(c.switched * 100),

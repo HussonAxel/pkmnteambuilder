@@ -17,6 +17,7 @@ import {
   EllipsisIcon,
   PencilIcon,
   PlusIcon,
+  SparklesIcon,
   Trash2Icon,
   UsersIcon,
 } from "lucide-react";
@@ -38,14 +39,17 @@ import {
   type PokemonSet,
   SetSummary,
   ShareTeamDialog,
+  type PokemonOption,
   type Team,
   TypeBadge,
   useFormatName,
+  useTeammateSuggestions,
   withDraft,
 } from "@/components/stacked-list";
 import { ink, loadDex, TypeIcon } from "@/components/data-colors";
 import { TYPE_COLORS } from "@/components/type-chip";
 import { artwork } from "@/lib/artwork";
+import { useFormat } from "@/lib/format";
 import { useI18n, useNames } from "@/lib/i18n";
 import { formatGen } from "@/lib/legality";
 import { PokemonImg, SpriteScope } from "@/lib/sprites";
@@ -97,6 +101,9 @@ export function TeamOverview({
     [game, team.pokemon],
   );
   const [adding, setAdding] = useState(false);
+  // Teammate suggestions in the first free slot, as on the home card; picking one opens its set editor.
+  const suggestions = useTeammateSuggestions(team, actions ? party : []);
+  const [suggestedPick, setSuggestedPick] = useState<PokemonOption | null>(null);
 
   const loadBuild = (species: string) => loadBuildFor(queryClient, team.mode, team.format, species);
   const card = (member: PokemonSet) => (
@@ -161,7 +168,11 @@ export function TeamOverview({
                 rules={team.rules}
                 blocked={starterBlocked}
                 open={adding}
-                onOpenChange={setAdding}
+                onOpenChange={(open) => {
+                  setAdding(open);
+                  if (!open) setSuggestedPick(null);
+                }}
+                startWith={suggestedPick}
                 onAdd={(option) => actions.onAdd(newMember(team, option, !partyFull))}
                 onAddSet={
                   competitive
@@ -215,24 +226,37 @@ export function TeamOverview({
               {/* Two rows of three on wide screens: the whole party at a glance. */}
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {party.map(card)}
-                {Array.from({ length: MAX_ROWS - party.length }, (_, i) => (
-                  // Styled like the home page's "New team" card: it stretches to the row, so the whole
-                  // card is the dashed outline and its content sits centred.
-                  <button
-                    key={`empty-${i}`}
-                    type="button"
-                    disabled={!actions}
-                    onClick={() => setAdding(true)}
-                    className="group/slot flex min-h-48 flex-col items-center justify-center gap-3 rounded-[28px] border-2 border-dashed border-muted-foreground/40 text-muted-foreground opacity-60 transition-opacity enabled:hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
-                  >
-                    <span className="flex size-12 items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/60 transition-transform group-enabled/slot:group-hover/slot:scale-105">
-                      {actions && <PlusIcon size={20} strokeWidth={2} />}
-                    </span>
-                    <span className="text-sm font-medium tracking-tight">
-                      {t("team.emptySlot")}
-                    </span>
-                  </button>
-                ))}
+                {suggestions.length > 0 && (
+                  <SuggestionCard
+                    suggestions={suggestions}
+                    onPick={(option) => {
+                      setSuggestedPick(option);
+                      setAdding(true);
+                    }}
+                    onOther={() => setAdding(true)}
+                  />
+                )}
+                {Array.from(
+                  { length: MAX_ROWS - party.length - (suggestions.length > 0 ? 1 : 0) },
+                  (_, i) => (
+                    // Styled like the home page's "New team" card: it stretches to the row, so the whole
+                    // card is the dashed outline and its content sits centred.
+                    <button
+                      key={`empty-${i}`}
+                      type="button"
+                      disabled={!actions}
+                      onClick={() => setAdding(true)}
+                      className="group/slot flex min-h-48 flex-col items-center justify-center gap-3 rounded-[28px] border-2 border-dashed border-muted-foreground/40 text-muted-foreground opacity-60 transition-opacity enabled:hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
+                    >
+                      <span className="flex size-12 items-center justify-center rounded-full border-2 border-dashed border-muted-foreground/60 transition-transform group-enabled/slot:group-hover/slot:scale-105">
+                        {actions && <PlusIcon size={20} strokeWidth={2} />}
+                      </span>
+                      <span className="text-sm font-medium tracking-tight">
+                        {t("team.emptySlot")}
+                      </span>
+                    </button>
+                  ),
+                )}
               </div>
             </section>
 
@@ -278,6 +302,64 @@ export function TeamOverview({
         )}
       </div>
     </SpriteScope>
+  );
+}
+
+// The first free slot of a competitive party: the species most used with it, one tap to add with its set.
+function SuggestionCard({
+  suggestions,
+  onPick,
+  onOther,
+}: {
+  suggestions: { option: PokemonOption; share: number }[];
+  onPick: (option: PokemonOption) => void;
+  onOther: () => void;
+}) {
+  const { t } = useI18n();
+  const names = useNames();
+  const fmt = useFormat();
+  return (
+    <div className="flex min-h-48 flex-col gap-3 rounded-[28px] border-2 border-dashed border-muted-foreground/40 p-5">
+      <p className="flex items-center gap-1.5 text-sm font-medium tracking-tight text-muted-foreground">
+        <SparklesIcon size={14} />
+        {t("team.suggested")}
+      </p>
+      <div className="grid gap-1.5">
+        {suggestions.map(({ option, share }) => {
+          const name = names.pokemon(option.pokeapiId, option.name);
+          return (
+            <button
+              key={option.key}
+              type="button"
+              aria-label={t("team.addSuggestion", { name })}
+              onClick={() => onPick(option)}
+              className="flex items-center gap-3 rounded-2xl bg-muted/40 py-1.5 pr-3 pl-1.5 text-left transition-colors hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              <PokemonImg
+                id={option.pokeapiId}
+                decoding="async"
+                alt=""
+                className="size-9 shrink-0 object-contain"
+              />
+              <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
+                {name}
+              </span>
+              <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                {fmt.percent(share)}
+              </span>
+              <PlusIcon size={14} className="shrink-0 text-muted-foreground" />
+            </button>
+          );
+        })}
+      </div>
+      <button
+        type="button"
+        onClick={onOther}
+        className="mt-auto w-fit rounded-full px-2 py-1 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+      >
+        {t("team.suggestOther")}
+      </button>
+    </div>
   );
 }
 
@@ -432,6 +514,7 @@ function MemberCard({
 
 // The moves as the set editor shows them: a muted field each, the type's icon and a border in its colour.
 function MoveList({ moves, gen }: { moves: string[]; gen?: number }) {
+  const names = useNames();
   // Same cache entry as the set editor's ["dex", gen]. Adventure teams have no moves to type.
   const dex = useQuery({
     queryKey: ["dex", gen],
@@ -458,10 +541,10 @@ function MoveList({ moves, gen }: { moves: string[]; gen?: number }) {
               </span>
             )}
             {gen === undefined ? (
-              <span className="truncate">{move}</span>
+              <span className="truncate">{names.move(move)}</span>
             ) : (
               <DexTip kind="move" name={move} gen={gen} className="truncate">
-                {move}
+                {names.move(move)}
               </DexTip>
             )}
           </li>

@@ -38,7 +38,7 @@ export function TypeCoverage({ team }: { team: Team }) {
   const party = team.pokemon.filter((p) => p.inTeam).slice(0, MAX_ROWS);
 
   if (party.length === 0) return <p className="text-sm text-muted-foreground">{t("cov.empty")}</p>;
-  if (!dex.data) return <p className="text-sm text-muted-foreground">{t("learn.loading")}</p>;
+  if (!dex.data) return <p className="text-sm text-muted-foreground">{t("common.loading")}</p>;
 
   const { types, chart } = chartOf(dex.data);
   // Offense: the set's damaging moves' types; the Pokémon's own types when it has none (Adventure).

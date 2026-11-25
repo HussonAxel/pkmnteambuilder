@@ -71,7 +71,8 @@ const t = Object.fromEntries(
       "locations", "location_names", "pokemon", "pokemon_species", "pokemon_species_names",
       "pokemon_forms", "pokemon_form_names", "pokemon_evolution", "evolution_triggers",
       "pokemon_types", "pokemon_types_past", "types", "type_names", "pokemon_egg_groups",
-      "items", "item_names", "abilities", "ability_names",
+      "items", "item_names", "abilities", "ability_names", "moves", "move_names",
+      "natures", "nature_names",
     ].map(async (n) => [n, await loadCsv(n)]),
   ),
 );
@@ -457,6 +458,8 @@ for (const [lang, langId] of Object.entries(LANG)) {
     ),
     abilities: named(t.abilities, t.ability_names, "ability_id"),
     items: named(t.items, t.item_names, "item_id"),
+    moves: named(t.moves, t.move_names, "move_id"),
+    natures: named(t.natures, t.nature_names, "nature_id"),
   };
   writeFileSync(new URL(`${lang}.json`, OUT_NAMES), JSON.stringify(out));
 }

@@ -1,7 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { createIsomorphicFn } from "@tanstack/react-start";
 import { getCookie, getRequestHeader } from "@tanstack/react-start/server";
-import { createContext, type ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { MESSAGES, type MessageKey } from "@/i18n/messages";
 
@@ -23,6 +31,19 @@ export const readLang = createIsomorphicFn()
     return isLang(saved) ? saved : document.documentElement.lang === "fr" ? "fr" : "en";
   });
 
+// "{n:member is|members are}" picks the singular or plural form by `n`, with the language's rules
+// (French counts 0 and 1 as singular). A key missing from a language falls back to English, then to
+// the key itself: a key built from data (a Zod issue, say) never crashes the page.
+const pluralRules = { en: new Intl.PluralRules("en"), fr: new Intl.PluralRules("fr") };
+export function format(lang: Lang, key: string, vars?: Record<string, string | number>): string {
+  const message = MESSAGES[lang][key as MessageKey] ?? MESSAGES.en[key as MessageKey] ?? key;
+  return message
+    .replace(/\{(\w+):([^|}]*)\|([^}]*)\}/g, (_, name: string, one: string, other: string) =>
+      pluralRules[lang].select(Number(vars?.[name] ?? 0)) === "one" ? one : other,
+    )
+    .replace(/\{(\w+)\}/g, (_, name: string) => String(vars?.[name] ?? `{${name}}`));
+}
+
 interface I18n {
   lang: Lang;
   setLang: (lang: Lang) => void;
@@ -43,11 +64,7 @@ export function I18nProvider({ initial, children }: { initial: Lang; children: R
     setLangState(next);
   }, []);
 
-  const t = useCallback<I18n["t"]>(
-    (key, vars) =>
-      MESSAGES[lang][key].replace(/\{(\w+)\}/g, (_, name: string) => String(vars?.[name] ?? `{${name}}`)),
-    [lang],
-  );
+  const t = useCallback<I18n["t"]>((key, vars) => format(lang, key, vars), [lang]);
 
   const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t]);
   return <I18nContext value={value}>{children}</I18nContext>;
@@ -67,15 +84,64 @@ export interface Names {
   locations: Record<string, string>;
   abilities: Record<string, string>;
   items: Record<string, string>;
+  moves: Record<string, string>;
+  natures: Record<string, string>;
 }
 
 const nameFiles = import.meta.glob<Names>("../data/names/*.json", { import: "default" });
 
-// "Safety Goggles" -> "safety-goggles", "King's Rock" -> "kings-rock": PokeAPI identifiers from English names.
-export const toIdentifier = (name: string) =>
-  name.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "").replace(/[.'’:%,]/g, "").replace(/\s+/g, "-");
+// For searching and matching typed names: case, accents and punctuation don't count ("evoli" finds "Évoli").
+export const fold = (text: string) =>
+  text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
 
-// Lazy: each language file is ~120 KB, fetched once and cached by React Query.
+// A free-text field over English (Showdown) values shown in the player's language: `display` names a
+// value, `resolve` maps what was typed (French or English name) back to the English value, or keeps
+// the text as typed when nothing matches (the save check then reports it).
+export function useNameResolver(
+  values: readonly string[] | undefined,
+  localize: (v: string) => string,
+) {
+  return useMemo(() => {
+    const byName = new Map<string, string>();
+    for (const value of values ?? []) {
+      byName.set(fold(value), value);
+      byName.set(fold(localize(value)), value);
+    }
+    return {
+      display: (value: string) => (value && byName.has(fold(value)) ? localize(value) : value),
+      resolve: (text: string) => byName.get(fold(text)) ?? text,
+      options: (values ?? []).map(localize),
+    };
+  }, [values, localize]);
+}
+
+// Showdown spellings PokeAPI names differently.
+const ID_ALIASES: Record<string, string> = {
+  "vise-grip": "vice-grip",
+  "pretty-feather": "pretty-wing",
+  leek: "stick",
+};
+
+// "Safety Goggles" -> "safety-goggles", "King's Rock" -> "kings-rock", "As One (Glastrier)" -> "as-one-glastrier":
+// PokeAPI identifiers from English (Showdown) names.
+export const toIdentifier = (name: string) => {
+  const id = name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[.'’:%,()]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+  // Z-Crystals: PokeAPI lists the held item and the bag item apart ("normalium-z--held").
+  return ID_ALIASES[id] ?? (id.endsWith("ium-z") ? `${id}--held` : id);
+};
+
+// Lazy: each language file is ~150 KB, fetched once and cached by React Query.
 export function useNames() {
   const { lang } = useI18n();
   const { data } = useQuery({
@@ -86,14 +152,24 @@ export function useNames() {
   return useMemo(() => {
     const pick = (table: Record<string, string> | undefined, key: string, fallback: string) =>
       table?.[key] ?? fallback;
+    // By English name; "Embody Aspect (Teal)" falls back to the base "Embody Aspect".
+    const byName = (table: Record<string, string> | undefined, name: string) =>
+      table?.[toIdentifier(name)] ?? table?.[toIdentifier(name.replace(/\s*\(.*\)$/, ""))] ?? name;
     return {
       ready: !!data,
       pokemon: (id: number, fallback: string) => pick(data?.pokemon, String(id), fallback),
       type: (type: string) => pick(data?.types, type.toLowerCase(), type),
       version: (version: string) => pick(data?.versions, version, version),
       location: (id: number) => pick(data?.locations, String(id), ""),
-      ability: (ability: string) => pick(data?.abilities, toIdentifier(ability), ability),
-      item: (item: string) => pick(data?.items, toIdentifier(item), item),
+      ability: (ability: string) => byName(data?.abilities, ability),
+      item: (item: string) => byName(data?.items, item),
+      // "Hidden Power Fire" -> "Puissance Cachée Feu": PokeAPI has one Hidden Power, the type is ours.
+      move: (move: string) => {
+        const hp = /^Hidden Power (\w+)$/.exec(move);
+        if (!hp || !data) return byName(data?.moves, move);
+        return `${byName(data.moves, "Hidden Power")} ${pick(data.types, hp[1]!.toLowerCase(), hp[1]!)}`;
+      },
+      nature: (nature: string) => byName(data?.natures, nature),
     };
   }, [data]);
 }

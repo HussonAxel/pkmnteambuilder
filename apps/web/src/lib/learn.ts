@@ -22,9 +22,32 @@ export type Method = (
   | { kind: "event" }
 ) & { by?: string }; // the pre-evolution that learns it, when not this species
 
+// Hidden Power's type depends on the Pokémon's IVs: Showdown sets name it ("Hidden Power Fire"), the
+// games teach a single move. Gens 2 to 7.
+export const HIDDEN_POWER_TYPES = [
+  "Bug",
+  "Dark",
+  "Dragon",
+  "Electric",
+  "Fighting",
+  "Fire",
+  "Flying",
+  "Ghost",
+  "Grass",
+  "Ground",
+  "Ice",
+  "Poison",
+  "Psychic",
+  "Rock",
+  "Steel",
+  "Water",
+] as const;
+export const learnedAs = (move: string) =>
+  /^Hidden Power [A-Z][a-z]+$/.test(move) ? "Hidden Power" : move;
+
 // null: the species can't learn this move in gen 9.
 export function howToLearn(data: LearnData, species: string, move: string): Method[] | null {
-  const index = data.moves.indexOf(move);
+  const index = data.moves.indexOf(learnedAs(move));
   if (index === -1) return null;
   const entry = data.learn[species]
     ?.split(";")

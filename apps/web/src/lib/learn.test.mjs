@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { howToLearn } from "./learn.ts";
+import { howToLearn, learnedAs } from "./learn.ts";
 
 const data = JSON.parse(readFileSync(new URL("../data/learn/gen9.json", import.meta.url), "utf8"));
 const kinds = (species, move) => howToLearn(data, species, move)?.map((m) => m.kind);
@@ -62,4 +62,18 @@ test("with no father in its egg groups, the shortest breeding chain, or none", (
   // Parting Shot: only Bombirdier (Flying) learns it; no Flying/Field relay hatches with it.
   const [partingShot] = howToLearn(data, "Incineroar", "Parting Shot");
   assert.equal(partingShot.chain, undefined);
+});
+
+test("a typed Hidden Power is learned as Hidden Power", () => {
+  assert.equal(learnedAs("Hidden Power Fire"), "Hidden Power");
+  assert.equal(learnedAs("Hidden Power"), "Hidden Power");
+  assert.equal(learnedAs("Fire Blast"), "Fire Blast");
+  const gen7 = JSON.parse(
+    readFileSync(new URL("../data/learn/gen7.json", import.meta.url), "utf8"),
+  );
+  const species = Object.keys(gen7.learn).find((name) => howToLearn(gen7, name, "Hidden Power"));
+  assert.deepEqual(
+    howToLearn(gen7, species, "Hidden Power Ice"),
+    howToLearn(gen7, species, "Hidden Power"),
+  );
 });

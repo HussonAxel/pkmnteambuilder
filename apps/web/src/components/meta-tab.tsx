@@ -11,6 +11,7 @@ import { loadDex } from "@/components/data-colors";
 import { MAX_ROWS, type PokemonSet, type Team } from "@/components/stacked-list";
 import { FORM_ARTWORK_IDS } from "@/data/form-artwork-ids";
 import { artwork } from "@/lib/artwork";
+import { useFormat } from "@/lib/format";
 import { loadFormatMeta } from "@/lib/format-meta";
 import { useI18n, useNames } from "@/lib/i18n";
 import { formatGen } from "@/lib/legality";
@@ -20,10 +21,10 @@ import { chartOf } from "@/lib/type-chart";
 
 const TOP = 20;
 const SPEED_THREATS = 12;
-const pct = (share: number) => `${(share * 100).toFixed(1)} %`;
 
 export function MetaTab({ team }: { team: Team }) {
   const { t } = useI18n();
+  const fmt = useFormat();
   const names = useNames();
   const gen = formatGen(team.format);
   const meta = useQuery({
@@ -40,9 +41,9 @@ export function MetaTab({ team }: { team: Team }) {
   const [cutoff, setCutoff] = useState<string | null>(null);
   const party = team.pokemon.filter((p) => p.inTeam).slice(0, MAX_ROWS);
 
-  if (party.length === 0) return <p className="text-sm text-muted-foreground">{t("cov.empty")}</p>;
+  if (party.length === 0) return <p className="text-sm text-muted-foreground">{t("mt.empty")}</p>;
   if (meta.isPending || !dex.data)
-    return <p className="text-sm text-muted-foreground">{t("learn.loading")}</p>;
+    return <p className="text-sm text-muted-foreground">{t("common.loading")}</p>;
   if (!meta.data) return <p className="text-sm text-muted-foreground">{t("mt.noFormat")}</p>;
 
   const { history, counters, spreads } = meta.data;
@@ -124,7 +125,7 @@ export function MetaTab({ team }: { team: Team }) {
             </button>
           ))}
           <span className="opacity-70">
-            · {t("mt.month", { month: history.month })}
+            · {t("mt.month", { month: fmt.month(history.month) })}
             {history.previous && ` · ${t("mt.trendVs", { month: history.previous.month })}`}
           </span>
         </div>
@@ -287,12 +288,13 @@ function Sprite({ name, num, small }: { name: string; num: number; small?: boole
 function Usage({ share, change }: { share: number; change?: number }) {
   // Under 0.1 point, no arrow: noise.
   const moved = change !== undefined && Math.abs(change) >= 0.001 ? change : undefined;
+  const fmt = useFormat();
   return (
     <span className="inline-flex shrink-0 items-center gap-1 tabular-nums text-muted-foreground">
-      {pct(share)}
+      {fmt.percent(share, 1)}
       {moved !== undefined && (
         <span
-          title={`${moved > 0 ? "+" : ""}${(moved * 100).toFixed(1)}`}
+          title={fmt.delta(moved * 100)}
           className={cn(
             "inline-flex items-center",
             moved > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400",

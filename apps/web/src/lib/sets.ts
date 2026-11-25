@@ -224,7 +224,7 @@ export const importedSetSchema = z.object({
     }),
   ivs: z.partialRecord(z.enum(STATS), statSchema(31)),
   moves: z
-    .array(z.string().min(1))
+    .array(z.string().min(1, { error: "import.emptyMove" }))
     .min(1, { error: "import.noMoves" })
     .max(4, { error: "import.tooManyMoves" }),
 });
