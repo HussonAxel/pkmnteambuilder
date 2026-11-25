@@ -38,12 +38,14 @@ import { useTeams } from "@/lib/teams";
 
 // The species as the team builder lists it in this format: undefined while loading, null when the
 // format doesn't allow it.
-export function useFormatOption(format: string, species: string) {
-  const mode = (formatInfo(format)?.mode ?? "smogon") as CompetitiveMode;
+// No format (a generation alone, on the Pokémon page): nothing is loaded.
+export function useFormatOption(format: string | undefined, species: string) {
+  const mode = (formatInfo(format ?? "")?.mode ?? "smogon") as CompetitiveMode;
   // Same cache entry as the team builder's species list.
   const options = useQuery({
     queryKey: ["pokemon-options", mode, format],
-    queryFn: () => loadCompetitive(format),
+    queryFn: () => loadCompetitive(format!),
+    enabled: !!format,
     staleTime: Number.POSITIVE_INFINITY,
   });
   if (!options.data) return undefined;
@@ -51,14 +53,22 @@ export function useFormatOption(format: string, species: string) {
 }
 
 // Analysis sets then the most used build, as the set editor lists them.
-export function useRecommendations(format: string, species: string, fallbackAbility: string) {
+export function useRecommendations(
+  format: string | undefined,
+  species: string,
+  fallbackAbility: string,
+) {
   const queryClient = useQueryClient();
-  const mode = (formatInfo(format)?.mode ?? "smogon") as CompetitiveMode;
-  const analysis = useQuery({ ...analysisQuery(format), enabled: mode === "smogon" });
+  const mode = (formatInfo(format ?? "")?.mode ?? "smogon") as CompetitiveMode;
+  const analysis = useQuery({
+    ...analysisQuery(format ?? ""),
+    enabled: !!format && mode === "smogon",
+  });
   // Same cache entry as the set editor's build query.
   const build = useQuery({
     queryKey: ["build", mode, format, species],
-    queryFn: async () => (await loadBuildFor(queryClient, mode, format, species)) ?? null,
+    queryFn: async () => (await loadBuildFor(queryClient, mode, format!, species)) ?? null,
+    enabled: !!format,
     staleTime: Number.POSITIVE_INFINITY,
   });
   const recommendations: Recommendation[] = [

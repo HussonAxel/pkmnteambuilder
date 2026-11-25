@@ -1,4 +1,4 @@
-// How each species learns its moves, per generation (4 to 9): the set editor's move list and the Box
+// How each species learns its moves, per generation (1 to 9): the set editor's move list and the Box
 // details panel (level, evolution, TM, egg, tutor, event), plus who can pass on each egg move and which
 // TM teaches what. Precomputed: the browser never loads @pkmn/dex's full learnsets (~3.2 MB).
 // Regenerate: node apps/web/scripts/build-learn.mjs (after build-formats.mjs or a @pkmn/dex update)
@@ -12,6 +12,9 @@ import { loadCsv } from "./lib/pokeapi.mjs";
 const OUT = new URL("../src/data/learn/", import.meta.url);
 // The game whose TM list stands for each generation (TM numbers are shared within a generation).
 const TM_GAME = {
+  1: "yellow",
+  2: "crystal",
+  3: "emerald",
   4: "platinum",
   5: "black-2-white-2",
   6: "omega-ruby-alpha-sapphire",
@@ -29,24 +32,28 @@ const itemById = new Map(items.map((i) => [i.id, i.identifier]));
 mkdirSync(OUT, { recursive: true });
 for (const g of Object.keys(TM_GAME).map(Number)) {
   const gen = Dex.forGen(g);
-  // Every species some format of this generation allows (scripts/build-formats.mjs).
-  const species = [
-    ...new Set(
-      FORMATS.filter((f) => f.gen === g).flatMap((f) =>
-        JSON.parse(
-          readFileSync(new URL(`../src/data/formats/${f.id}.json`, import.meta.url), "utf8"),
-        ),
-      ),
-    ),
-  ]
-    .map((name) => gen.species.get(name))
-    .filter((s) => s.exists);
+  // Every species some format of this generation allows (scripts/build-formats.mjs). Gens 1 to 3 have no
+  // format here (only the Pokémon page and adventure teams use them): every species of that generation.
+  const names =
+    g <= 3
+      ? gen.species
+          .all()
+          .filter((s) => s.exists && s.num > 0 && !s.isNonstandard)
+          .map((s) => s.name)
+      : FORMATS.filter((f) => f.gen === g).flatMap((f) =>
+          JSON.parse(
+            readFileSync(new URL(`../src/data/formats/${f.id}.json`, import.meta.url), "utf8"),
+          ),
+        );
+  const species = [...new Set(names)].map((name) => gen.species.get(name)).filter((s) => s.exists);
 
   // Formes without a learnset of their own use their base species'.
+  // Gens 1 and 2 keep their learnsets apart (tradebacks, Crystal tutors): read them from that generation.
+  const learnsets = g <= 2 ? gen.learnsets : Dex.learnsets;
   async function learnsetOf(sp) {
-    const own = (await Dex.learnsets.get(sp.id))?.learnset;
+    const own = (await learnsets.get(sp.id))?.learnset;
     if (own || !(sp.changesFrom || sp.baseSpecies !== sp.name)) return own ?? {};
-    return (await Dex.learnsets.get(toID(sp.changesFrom || sp.baseSpecies)))?.learnset ?? {};
+    return (await learnsets.get(toID(sp.changesFrom || sp.baseSpecies)))?.learnset ?? {};
   }
 
   // This generation's sources ("9L20", "9M", "9E", "9T", "9S0") -> ["L20", "M", "E", "T", "S"], lowest level only.
@@ -160,13 +167,19 @@ for (const g of Object.keys(TM_GAME).map(Number)) {
     assert.equal(learnOf("Incineroar", "Parting Shot"), "E@Litten");
     assert.match(learnOf("Garchomp", "Dragon Tail"), /M/);
   }
-  assert.match(
-    learnOf("Garchomp", "Earthquake") ?? "",
-    /M/,
-    `gen ${g}: Garchomp should get Earthquake by TM`,
-  );
-  assert.ok(Object.keys(tm).length > 80, `gen ${g}: only ${Object.keys(tm).length} TMs mapped`);
-  assert.ok(Object.keys(fathers).length > 100, `gen ${g}: only ${Object.keys(fathers).length} egg moves with fathers`);
+  if (g === 1) {
+    // Gen 1: one Special stat, no breeding; Gengar's Thunderbolt is TM24.
+    assert.match(learnOf("Gengar", "Thunderbolt") ?? "", /M/);
+    assert.equal(learnOf("Pikachu", "Thunder Wave"), "L8,M"); // Yellow: level 8, and TM45
+  }
+  const [probe, quake] = g <= 3 ? ["Golem", "Earthquake"] : ["Garchomp", "Earthquake"];
+  assert.match(learnOf(probe, quake) ?? "", /M/, `gen ${g}: ${probe} should get ${quake} by TM`);
+  // 50 TMs (+ HMs) up to gen 3, 92 or more since.
+  const minTms = g <= 3 ? 50 : 80;
+  assert.ok(Object.keys(tm).length > minTms, `gen ${g}: only ${Object.keys(tm).length} TMs mapped`);
+  // No breeding in gen 1; gen 2 introduced it with fewer egg moves.
+  const minFathers = g === 1 ? 0 : g <= 3 ? 50 : 100;
+  assert.ok(Object.keys(fathers).length >= minFathers, `gen ${g}: only ${Object.keys(fathers).length} egg moves with fathers`);
 
   writeFileSync(
     new URL(`gen${g}.json`, OUT),

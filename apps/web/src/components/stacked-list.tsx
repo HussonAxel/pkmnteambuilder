@@ -39,7 +39,12 @@ import { type QueryClient, useQuery, useQueryClient } from "@tanstack/react-quer
 import { FORM_ARTWORK_IDS } from "@/data/form-artwork-ids";
 import { DexTip, frenchDescription } from "@/components/dex-tip";
 import { MemberDetails } from "@/components/member-details";
-import { prefetchSetFormat, prefetchSetSpecies, SetEditor } from "@/components/set-editor";
+import {
+  prefetchSetFormat,
+  prefetchSetSpecies,
+  SetEditor,
+  type SetProgress,
+} from "@/components/set-editor";
 import { artwork } from "@/lib/artwork";
 import { PokemonImg, SpriteScope } from "@/lib/sprites";
 import {
@@ -86,6 +91,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@pkmnteambuilder/ui/com
 import { AnimatePresence, motion } from "motion/react";
 import {
   Fragment,
+  useCallback,
   useDeferredValue,
   useEffect,
   useLayoutEffect,
@@ -1469,13 +1475,26 @@ export function AddPokemonDialog({
   const [innerOpen, setInnerOpen] = useState(false);
   const open = controlledOpen ?? innerOpen;
   const [editing, setEditing] = useState<PokemonOption | null>(null);
+  // The set being made for `editing`, kept when the dialog closes without adding: reopening resumes it.
+  const progress = useRef<(SetProgress & { key: string }) | null>(null);
+  const saveProgress = useCallback(
+    (p: SetProgress) => {
+      if (editing) progress.current = { ...p, key: editing.key };
+    },
+    [editing],
+  );
   useEffect(() => {
     if (open && startWith) setEditing(startWith);
   }, [open, startWith]);
   const setOpen = (next: boolean) => {
-    if (next) setEditing(null);
     setInnerOpen(next);
     onOpenChange?.(next);
+  };
+  // After an add, the next opening starts afresh; closing without adding keeps the search and the set.
+  const reset = () => {
+    setQuery("");
+    setEditing(null);
+    progress.current = null;
   };
   const loadBuild = (species: string) => loadBuildFor(queryClient, mode, format, species);
   // Picking a Pokémon opens the set editor: warm its data so the click doesn't wait.
@@ -1525,13 +1544,7 @@ export function AddPokemonDialog({
   const gridScroll = useRef<HTMLDivElement>(null);
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(next) => {
-        if (next) setQuery("");
-        setOpen(next);
-      }}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
           variant === "wish" ? (
@@ -1573,10 +1586,17 @@ export function AddPokemonDialog({
             sprite={artwork(editing.pokeapiId)}
             abilities={editing.abilities ?? [editing.ability]}
             loadBuild={() => loadBuild(editing.name)}
-            onBack={() => setEditing(null)}
+            resume={progress.current?.key === editing.key ? progress.current : undefined}
+            onProgress={saveProgress}
+            onBack={() => {
+              // Back to the list: that set is dropped.
+              progress.current = null;
+              setEditing(null);
+            }}
             onConfirm={(draft) => {
               onAddSet?.(editing, draft);
               setOpen(false);
+              reset();
             }}
           />
         ) : (
@@ -1683,6 +1703,7 @@ export function AddPokemonDialog({
                           if (opensEditor) return setEditing(option);
                           onAdd(option);
                           setOpen(false);
+                          reset();
                         }}
                         className="group/tile relative flex min-w-0 flex-col items-center gap-2 rounded-2xl bg-muted/30 px-3 pt-4 pb-4 text-center transition-colors enabled:hover:bg-muted/70 focus-visible:bg-muted/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-border disabled:cursor-not-allowed disabled:opacity-40 disabled:grayscale"
                       >

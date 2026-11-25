@@ -363,6 +363,8 @@ function SuggestionCard({
   );
 }
 
+const gameGen = (version: string) =>
+  GAMES.find((g) => (g.versions as readonly string[]).includes(version))?.generation ?? 9;
 const versionGroupOf = (version: string) =>
   GAMES.find((g) => (g.versions as readonly string[]).includes(version))?.versionGroup;
 
@@ -402,20 +404,19 @@ function MemberCard({
         />
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-base leading-none font-semibold tracking-tight text-foreground">
-            {/* Competitive members open their Pokémon page in the team's format. */}
-            {team.mode === "adventure" ? (
-              name
-            ) : (
-              <Link
-                to="/pokemon/$species"
-                params={{ species: member.name }}
-                search={{ format: team.format }}
-                title={t("pokemon.view", { name })}
-                className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              >
-                {name}
-              </Link>
-            )}
+            {/* The member's Pokémon page: in the team's format, or (adventure) its game's generation
+                alone. Adventure members are stored by national dex number ("#94"). */}
+            <Link
+              to="/pokemon/$species"
+              params={{ species: team.mode === "adventure" ? member.name.slice(1) : member.name }}
+              search={
+                team.mode === "adventure" ? { gen: gameGen(team.format) } : { format: team.format }
+              }
+              title={t("pokemon.view", { name })}
+              className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              {name}
+            </Link>
           </h3>
           {/* Its own types, then apart, after a divider, the Tera type (gem icon). */}
           <div className="mt-2 flex flex-wrap items-center gap-2">

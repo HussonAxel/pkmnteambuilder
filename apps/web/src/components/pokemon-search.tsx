@@ -17,13 +17,13 @@ const MAX_RESULTS = 8;
 interface Entry {
   name: string; // @pkmn/dex name
   id: number; // PokeAPI id: artwork and localised name
-  gens: number[]; // generations (4 to 9) where it's playable, newest first
+  gens: number[]; // generations (1 to 9) where it's playable, newest first
 }
 
 // Every species and playable forme, with the generations it exists in. Loaded on first open.
 async function loadSpecies(): Promise<Entry[]> {
   const { Dex } = await import("@pkmn/dex");
-  const dexes = GENS.map((gen) => [gen, Dex.forGen(gen)] as const);
+  const dexes = [...GENS, 3, 2, 1].map((gen) => [gen, Dex.forGen(gen)] as const);
   return Dex.species
     .all()
     .filter(
@@ -54,12 +54,12 @@ export function PokemonSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
-  // On a Pokémon page, the next one opens in the same format when it can.
-  const currentFormat = useRouterState({
-    select: (s) => {
-      const match = s.matches.find((m) => m.routeId === "/pokemon/$species");
-      return (match?.search as { format?: string } | undefined)?.format;
-    },
+  // On a Pokémon page, the next one opens in the same format (or generation alone) when it can.
+  const current = useRouterState({
+    select: (s) =>
+      s.matches.find((m) => m.routeId === "/pokemon/$species")?.search as
+        | { format?: string; gen?: number }
+        | undefined,
   });
   const species = useQuery({
     queryKey: ["search-species"],
@@ -102,15 +102,17 @@ export function PokemonSearch() {
   }, [query, species.data, names]);
 
   const go = (entry: Entry) => {
-    // Keep the page's format when the species is in its generation; else its newest generation's OU.
-    const keep = currentFormat && entry.gens.includes(formatGen(currentFormat));
-    const format = keep ? currentFormat : `gen${entry.gens[0]}ou`;
+    // Keep the page's format or generation when the species is in it; else its newest generation's OU.
+    const currentFormat = current?.format;
+    const keepFormat = currentFormat && entry.gens.includes(formatGen(currentFormat));
+    const keepGen = current?.gen && entry.gens.includes(current.gen);
+    const format = keepFormat ? currentFormat : `gen${entry.gens[0]}ou`;
     setOpen(false);
     setQuery("");
     void navigate({
       to: "/pokemon/$species",
       params: { species: entry.name },
-      search: { format: formatInfo(format) ? format : "gen9ou" },
+      search: keepGen ? { gen: current.gen } : { format: formatInfo(format) ? format : "gen9ou" },
     });
   };
 

@@ -33,22 +33,33 @@ import { useI18n, useNames } from "@/lib/i18n";
 import { howToLearn, type LearnData, type Method } from "@/lib/learn";
 import { learnableMoves, loadLearnData } from "@/lib/learn-data";
 import { FORMATS, formatGen, GENS } from "@/lib/legality";
-import { calcStat, STATS, type Stat } from "@/lib/sets";
+import { calcStat, calcStatGen12, STAT_EXP_MAX, STATS, type Stat } from "@/lib/sets";
 
 type Dex = Awaited<ReturnType<typeof loadDex>>;
+
+const ALL_GENS = [...GENS, 3, 2, 1];
+
+// By name ("Gengar") or national dex number ("94", how adventure teams store their members).
+function findSpecies(dex: Dex, key: string) {
+  if (!/^\d+$/.test(key)) return dex.species.get(key);
+  const num = Number(key);
+  return dex.species.all().find((s) => s.num === num && !s.forme) ?? dex.species.get(key);
+}
 
 export function PokemonPage({
   species,
   format,
-  onFormat,
+  gen: genOnly,
+  onScope,
 }: {
-  species: string; // @pkmn/dex name, as in the URL
-  format: string;
-  onFormat: (format: string) => void;
+  species: string; // @pkmn/dex name or national dex number, as in the URL
+  format?: string; // a competitive format; absent: the generation alone (stats and moves, no strategy)
+  gen?: number;
+  onScope: (scope: string) => void; // a format id, or "gen<N>" for a generation alone
 }) {
   const { t } = useI18n();
   const names = useNames();
-  const gen = formatGen(format);
+  const gen = format ? formatGen(format) : (genOnly ?? 9);
   // Same cache entry as the set editor's ["dex", gen].
   const dex = useQuery({
     queryKey: ["dex", gen],
@@ -56,8 +67,9 @@ export function PokemonPage({
     staleTime: Number.POSITIVE_INFINITY,
   });
 
-  const sp = dex.data?.species.get(species);
-  const found = !!sp?.exists && sp.num > 0;
+  const sp = dex.data && findSpecies(dex.data, species);
+  // Species from a later generation exist in @pkmn/dex's older data, flagged "Future".
+  const found = !!sp?.exists && sp.num > 0 && sp.gen <= gen;
   const id = sp ? (FORM_ARTWORK_IDS[sp.name] ?? sp.num) : 0;
   const name = sp && found ? names.pokemon(id, sp.name) : species;
   const option = useFormatOption(format, sp?.name ?? species);
@@ -97,9 +109,9 @@ export function PokemonPage({
             </div>
           </div>
           <div className="flex w-full flex-wrap items-end gap-3 sm:w-auto">
-            <FormatPicker value={format} onChange={onFormat} />
+            <FormatPicker value={format ?? `gen${gen}`} onChange={onScope} />
             {/* The set the editor would start from: the first recommendation, if any. */}
-            {found && (
+            {found && format && (
               <AddToTeam format={format} option={option} draft={sets.recommendations[0]?.draft} />
             )}
           </div>
@@ -116,19 +128,25 @@ export function PokemonPage({
         <div className="grid items-start gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
           {/* The identity card stays in view while the main column scrolls. */}
           <aside className="grid gap-6 lg:sticky lg:top-20">
-            <Abilities abilities={sp.abilities} gen={gen} />
+            {/* Abilities came with gen 3. */}
+            {gen >= 3 && <Abilities abilities={sp.abilities} gen={gen} />}
             <BaseStats
               base={sp.baseStats}
-              level={format.includes("vgc") ? 50 : format.endsWith("lc") ? 5 : 100}
+              gen={gen}
+              level={format?.includes("vgc") ? 50 : format?.endsWith("lc") ? 5 : 100}
             />
           </aside>
           <div className="grid min-w-0 gap-6">
-            <Panel title={t("pokemon.sets")}>
-              <RecommendedSets format={format} option={option} {...sets} />
-            </Panel>
-            <Panel title={t("pokemon.meta")}>
-              <MetaPanel format={format} gen={gen} species={sp.name} links />
-            </Panel>
+            {format && (
+              <>
+                <Panel title={t("pokemon.sets")}>
+                  <RecommendedSets format={format} option={option} {...sets} />
+                </Panel>
+                <Panel title={t("pokemon.meta")}>
+                  <MetaPanel format={format} gen={gen} species={sp.name} links />
+                </Panel>
+              </>
+            )}
             <Learnset species={sp.name} gen={gen} dex={dex.data} />
           </div>
         </div>
@@ -157,8 +175,9 @@ function BackLink() {
   );
 }
 
-// Every competitive format, newest generation first.
-function FormatPicker({ value, onChange }: { value: string; onChange: (format: string) => void }) {
+// Every competitive format, newest generation first, each generation led by itself alone (no strategy
+// data): the only choice for gens 1 to 3.
+function FormatPicker({ value, onChange }: { value: string; onChange: (scope: string) => void }) {
   const { t } = useI18n();
   const formatName = useFormatName();
   return (
@@ -169,7 +188,7 @@ function FormatPicker({ value, onChange }: { value: string; onChange: (format: s
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {GENS.map((gen) => (
+          {ALL_GENS.map((gen) => (
             <div key={gen} role="group" aria-label={t("format.gen", { gen })}>
               <div
                 aria-hidden
@@ -177,6 +196,7 @@ function FormatPicker({ value, onChange }: { value: string; onChange: (format: s
               >
                 {t("format.gen", { gen })}
               </div>
+              <SelectItem value={`gen${gen}`}>{t("pokemon.genOnly", { gen })}</SelectItem>
               {FORMATS.filter((f) => f.gen === gen).map((f) => (
                 <SelectItem key={f.id} value={f.id}>
                   {formatName(f.mode, f.id)}
@@ -229,25 +249,49 @@ function Abilities({ abilities, gen }: { abilities: object; gen: number }) {
 
 // Base stats with their bar (255 is the highest base stat, Blissey's HP), and what each becomes at the
 // format's level: 0 EVs and a neutral nature, to 252 EVs and a boosting one.
-function BaseStats({ base, level }: { base: Record<Stat, number>; level: number }) {
+function BaseStats({
+  base,
+  gen,
+  level,
+}: {
+  base: Record<Stat, number>;
+  gen: number;
+  level: number;
+}) {
   const { t } = useI18n();
-  const total = STATS.reduce((sum, s) => sum + base[s], 0);
+  // Gen 1 has a single Special stat (@pkmn/dex gives it as both Sp. Atk and Sp. Def).
+  const stats = gen === 1 ? STATS.filter((s) => s !== "spd") : STATS;
+  const total = stats.reduce((sum, s) => sum + base[s], 0);
+  // Gens 1-2: max DVs, from no stat experience to the most; since gen 3: 31 IVs, 0 EVs and a neutral
+  // nature to 252 EVs and a boosting one.
+  const range = (stat: Stat) =>
+    gen <= 2
+      ? [
+          calcStatGen12(stat, base[stat], 15, 0, level),
+          calcStatGen12(stat, base[stat], 15, STAT_EXP_MAX, level),
+        ]
+      : [
+          calcStat(stat, base[stat], 31, 0, level),
+          calcStat(stat, base[stat], 31, 252, level, { plus: stat }),
+        ];
   return (
     <Panel title={t("pokemon.baseStats")}>
       <div className="grid grid-cols-[3rem_2rem_minmax(0,1fr)_4.5rem] items-center gap-x-3 gap-y-2 text-xs">
         <span />
         <span />
         <span />
-        <span className="text-right text-muted-foreground" title={t("pokemon.rangeHint")}>
+        <span
+          className="text-right text-muted-foreground"
+          title={t(gen <= 2 ? "pokemon.rangeHintGen12" : "pokemon.rangeHint")}
+        >
           {t("pokemon.range", { level })}
         </span>
-        {STATS.map((stat) => {
-          const min = calcStat(stat, base[stat], 31, 0, level);
-          const max = calcStat(stat, base[stat], 31, 252, level, { plus: stat });
+        {stats.map((stat) => {
+          const [min, max] = range(stat);
           return (
             <Fragment key={stat}>
               <span className="font-medium" style={{ color: ink(STAT_COLORS[stat]) }}>
-                {t(`stat.${stat}` as MessageKey)}
+                {gen === 1 && stat === "spa" ? t("stat.spc") : t(`stat.${stat}` as MessageKey)}
               </span>
               <span className="text-right font-medium tabular-nums text-foreground">
                 {base[stat]}

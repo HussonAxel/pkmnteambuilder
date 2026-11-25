@@ -230,6 +230,12 @@ export async function defaultDraft(
   return build ? fromUsage(build, fallbackAbility).draft : undefined;
 }
 
+// Where a set being made stands: its starting point and its current values.
+export interface SetProgress {
+  picked: string | null;
+  draft: SetDraft;
+}
+
 export function SetEditor({
   mode,
   format,
@@ -239,6 +245,8 @@ export function SetEditor({
   abilities: abilitiesProp,
   loadBuild,
   initial,
+  resume,
+  onProgress,
   confirmLabel,
   onBack,
   onConfirm,
@@ -253,6 +261,9 @@ export function SetEditor({
   onBack: () => void;
   // Editing a Pokémon already on the team: start from its set, not a recommendation.
   initial?: SetDraft;
+  // A set left unfinished when the dialog closed: picked up where the player left it.
+  resume?: SetProgress;
+  onProgress?: (progress: SetProgress) => void;
   confirmLabel?: string;
   onConfirm: (draft: SetDraft) => void;
 }) {
@@ -293,8 +304,14 @@ export function SetEditor({
   const loading = (mode === "smogon" && analysis.isPending) || build.isPending;
 
   // Which starting point is loaded: a recommendation's name, "blank", or none yet.
-  const [picked, setPicked] = useState<string | null>(initial ? "current" : null);
-  const [draft, setDraft] = useState<SetDraft>(() => initial ?? emptyDraft(fallbackAbility));
+  const [picked, setPicked] = useState<string | null>(
+    resume ? resume.picked : initial ? "current" : null,
+  );
+  const [draft, setDraft] = useState<SetDraft>(
+    () => resume?.draft ?? initial ?? emptyDraft(fallbackAbility),
+  );
+  // Reported on every change, so closing the dialog doesn't lose the set.
+  useEffect(() => onProgress?.({ picked, draft }), [picked, draft, onProgress]);
   // Load the first recommendation once they arrive, unless the player already chose.
   useEffect(() => {
     if (picked === null && !loading && recommendations[0]) {

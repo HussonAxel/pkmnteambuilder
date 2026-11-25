@@ -439,6 +439,7 @@ const en = {
   "stat.spa": "SpA",
   "stat.spd": "SpD",
   "stat.spe": "Spe",
+  "stat.spc": "Spc",
   "pokemon.tera": "Tera {type}",
 
   "box.title": "Box",
@@ -486,6 +487,8 @@ const en = {
   "pokemon.total": "Total",
   "pokemon.range": "Level {level}",
   "pokemon.rangeHint": "From 0 EVs and a neutral nature to 252 EVs and a boosting nature (31 IVs).",
+  "pokemon.rangeHintGen12": "From no stat experience to the most (65535), with max DVs (15).",
+  "pokemon.genOnly": "Gen {gen} · stats and moves",
   "pokemon.meta": "In the metagame",
   "pokemon.learnset": "Learnset",
   "pokemon.filter.all": "All",
@@ -958,6 +961,7 @@ const fr: Record<MessageKey, string> = {
   "stat.spa": "Atq Spé",
   "stat.spd": "Déf Spé",
   "stat.spe": "Vit",
+  "stat.spc": "Spé",
   "pokemon.tera": "Téra {type}",
 
   "box.title": "Boîte",
@@ -1005,6 +1009,9 @@ const fr: Record<MessageKey, string> = {
   "pokemon.total": "Total",
   "pokemon.range": "Niveau {level}",
   "pokemon.rangeHint": "De 0 EV et une nature neutre à 252 EV et une nature favorable (IV 31).",
+  "pokemon.rangeHintGen12":
+    "De 0 à 65535 points d'expérience de stat, avec des DV au maximum (15).",
+  "pokemon.genOnly": "Gen {gen} · stats et capacités",
   "pokemon.meta": "Dans le métagame",
   "pokemon.learnset": "Capacités apprises",
   "pokemon.filter.all": "Toutes",

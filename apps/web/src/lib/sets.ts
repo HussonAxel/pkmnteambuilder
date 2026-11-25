@@ -143,6 +143,21 @@ export function calcStat(
   return Math.floor((core + 5) * mod);
 }
 
+// Gens 1 and 2: DVs (0 to 15) and stat experience (0 to 65535) instead of IVs and EVs, no natures.
+// The stat experience bonus is √(stat exp), rounded up and capped at 255, divided by 4 (63 at most).
+export function calcStatGen12(
+  stat: Stat,
+  base: number,
+  dv: number,
+  statExp: number,
+  level: number,
+): number {
+  const bonus = Math.floor(Math.min(255, Math.ceil(Math.sqrt(statExp))) / 4);
+  const core = Math.floor((((base + dv) * 2 + bonus) * level) / 100);
+  return stat === "hp" ? core + level + 10 : core + 5;
+}
+export const STAT_EXP_MAX = 65535;
+
 export const setIv = (ivs: Evs, stat: Stat, value: number): Evs => ({
   ...ivs,
   [stat]: Math.max(0, Math.min(31, Math.round(value) || 0)),

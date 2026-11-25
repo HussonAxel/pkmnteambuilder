@@ -227,3 +227,11 @@ test("coverage is the mean usage of a set's moves and item, 0 outside the top op
   assert.ok(Math.abs(score - (0.97 + 0.83 + 0 + 0.47) / 4) < 1e-9);
   assert.equal(coverage({ moves: [], item: "" }, build).score, 0);
 });
+
+test("Gens 1-2 stats: DVs and stat experience (Gengar, level 100)", async () => {
+  const { calcStatGen12, STAT_EXP_MAX } = await import("./sets.ts");
+  // Max DVs, no stat experience to the most: Bulbapedia's maximum is 323 HP and 358 Special.
+  assert.equal(calcStatGen12("hp", 60, 15, 0, 100), 260);
+  assert.equal(calcStatGen12("hp", 60, 15, STAT_EXP_MAX, 100), 323);
+  assert.equal(calcStatGen12("spa", 130, 15, STAT_EXP_MAX, 100), 358);
+});
