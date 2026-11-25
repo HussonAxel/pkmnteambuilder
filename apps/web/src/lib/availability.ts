@@ -1,7 +1,8 @@
 // Which Pokémon a player can get in an adventure, from the generated game files. Pure: tested in availability.test.mjs.
 
 // Flags a source needs the player's rules to allow (note de cadrage 2.1).
-export type Flag = "trade" | "static" | "gift" | "rare" | "postgame";
+// dlc: a paid expansion (Sword/Shield's Isle of Armor and Crown Tundra, Scarlet/Violet's Teal Mask and Indigo Disk).
+export type Flag = "trade" | "static" | "gift" | "rare" | "postgame" | "dlc";
 
 export interface Source {
   v: string[]; // versions with this source
@@ -46,6 +47,7 @@ export const DEFAULT_RULES: Rules = {
   gift: true,
   rare: true,
   postgame: true,
+  dlc: false, // most playthroughs are of the base game; teams saved before this rule read it as off
 };
 
 // Earliest step at which each Pokémon is obtainable in `version`, under `rules`. Unobtainable ones are left out.
@@ -53,6 +55,7 @@ export const DEFAULT_RULES: Rules = {
 function allowed(s: Source, version: string, rules: Rules): boolean {
   // Other-version sources reach this version by trading; the exclusives toggle allows them.
   if (!s.v.includes(version) && !rules.exclusives) return false;
+  // A rule missing from older saved teams (dlc) counts as off.
   return !s.f.some((flag) => !rules[flag]);
 }
 
@@ -84,7 +87,15 @@ export function bestSource(
   return best;
 }
 
-export const RULE_KEYS = ["exclusives", "trade", "static", "gift", "rare", "postgame"] as const;
+export const RULE_KEYS = [
+  "exclusives",
+  "trade",
+  "static",
+  "gift",
+  "rare",
+  "postgame",
+  "dlc",
+] as const;
 
 // How many Pokémon each rule decides: obtainable with every rule on, minus obtainable with only that one off.
 // This is the counter next to each switch (note de cadrage, feature 2).
@@ -92,7 +103,9 @@ export const RULE_KEYS = ["exclusives", "trade", "static", "gift", "rare", "post
 export function affectedBy(game: GameData, version: string, rule: keyof Rules): GamePokemon[] {
   const all = Object.fromEntries(RULE_KEYS.map((k) => [k, true])) as Rules;
   const on = new Set(availableIn(game, version, all).map((a) => a.pokemon.id));
-  const kept = new Set(availableIn(game, version, { ...all, [rule]: false }).map((a) => a.pokemon.id));
+  const kept = new Set(
+    availableIn(game, version, { ...all, [rule]: false }).map((a) => a.pokemon.id),
+  );
   return game.pokemon.filter((p) => on.has(p.id) && !kept.has(p.id));
 }
 

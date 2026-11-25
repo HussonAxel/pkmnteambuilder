@@ -77,8 +77,24 @@ assert.ok(exclusives.size > 60, `only ${exclusives.size} version exclusives pars
 const versionsOf = (name) =>
   exclusives.get(name) ?? exclusives.get(Dex.species.get(name).baseSpecies) ?? BOTH;
 
+// --- Paid expansions: The Teal Mask (Kitakami) and The Indigo Disk (Blueberry Academy's Terarium, Area Zero
+// Underdepths). PKHeX merges their tables with Paldea's; these place names tell them apart. Encounters there
+// get `dlc: true`, which build-games.mjs turns into the "dlc" flag (a rule the player turns on).
+const DLC_PLACES = new Set([
+  // The Teal Mask
+  "Kitakami Road", "Kitakami Wilds", "Kitakami Hall", "Mossui Town", "Apple Hills", "Reveler’s Road",
+  "Oni Mountain", "Oni’s Maw", "Infernal Pass", "Chilling Waterhead", "Crystal Pool", "Wistful Fields",
+  "Mossfell Confluence", "Timeless Woods", "Paradise Barrens", "Fellhorn Gorge", "Dreaded Den", "Loyalty Plaza",
+  // The Indigo Disk
+  "Terarium", "Central Plaza", "Coastal Biome", "Coastal Plaza", "Savanna Biome", "Savanna Plaza",
+  "Canyon Biome", "Canyon Plaza", "Polar Biome", "Polar Plaza", "Chargestone Cavern", "Torchlit Labyrinth",
+  "Area Zero Underdepths",
+]);
+
 const encounters = new Map();
-function add({ species, form = 0, method, location, level, versions }) {
+// late: The Indigo Disk's story content (Snacksworth's legendaries, Perrin's Paradox Pokémon, the League Club
+// Room trades…), which needs the main story finished (Bulbapedia, "The Indigo Disk"): post-game, whatever its level.
+function add({ species, form = 0, method, location, level, versions, dlc = false, late = false }) {
   const name = dexName(species, form);
   const e = {
     v: versions ?? versionsOf(name),
@@ -87,8 +103,10 @@ function add({ species, form = 0, method, location, level, versions }) {
     loc: locationName(location),
     lv: level,
   };
-  // One row per (pokemon, method, place, versions), at its lowest level.
-  const key = [e.id, e.m, e.loc, e.v.join("+")].join("|");
+  if (dlc || DLC_PLACES.has(e.loc)) e.dlc = true;
+  if (late) e.late = true;
+  // One row per (pokemon, method, place, versions, DLC or not), at its lowest level.
+  const key = [e.id, e.m, e.loc, e.v.join("+"), !!e.dlc, !!e.late].join("|");
   const prev = encounters.get(key);
   if (!prev || e.lv < prev.lv) encounters.set(key, e);
 }
@@ -167,6 +185,8 @@ for (const map of ["gem_paldea", "gem_kitakami", "gem_blueberry"]) {
         level: data[o + 7],
         method: "tera-raid",
         versions,
+        // Kitakami's and the Terarium's crystals only exist with their DLC.
+        dlc: map !== "gem_paldea",
       });
   }
 }
@@ -179,8 +199,18 @@ for (const map of ["gem_paldea", "gem_kitakami", "gem_blueberry"]) {
   const statics = source.slice(source.indexOf("Encounter_SV ="), source.indexOf("TradeNames ="));
   const VERSION = { SV: undefined, SL: ["scarlet"], VL: ["violet"] };
   const field = (body, name) => body.match(new RegExp(`\\b${name} = (\\d+)`))?.[1];
+  // PKHeX groups the DLC statics under "#region Sudachi 1" (The Teal Mask: Loyal Three, Ogerpon, Sinnoh
+  // starter eggs…) and "Sudachi 2" (The Indigo Disk: Snacksworth's legendaries, Terapagos, Meloetta,
+  // Pecharunt), some of them in Paldea. Perrin's Paradox Pokémon are listed apart, by species.
+  const DLC_STATIC_SPECIES = new Set([1020, 1021, 1022, 1023]); // Gouging Fire, Raging Bolt, Iron Boulder, Iron Crown
   let n = 0;
-  for (const [, version, body] of statics.matchAll(/new\((SV|SL|VL)\) \{([^}]*)\}/g)) {
+  for (const match of statics.matchAll(/new\((SV|SL|VL)\) \{([^}]*)\}/g)) {
+    const [, version, body] = match;
+    // The region this entry sits in (if it hasn't been closed since).
+    const region = statics.lastIndexOf("#region", match.index);
+    const open = region > statics.lastIndexOf("#endregion", match.index);
+    const inDlcRegion = open && statics.startsWith("#region Sudachi", region);
+    const paradox = DLC_STATIC_SPECIES.has(Number(field(body, "Species")));
     add({
       species: Number(field(body, "Species")),
       form: Number(field(body, "Form") ?? 0),
@@ -189,13 +219,18 @@ for (const map of ["gem_paldea", "gem_kitakami", "gem_blueberry"]) {
       method: /FixedBall = Ball\.Poke\b/.test(body) ? "gift" : "static",
       location: Number(field(body, "Location") ?? 0),
       versions: VERSION[version],
+      dlc: inDlcRegion || paradox,
+      late: (open && statics.startsWith("#region Sudachi 2", region)) || paradox,
     });
     n++;
   }
   assert.ok(n > 50, `only ${n} static encounters parsed`);
   const trades = source.slice(source.indexOf("TradeGift_SV ="));
-  for (const [, version, species, level, rest] of trades.matchAll(
-    /new\(TradeNames, \d+, (SV|SL|VL), (\d+), (\d+)\) \{([^}]*)\}/g,
+  // Bulbapedia "In-game trade": the base game has three trades (Snom in Cortondo, Wooper in Cascarrafa,
+  // Haunter in Levincia, PKHeX's 32, 0 and 1); every other one is in The Indigo Disk's League Club Room.
+  const BASE_TRADES = new Set([0, 1, 32]);
+  for (const [, index, version, species, level, rest] of trades.matchAll(
+    /new\(TradeNames, (\d+), (SV|SL|VL), (\d+), (\d+)\) \{([^}]*)\}/g,
   )) {
     add({
       species: Number(species),
@@ -203,6 +238,8 @@ for (const map of ["gem_paldea", "gem_kitakami", "gem_blueberry"]) {
       level: Number(level),
       method: "npc-trade",
       versions: VERSION[version],
+      dlc: !BASE_TRADES.has(Number(index)),
+      late: !BASE_TRADES.has(Number(index)),
     });
   }
 }

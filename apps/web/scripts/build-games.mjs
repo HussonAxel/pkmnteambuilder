@@ -2,7 +2,8 @@
 // Regenerate: node apps/web/scripts/build-games.mjs
 // Check one game without writing anything: node apps/web/scripts/build-games.mjs --check <version-group>
 // In:  data/progression/<version-group>.json (optional, written by hand from walkthroughs).
-//      "overrides" adds sources; "exclude" lists national dex numbers to drop entirely (event-only).
+//      "overrides" adds sources (flags, method and location optional; "dlc" for paid expansions);
+//      "exclude" lists national dex numbers to drop entirely (event-only).
 //      data/encounters/<version-group>.json for games PokeAPI has no encounters for (build-sv-encounters.mjs).
 // Out: src/data/games/<version-group>.json + index.ts, src/data/names/<lang>.json
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -117,6 +118,8 @@ const locationByName = new Map(
     .map((r) => [placeKey(r.name), r.location_id]),
 );
 
+const locationIdByIdentifier = new Map(t.locations.map((r) => [r.identifier, r.id]));
+
 const defaultPokemon = (speciesId) =>
   pokemonBySpecies.get(speciesId)?.find((p) => p.is_default === "1");
 
@@ -210,14 +213,17 @@ function buildGame(vgIdentifier) {
       .sort();
     if (conds.some((c) => EXTERNAL_CONDITIONS.some((re) => re.test(c)))) continue;
     const key = [version.identifier, e.location_area_id, method, e.pokemon_id, conds.join("+")].join("|");
-    const g = groups.get(key) ?? { e, version: DLC_VERSION(version.identifier), method, conds, rate: 0 };
+    const dlc = !!DLC[versionGroups.get(version.version_group_id).identifier];
+    const g = groups.get(key) ?? { e, version: DLC_VERSION(version.identifier), dlc, method, conds, rate: 0 };
     g.rate += Number(slot.rarity || 0);
     groups.set(key, g);
   }
 
-  for (const { e, version, method, conds, rate } of groups.values()) {
+  for (const { e, version, dlc, method, conds, rate } of groups.values()) {
     const area = areas.get(e.location_area_id);
     const f = new Set();
+    // Paid expansions (The Isle of Armor, The Crown Tundra): only with the DLC rule on.
+    if (dlc) f.add("dlc");
     if (STATIC_METHODS.has(method)) f.add("static");
     if (GIFT_METHODS.has(method)) f.add("gift");
     const rateKnown = !STATIC_METHODS.has(method) && !GIFT_METHODS.has(method);
@@ -257,8 +263,10 @@ function buildGame(vgIdentifier) {
     if (e.loc && !l) warnings.add(`location name ${e.loc}`);
     addSource(String(e.id), {
       v: e.v,
-      f: new Set(EXTRA_FLAGS[e.m] ?? []),
-      s: levelStep(e.lv),
+      // dlc: The Teal Mask or The Indigo Disk (build-sv-encounters.mjs).
+      f: new Set([...(EXTRA_FLAGS[e.m] ?? []), ...(e.dlc ? ["dlc"] : [])]),
+      // late: The Indigo Disk's story content, after the main story whatever its level.
+      s: e.late ? postgame : levelStep(e.lv),
       l: l ? Number(l) : undefined,
       m: e.m,
     });
@@ -267,7 +275,15 @@ function buildGame(vgIdentifier) {
   // 2. Manual corrections (note de cadrage 4: "overrides").
   for (const o of progression?.overrides ?? []) {
     const p = defaultPokemon(String(o.species));
-    addSource(p.id, { v: o.versions ?? gameVersions, f: new Set(o.flags ?? []), s: o.step, note: o.note });
+    addSource(p.id, {
+      v: o.versions ?? gameVersions,
+      f: new Set(o.flags ?? []),
+      s: o.step,
+      // Optional, for the "why this step" tooltip: how and where (a PokeAPI location identifier).
+      m: o.method,
+      l: o.location ? Number(locationIdByIdentifier.get(o.location)) : undefined,
+      note: o.note,
+    });
   }
 
   // Event-only species PokeAPI lists as normal encounters (note de cadrage 2.1, "Hors du jeu seul").

@@ -70,3 +70,34 @@ test("affectedBy lists exactly the Pokémon a rule decides", () => {
   assert.ok(exclusives.some((p) => p.id === MURKROW), "Murkrow is a Diamond exclusive");
   assert.equal(exclusives.length, ruleImpact(dp, "pearl").exclusives);
 });
+
+const swsh = load("sword-shield");
+const MANECTRIC = 310;
+
+test("Sword/Shield DLC sources (Max Lair, Isle of Armor, Crown Tundra) need the DLC rule", () => {
+  // Without the DLC, Manectric comes from evolving Electrike (badge 2), not a Dynamax Adventure at the start.
+  const base = bestSource(swsh.pokemon.find((p) => p.id === MANECTRIC), "sword");
+  assert.ok(!base.f.includes("dlc") && base.s > 0);
+  const dlc = bestSource(swsh.pokemon.find((p) => p.id === MANECTRIC), "sword", { ...DEFAULT_RULES, dlc: true });
+  assert.equal(dlc.s, 0);
+  assert.equal(dlc.m, "dynamax-adventure");
+  // Teams saved before the rule existed have no `dlc` key: DLC sources stay hidden for them.
+  const { dlc: _dlc, ...older } = DEFAULT_RULES;
+  assert.equal(stepOf(swsh, "sword", MANECTRIC, older), base.s);
+  assert.ok(ruleImpact(swsh, "sword").dlc > 0);
+});
+
+const sv = load("scarlet-violet");
+const POLTCHAGEIST = 1012, ARTICUNO = 144, MAGBY = 240;
+
+test("Scarlet/Violet DLC (Teal Mask, Indigo Disk) needs the DLC rule; Indigo Disk story content is post-game", () => {
+  const withDlc = { ...DEFAULT_RULES, dlc: true };
+  // Kitakami-only species: absent from the base game.
+  assert.ok(!ids(sv, "scarlet").has(POLTCHAGEIST));
+  assert.ok(ids(sv, "scarlet", withDlc).has(POLTCHAGEIST));
+  // Snacksworth's Articuno: Indigo Disk, after the main story.
+  assert.ok(!ids(sv, "scarlet").has(ARTICUNO));
+  assert.equal(stepOf(sv, "scarlet", ARTICUNO, withDlc), sv.postgame);
+  // League Club Room trades are Indigo Disk content: Magby isn't in the base game.
+  assert.ok(!ids(sv, "scarlet").has(MAGBY));
+});

@@ -434,47 +434,92 @@
     {
       "species": 2,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 5,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 8,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 26,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 28,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 31,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 34,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 35,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 36,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 37,
@@ -487,32 +532,62 @@
     {
       "species": 40,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 44,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 45,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 51,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 53,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 55,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 58,
@@ -525,107 +600,202 @@
     {
       "species": 61,
       "step": 0,
-      "note": "wanderer Lv 20 at soothing-wetlands: catchable with this badge"
+      "note": "wanderer Lv 20 at soothing-wetlands: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 62,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 64,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 65,
       "step": 6,
-      "note": "wanderer Lv 50 at loop-lagoon: catchable with this badge"
+      "note": "wanderer Lv 50 at loop-lagoon: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 67,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 73,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 80,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 82,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 93,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 99,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 103,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 105,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 106,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 107,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 112,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 117,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 119,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 121,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 124,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 125,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 126,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 130,
@@ -635,27 +805,52 @@
     {
       "species": 132,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 134,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 135,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 136,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 137,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 143,
@@ -665,72 +860,140 @@
     {
       "species": 144,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 145,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 146,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 148,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 150,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 164,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 171,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 176,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 178,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 182,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 183,
       "step": 0,
-      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 184,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 185,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 186,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 195,
@@ -740,42 +1003,80 @@
     {
       "species": 199,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 212,
       "step": 4,
-      "note": "wanderer Lv 40 at challenge-road: catchable with this badge"
+      "note": "wanderer Lv 40 at challenge-road: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 221,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 226,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 237,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 243,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 244,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 245,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 249,
@@ -783,6 +1084,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -791,47 +1097,92 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 253,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 254,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 256,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 257,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 259,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 260,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 264,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 279,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 291,
@@ -841,72 +1192,142 @@
     {
       "species": 295,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 305,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 310,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 330,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 334,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 342,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 344,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 346,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 348,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 356,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 362,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 364,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 369,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 375,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 380,
@@ -914,6 +1335,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -922,6 +1348,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -930,6 +1361,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -938,22 +1374,40 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 384,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 404,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 405,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 407,
@@ -963,42 +1417,82 @@
     {
       "species": 416,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 421,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 423,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 426,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 428,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 435,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 437,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 446,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 448,
@@ -1008,7 +1502,12 @@
     {
       "species": 452,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 454,
@@ -1016,62 +1515,110 @@
       "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
       "versions": [
         "shield"
+      ],
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 460,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 462,
       "step": 4,
-      "note": "wanderer Lv 36 at challenge-beach: catchable with this badge"
+      "note": "wanderer Lv 36 at challenge-beach: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 463,
       "step": 2,
-      "note": "wanderer Lv 27 at soothing-wetlands: catchable with this badge"
+      "note": "wanderer Lv 27 at soothing-wetlands: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 464,
       "step": 6,
-      "note": "wanderer Lv 50 at potbottom-desert: catchable with this badge"
+      "note": "wanderer Lv 50 at potbottom-desert: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 465,
       "step": 4,
-      "note": "wanderer Lv 36 at forest-of-focus: catchable with this badge"
+      "note": "wanderer Lv 36 at forest-of-focus: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 475,
       "step": 3,
-      "note": "wanderer Lv 32 at challenge-road: catchable with this badge"
+      "note": "wanderer Lv 32 at challenge-road: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 478,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 479,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 480,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 481,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 482,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 483,
@@ -1079,6 +1626,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1087,72 +1639,138 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 485,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 487,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 488,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 507,
       "step": 2,
-      "note": "wanderer Lv 28 at training-lowlands: catchable with this badge"
+      "note": "wanderer Lv 28 at training-lowlands: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 508,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 510,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 518,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 521,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 525,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 526,
       "step": 5,
-      "note": "wanderer Lv 42 at brawlers-cave: catchable with this badge"
+      "note": "wanderer Lv 42 at brawlers-cave: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 528,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 531,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 533,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 536,
@@ -1160,27 +1778,52 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 537,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 545,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 547,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 549,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 550,
@@ -1193,17 +1836,32 @@
     {
       "species": 553,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 556,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 558,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 560,
@@ -1211,107 +1869,210 @@
       "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
       "versions": [
         "sword"
+      ],
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 561,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 563,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 569,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 573,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 583,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 589,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 591,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 593,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 596,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 600,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 601,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 606,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 608,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 611,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 614,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 615,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 617,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 620,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 623,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 625,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 628,
@@ -1319,6 +2080,9 @@
       "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
       "versions": [
         "sword"
+      ],
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1327,17 +2091,28 @@
       "note": "wanderer Lv 26 at challenge-road: catchable with this badge",
       "versions": [
         "shield"
+      ],
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 631,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 637,
       "step": 5,
-      "note": "wanderer Lv 42 at challenge-beach: catchable with this badge"
+      "note": "wanderer Lv 42 at challenge-beach: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 641,
@@ -1345,6 +2120,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1353,6 +2133,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1361,6 +2146,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1369,17 +2159,32 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 645,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 646,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 660,
@@ -1389,62 +2194,120 @@
     {
       "species": 662,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 663,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 675,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 680,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 687,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 689,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 695,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 697,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 699,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 701,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 709,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 711,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 716,
@@ -1452,6 +2315,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1460,112 +2328,216 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 737,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 738,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 743,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 745,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 748,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 750,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 752,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 754,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 756,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 758,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 760,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 763,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 764,
       "step": 0,
-      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 15 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 768,
       "step": 3,
-      "note": "wanderer Lv 32 at courageous-cavern: catchable with this badge"
+      "note": "wanderer Lv 32 at courageous-cavern: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 770,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 777,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 778,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 785,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 786,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 787,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 788,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 791,
@@ -1573,6 +2545,11 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "sword"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
@@ -1581,12 +2558,22 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 820,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 822,
@@ -1596,32 +2583,60 @@
     {
       "species": 826,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 828,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 830,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 832,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 834,
       "step": 0,
-      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge"
+      "note": "wanderer Lv 20 at fields-of-honor: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 836,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 838,
@@ -1631,72 +2646,140 @@
     {
       "species": 839,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 844,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 845,
       "step": 0,
-      "note": "wanderer Lv 20 at forest-of-focus: catchable with this badge"
+      "note": "wanderer Lv 20 at forest-of-focus: catchable with this badge",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 847,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 849,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 851,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 853,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 855,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 858,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 861,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 862,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 863,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 869,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 873,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 876,
@@ -1704,17 +2787,32 @@
       "note": "Dynamax Adventure catch, ignores the badge level cap",
       "versions": [
         "shield"
+      ],
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
       ]
     },
     {
       "species": 879,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 886,
       "step": 0,
-      "note": "Dynamax Adventure catch, ignores the badge level cap"
+      "note": "Dynamax Adventure catch, ignores the badge level cap",
+      "method": "dynamax-adventure",
+      "location": "max-lair",
+      "flags": [
+        "dlc"
+      ]
     },
     {
       "species": 890,
@@ -1729,6 +2827,7 @@
       "step": 0,
       "note": "Master Dojo third trial reward",
       "flags": [
+        "dlc",
         "gift"
       ]
     }

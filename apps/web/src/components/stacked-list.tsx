@@ -1805,6 +1805,7 @@ function describeSource(src: Source, game: GameData, t: Translate, lang: Lang, n
   } else if (where) {
     why.push(t("why.place", { how, where }));
   }
+  if (src.f.includes("dlc")) why.push(t("why.dlc"));
   why.push(t("why.stepRule", { step }));
   return {
     step,
