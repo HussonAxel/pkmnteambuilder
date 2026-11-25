@@ -178,6 +178,9 @@ const speciesQueries = (
   };
 };
 
+// Smogon's analysis sets of a format, same cache entry as the editor's: for the Pokémon page.
+export const analysisQuery = (format: string) => formatQueries(format).analysis;
+
 // Warm what every species of a format shares (analysis sets, items, natures): when the picker opens.
 export function prefetchSetFormat(
   queryClient: QueryClient,
@@ -201,6 +204,30 @@ export function prefetchSetSpecies(
   const q = speciesQueries(mode, format, species, loadBuild);
   void queryClient.prefetchQuery(q.build);
   void queryClient.prefetchQuery(q.own);
+}
+
+// The set the editor would open a new species on, without opening it: Smogon's first analysis set,
+// else the most used build. undefined when the format has neither (the member starts blank).
+export async function defaultDraft(
+  queryClient: QueryClient,
+  mode: "smogon" | "vgc",
+  format: string,
+  species: string,
+  fallbackAbility: string,
+  loadBuild: () => Promise<Build | undefined>,
+): Promise<SetDraft | undefined> {
+  if (mode === "smogon") {
+    // A failed fetch (offline, pkmn down) just falls back to usage.
+    const analysis = await queryClient
+      .fetchQuery(formatQueries(format).analysis)
+      .catch((): Record<string, Record<string, AnalysisSet>> => ({}));
+    const [first] = Object.entries(analysis[species] ?? {});
+    if (first) return fromAnalysis(first[0], first[1], fallbackAbility).draft;
+  }
+  const build = await queryClient.fetchQuery(
+    speciesQueries(mode, format, species, loadBuild).build,
+  );
+  return build ? fromUsage(build, fallbackAbility).draft : undefined;
 }
 
 export function SetEditor({

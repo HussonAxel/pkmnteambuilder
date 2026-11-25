@@ -5,6 +5,7 @@
 // Usage can be read at any ladder cutoff Smogon publishes, with last month's trend.
 import { cn } from "@pkmnteambuilder/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { ArrowDownIcon, ArrowUpIcon, HourglassIcon } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { loadDex } from "@/components/data-colors";
@@ -142,12 +143,16 @@ export function MetaTab({ team }: { team: Team }) {
                   <Sprite name={th.name} num={dex.data.species.get(th.name).num} />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="truncate font-medium text-foreground">
+                      <SpeciesLink
+                        species={th.name}
+                        format={team.format}
+                        className="truncate font-medium text-foreground"
+                      >
                         {names.pokemon(
                           pokeapiId(th.name, dex.data.species.get(th.name).num),
                           th.name,
                         )}
-                      </span>
+                      </SpeciesLink>
                       <Usage share={th.usage} change={change(th.name)} />
                     </div>
                     <div className="mt-0.5 flex items-center gap-1.5 text-muted-foreground">
@@ -199,9 +204,9 @@ export function MetaTab({ team }: { team: Team }) {
                     <td className="py-1">
                       <span className="flex items-center gap-2">
                         <Sprite name={name} num={sp.num} small />
-                        <span className="truncate">
+                        <SpeciesLink species={name} format={team.format} className="truncate">
                           {names.pokemon(pokeapiId(name, sp.num), name)}
-                        </span>
+                        </SpeciesLink>
                       </span>
                     </td>
                     <td className="py-1 text-right">
@@ -272,9 +277,9 @@ export function MetaTab({ team }: { team: Team }) {
 }
 
 // PokeAPI id (artwork, localised name) of a @pkmn/dex species name.
-const pokeapiId = (name: string, num: number) => FORM_ARTWORK_IDS[name] ?? num;
+export const pokeapiId = (name: string, num: number) => FORM_ARTWORK_IDS[name] ?? num;
 
-function Sprite({ name, num, small }: { name: string; num: number; small?: boolean }) {
+export function Sprite({ name, num, small }: { name: string; num: number; small?: boolean }) {
   return (
     <img
       src={artwork(pokeapiId(name, num))}
@@ -285,7 +290,7 @@ function Sprite({ name, num, small }: { name: string; num: number; small?: boole
   );
 }
 
-function Usage({ share, change }: { share: number; change?: number }) {
+export function Usage({ share, change }: { share: number; change?: number }) {
   // Under 0.1 point, no arrow: noise.
   const moved = change !== undefined && Math.abs(change) >= 0.001 ? change : undefined;
   const fmt = useFormat();
@@ -307,14 +312,49 @@ function Usage({ share, change }: { share: number; change?: number }) {
   );
 }
 
-function Card({ title, hint, children }: { title: string; hint: string; children: ReactNode }) {
+export function Card({
+  title,
+  hint,
+  children,
+}: {
+  title: string;
+  hint: string;
+  children: ReactNode;
+}) {
   return (
-    <section className="grid content-start gap-3 rounded-[28px] border border-border bg-background p-6 text-xs">
+    <section className="grid grid-cols-1 content-start gap-3 rounded-[28px] border border-border bg-background p-6 text-xs">
       <div>
         <h3 className="text-sm font-medium text-foreground">{title}</h3>
         <p className="mt-0.5 text-muted-foreground">{hint}</p>
       </div>
       {children}
     </section>
+  );
+}
+
+// A meta Pokémon's name, linking to its Pokémon page in the team's format.
+function SpeciesLink({
+  species,
+  format,
+  className,
+  children,
+}: {
+  species: string;
+  format: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      to="/pokemon/$species"
+      params={{ species }}
+      search={{ format }}
+      className={cn(
+        "rounded-sm underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+        className,
+      )}
+    >
+      {children}
+    </Link>
   );
 }

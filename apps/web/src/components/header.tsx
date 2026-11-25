@@ -1,11 +1,12 @@
 import { Link, useRouteContext } from "@tanstack/react-router";
-import { Gamepad2Icon, MoonIcon, SunIcon } from "lucide-react";
+import { ChartNoAxesColumnIcon, Gamepad2Icon, MoonIcon, SunIcon } from "lucide-react";
 import { useState } from "react";
 
 import { LANGS, useI18n } from "@/lib/i18n";
 import { useEraSprites } from "@/lib/sprites";
 import { applyTheme } from "@/lib/theme";
 
+import { PokemonSearch } from "./pokemon-search";
 import UserMenu from "./user-menu";
 
 export default function Header() {
@@ -27,7 +28,19 @@ export default function Header() {
             </span>
           </span>
         </Link>
+        <nav className="mr-auto">
+          <Link
+            to="/meta"
+            title={t("meta.title")}
+            className="flex h-7 items-center gap-1.5 rounded-full px-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-3 [&.active]:bg-muted/60 [&.active]:text-foreground"
+          >
+            <ChartNoAxesColumnIcon size={14} />
+            {/* Icon only on phones, like the logo's name: the header must fit 360px. */}
+            <span className="sr-only sm:not-sr-only">{t("meta.nav")}</span>
+          </Link>
+        </nav>
         <div className="flex items-center gap-1.5">
+          <PokemonSearch />
           <div
             role="group"
             aria-label={t("lang.switch")}

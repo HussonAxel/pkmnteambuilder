@@ -102,7 +102,8 @@ function MoveLine({ data, species, move }: { data: LearnData; species: string; m
 
 const chip = "rounded-full border border-border/60 px-2 py-0.5 text-muted-foreground";
 
-function MethodChip({ method, data }: { method: Method; data: LearnData }) {
+// Also on the Pokémon page's learnset.
+export function MethodChip({ method, data }: { method: Method; data: LearnData }) {
   const { t } = useI18n();
   const names = useNames();
   const label = (() => {

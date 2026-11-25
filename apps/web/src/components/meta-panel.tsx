@@ -1,8 +1,10 @@
 // What the ladder plays on a species in a format, in the set editor's "Meta" tab: usage and rank,
 // option shares (a click applies one to the set), spreads and their roles, skill ceiling,
-// teammates, threats and type matchups. Standalone so it can later back a full Pokémon page.
+// teammates, threats and type matchups. Also backs the Pokémon page (routes/pokemon.$species.tsx),
+// read-only there: no set to apply options to, and the listed Pokémon link to their own page.
 import { cn } from "@pkmnteambuilder/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { Fragment } from "react";
 
 import { ink, ItemIcon, loadDex, STAT_COLORS, TypeIcon } from "@/components/data-colors";
@@ -124,18 +126,47 @@ function OptionList({
   );
 }
 
+// A teammate or threat: a link to its own page when `species` is given, a plain tile otherwise.
+function Tile({
+  species,
+  format,
+  children,
+}: {
+  species?: string;
+  format: string;
+  children: React.ReactNode;
+}) {
+  const className = "flex min-w-0 items-center gap-2 rounded-xl bg-muted/40 p-2";
+  if (!species) return <div className={className}>{children}</div>;
+  return (
+    <Link
+      to="/pokemon/$species"
+      params={{ species }}
+      search={{ format }}
+      className={cn(
+        className,
+        "transition-colors hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
+
 export function MetaPanel({
   format,
   gen,
   species,
   draft,
   onApply,
+  links = false,
 }: {
   format: string;
   gen: number;
   species: string; // @pkmn/dex name
-  draft: SetDraft;
-  onApply: (patch: Partial<SetDraft>) => void;
+  draft?: SetDraft; // the set being edited; without one, nothing is ringed or clickable
+  onApply?: (patch: Partial<SetDraft>) => void;
+  links?: boolean; // teammates and threats link to their Pokémon page (not inside the set editor)
 }) {
   const { t } = useI18n();
   const fmt = useFormat();
@@ -179,7 +210,7 @@ export function MetaPanel({
 
   // Type matchups for the current set: Tera replaces the types once chosen (Stellar keeps them).
   const ownTypes = d?.species.get(species).types ?? [];
-  const tera = gen === 9 && draft.teraType && draft.teraType !== "Stellar" ? draft.teraType : null;
+  const tera = gen === 9 && draft?.teraType && draft.teraType !== "Stellar" ? draft.teraType : null;
   const defending = tera ? [tera] : ownTypes;
   const matchups = d
     ? d.types
@@ -223,7 +254,7 @@ export function MetaPanel({
 
           {/* Option shares: click to apply */}
           {data.build && (
-            <Section title={t("meta.options")} hint={t("meta.clickHint")}>
+            <Section title={t("meta.options")} hint={onApply && t("meta.clickHint")}>
               <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
                 <OptionList
                   title={t("set.moves")}
@@ -232,14 +263,18 @@ export function MetaPanel({
                   label={names.move}
                   icon={(m) => <TypeIcon type={moveType(m)} />}
                   color={(m) => TYPE_COLORS[moveType(m)?.toLowerCase() ?? ""]}
-                  isCurrent={(m) => draft.moves.includes(m)}
-                  onPick={(m) => {
-                    if (draft.moves.includes(m)) return;
-                    // First empty slot, else the last one.
-                    const slot = draft.moves.indexOf("");
-                    const i = slot === -1 ? draft.moves.length - 1 : slot;
-                    onApply({ moves: draft.moves.map((x, j) => (j === i ? m : x)) });
-                  }}
+                  isCurrent={(m) => !!draft?.moves.includes(m)}
+                  onPick={
+                    draft &&
+                    onApply &&
+                    ((m) => {
+                      if (draft.moves.includes(m)) return;
+                      // First empty slot, else the last one.
+                      const slot = draft.moves.indexOf("");
+                      const i = slot === -1 ? draft.moves.length - 1 : slot;
+                      onApply({ moves: draft.moves.map((x, j) => (j === i ? m : x)) });
+                    })
+                  }
                 />
                 <div className="grid content-start gap-4">
                   <OptionList
@@ -247,15 +282,15 @@ export function MetaPanel({
                     options={ranked(data.build.items)}
                     label={names.item}
                     icon={(item) => <ItemIcon item={item} />}
-                    isCurrent={(i) => draft.item === i}
-                    onPick={(item) => onApply({ item })}
+                    isCurrent={(i) => draft?.item === i}
+                    onPick={onApply && ((item) => onApply({ item }))}
                   />
                   <OptionList
                     title={t("set.ability")}
                     options={ranked(data.build.abilities)}
                     label={names.ability}
-                    isCurrent={(a) => draft.ability === a}
-                    onPick={(ability) => onApply({ ability })}
+                    isCurrent={(a) => draft?.ability === a}
+                    onPick={onApply && ((ability) => onApply({ ability }))}
                   />
                   {gen === 9 && (
                     <OptionList
@@ -264,8 +299,8 @@ export function MetaPanel({
                       label={names.type}
                       icon={(type) => <TypeIcon type={type} />}
                       color={(type) => TYPE_COLORS[type.toLowerCase()]}
-                      isCurrent={(type) => draft.teraType === type}
-                      onPick={(teraType) => onApply({ teraType })}
+                      isCurrent={(type) => draft?.teraType === type}
+                      onPick={onApply && ((teraType) => onApply({ teraType }))}
                     />
                   )}
                 </div>
@@ -275,7 +310,7 @@ export function MetaPanel({
 
           {/* Spreads, where the EVs go, and what they're built for */}
           {Object.keys(data.spreads).length > 0 && (
-            <Section title={t("meta.spreads")} hint={t("meta.clickHint")}>
+            <Section title={t("meta.spreads")} hint={onApply && t("meta.clickHint")}>
               <OptionList
                 title={t("meta.topSpreads")}
                 options={ranked(data.spreads)}
@@ -283,10 +318,11 @@ export function MetaPanel({
                 limit={8}
                 relative
                 isCurrent={(spread) => {
+                  if (!draft) return false;
                   const { nature, evs } = parseSpread(spread);
                   return nature === draft.nature && STATS.every((s) => evs[s] === draft.evs[s]);
                 }}
-                onPick={(spread) => onApply(parseSpread(spread))}
+                onPick={onApply && ((spread) => onApply(parseSpread(spread)))}
               />
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="grid content-start gap-1.5">
@@ -384,10 +420,7 @@ export function MetaPanel({
               <Section key={block.key} title={block.title} hint={block.hint}>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {block.rows.map((row) => (
-                    <div
-                      key={row.name}
-                      className="flex min-w-0 items-center gap-2 rounded-xl bg-muted/40 p-2"
-                    >
+                    <Tile key={row.name} species={links ? row.name : undefined} format={format}>
                       <img
                         src={artwork(idOf(row.name))}
                         alt=""
@@ -405,7 +438,7 @@ export function MetaPanel({
                           {row.sub || row.value}
                         </span>
                       </span>
-                    </div>
+                    </Tile>
                   ))}
                 </div>
               </Section>
